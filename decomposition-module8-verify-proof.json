@@ -1,0 +1,13 @@
+{
+  "summary": "VERIFY: traced browse→slots→auth→book→list with exact UUID/ISO/open handoffs; audited all non-Built M01 rows as simplified/deferred/blocked; slots→book contract exact post-enum-fix; email notify seam absent (CUT).",
+  "evidence": [
+    "artifacts/checklists/module-08-verify.md journey table",
+    "traceability matrix non-Built list including O-F1 deferred seed",
+    "Contract: open vs available fixed; field names slot_id / starts_at match"
+  ],
+  "artifacts": [
+    "artifacts/checklists/module-08-verify.md",
+    "artifacts/checklists/module-08-traceability-matrix.md",
+    "artifacts/checklists/integration-module-08.md"
+  ]
+}

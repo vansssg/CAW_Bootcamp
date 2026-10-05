@@ -1,0 +1,12 @@
+{
+  "summary": "Completed Module 05 REFLECT: per-path fail-closed/open after 503 re-sim, hang-vs-liveness surprise, unbounded connect wait as the single mode to protect, plus named risk that clients may retry 503 against permanent local-down.",
+  "evidence": [
+    "Decision callback: fail-closed was opaque during hang (no 5xx); FIX made it ConnectionTimeout + failure_mode log + 503. Analytics is fail-open after successful lookup.",
+    "Mini task: module05_failure_fix_verify.py FIX_READY_STATUS 503 FIX_READY_ELAPSED_S 4.271 FIX_CREATE_BODY service temporarily unavailable FIX_LOG_HAS_FAILURE_MODE True.",
+    "If-only-one: unbounded connect wait because HighErrorRate was blind while /live stayed 200."
+  ],
+  "artifacts": [
+    "progress/production-module5-reflect.md",
+    "production-readiness-module5-evaluation-report.json"
+  ]
+}

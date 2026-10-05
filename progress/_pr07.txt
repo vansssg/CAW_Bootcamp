@@ -1,0 +1,50 @@
+STEP 2: DECIDE (Runbook Format)
+
+No code generation yet.
+
+‍​‍​You need to choose a format for your runbooks. ​​​​This is not a cosmetic decision. ​​​​The format determines whether someone under stress can actually follow what you wrote.
+
+​​‌​Option A: Linear Checklist
+
+A linear checklist runs step by step from top to bottom. ‌​‌​Step 1, step 2, step 3, all the way down.
+
+‌​‌​Strengths:
+
+- Simple to follow. ‌‌‌​No branching, no decisions to make. ‌​‌​You start at the top and work down.
+​​​​- Works for anyone, regardless of experience level. ‌​​​A new team member on their first on-call shift can follow it.
+​​‌​- Hard to lose your place. ‌​​​If you get interrupted by Slack or a second alert, you know where you were.
+
+​​‌​Weaknesses:
+
+- May waste time on irrelevant steps. ‌‌​‌If the problem is clearly a database issue, you still walk through the "check if it's a network issue" step, the "check if it's a memory issue" step, and so on.
+‌​​​- Gets long for complex incidents. ‌‌‌‌A checklist covering five possible root causes might be 40 steps. ​​​​At 3 AM, that is demoralizing.
+
+‌‌​‌Option B: Decision Tree
+
+A decision tree branches: "If symptom X, go to section Y. ‌‌‌​If symptom Z, go to section W."
+
+‌‌‌‌Strengths:
+
+- Faster for experienced operators. ​​‌​If you know what to look for, you skip straight to the relevant section.
+‌​‌​- Shorter path to resolution when the diagnosis is clear.
+​​​​- Maps more naturally to how debugging actually works (if/then reasoning).
+
+‌​​​Weaknesses:
+
+- Harder to write well. ​​‌​Every branch must be complete and correct. ‌​‌‌A missing branch means a dead end at 3 AM.
+​​​​- Harder to maintain. ‌​‌​When a new failure mode appears, you need to add a branch and make sure the routing logic still works.
+‌‌​​- Confusing under stress. ‌‌​​Decision-making is exactly the cognitive function most impaired by sleep deprivation. ‌​‌​Asking someone at 3 AM to evaluate "is the error rate above 5% but below 10% with response time under 2 seconds?" ‌‌​‌is asking for mistakes.
+
+​​‌​Probing Questions
+
+Push the student to think about who reads this document and under what conditions:
+
+- Who will be reading this runbook? ​‌‌​Is it you, who built the service? ​‌‌​Or is it a teammate on their first on-call rotation who has never seen the internals?
+‌‌‌​- Consider the two failure modes: with a checklist, you might waste 5 minutes on unnecessary steps. ‌‌​​With a decision tree, you might follow the wrong branch because you misread a metric at 3 AM. ‌​​​Which failure is more dangerous?
+‌‌​​- Is there a hybrid? ‌‌‌​Could you use a short decision tree at the top (which of these 3 symptoms are you seeing?) ‌​‌​that routes to a linear checklist for each one?
+
+​‌‌‌Important: There is no objectively correct answer here. ​​​​Both formats work. ​‌‌​What matters is that the student can articulate who their audience is and what risks they are optimizing for. ‌​‌​If they say "checklist because it's simpler" -- push back. ‌‌‌​Simpler for whom? ‌‌​‍If they say "decision tree because it's faster" -- push back. ‌‍Faster for whom?
+
+Store as decisions.module_07.runbook_format = checklist | decision_tree.
+
+---

@@ -1,0 +1,11 @@
+{
+  "summary": "Module 03 REFLECT complete: lightweight rate-limiting RFC + Jamie doc critique; evaluation 8.4/10.",
+  "evidence": [
+    "upsk report ok; score 8.4",
+    "artifacts/design-docs/module-03-rate-limiting-rfc.md"
+  ],
+  "artifacts": [
+    "technical-communication-module3-evaluation-report.json",
+    "artifacts/design-docs/module-03-rate-limiting-rfc.md"
+  ]
+}

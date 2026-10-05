@@ -1,0 +1,16 @@
+{
+  "summary": "BUILD: Bug9 SoT-checked cache (DELETE 200 then GET /r 404; seeded stale cache also 404 via cache_sot_mismatch). Bug10 isolated worker pool, exponential backoff, max 5 retries, DLQ. Naive 6 fails 0.0s vs retry 3.107s delays 0.1..1.6. /live 200 0.003s. Redis/Postgres still down.",
+  "evidence": [
+    "H1 disproved: SOT_AFTER_DELETE False. H2 class: cache-first GET /r. After DELETE: REDIRECT_AFTER_DELETE 404 0.002s. Seeded stale: SEEDED_STALE_CACHE True sot False then STALE_CACHE_REDIRECT 404 cache_sot_mismatch.",
+    "POOL_ISOLATED True API_POOL_SIZE 5 WORKER_POOL_SIZE 2. NAIVE_IMMEDIATE_ATTEMPTS 6 elapsed_s 0.0. RETRY_RESULT dead_letter attempts 6 elapsed_s 3.107 delays_s [0.1, 0.2, 0.4, 0.8, 1.6]. LIVE_AFTER_STORM 200 0.003s.",
+    "REDIS_DOWN True. Live QueuePool exhaustion not observed: 5432 still TimeoutError, checkouts do not stay held.",
+    "module07_jobs_verify.py still JOBS:0 (clicks 2, idempotent duplicate, purge)."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-build.md",
+    "api/app/main.py",
+    "api/app/db.py",
+    "api/app/jobs.py",
+    "api/app/scripts/module06_multilayer_probe.py"
+  ]
+}

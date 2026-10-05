@@ -1,0 +1,12 @@
+{
+  "summary": "Last mile: team privilege tests exist locally but CI only runs module09 plus test_query_columns. No team-collab docs. Docker/Postgres/Redis not claimed. Demo-ready on ASGI is not shippable.",
+  "evidence": [
+    "CI test job: python app/scripts/test_query_columns.py and python app/scripts/module09_test_suite.py only. module07_fix.py is not in the workflow.",
+    "module09 is six IsolatedAppTests on links. FIX_THIRTEEN_ALL is a local probe, not a CI gate.",
+    "No team collaboration README. Rollback in ci.yml is a placeholder echo. Local Docker/Postgres/Redis not serving; /ready has been 503."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module8-context.md",
+    ".github/workflows/ci.yml"
+  ]
+}

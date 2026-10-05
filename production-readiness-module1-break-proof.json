@@ -1,0 +1,15 @@
+{
+  "summary": "Completed BREAK investigation and disproved both suspected causes with command evidence: current .dockerignore is effective and current Dockerfile layer ordering preserves dependency cache on source-only edits.",
+  "evidence": [
+    "Hypothesis 1 (.dockerignore/context bloat) test: docker build --no-cache --progress=plain showed .dockerignore loaded (247B) and build context transfer only 1.46kB under current configuration.",
+    "Image content validation: container inspection showed ENV_ABSENT and GIT_ABSENT in /app, disproving current sensitive-file leakage via build context.",
+    "Hypothesis 2 (layer-order cache invalidation) test: Dockerfile order is COPY requirements.txt then RUN pip install, with source COPY occurring later in runtime stage.",
+    "Source-only edit verification: after a tiny change in app/main.py, rebuild output showed RUN pip install layer remained CACHED while only source-copy/runtime layers rebuilt.",
+    "Conclusion: both hypotheses are disproved for the current build configuration; prior slowdown and leakage symptoms likely came from an earlier Dockerfile/.dockerignore state."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "api/.dockerignore",
+    "api/app/main.py"
+  ]
+}

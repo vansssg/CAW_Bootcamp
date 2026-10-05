@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "module": 9,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Module 9 chose unit-heavy ASGI tests against the in-memory app, never DATABASE_URL. Six cases cover create, GET /r 307, 401, IDOR 404, retention, and javascript: 400. BREAK dropped links.clear(); the javascript test failed in the full suite (4 leftover codes) and passed alone. FIX restored setUp isolation; three reruns OK.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "tradeoff_reasoning",
+            "score": 4,
+            "observation": "Chose unit_heavy because 5432/6379 cannot run in CI here; still used the real app, not mocked cache/SoT.",
+            "evidence": "DECIDE A unit_heavy. persisted=memory. Ran 6 tests OK after FIX."
+          },
+          {
+            "key": "debugging_methodology",
+            "score": 4,
+            "observation": "Identified order-dependent shared state: full suite FAIL 4!=0, solo OK, then cleared links and reran three times.",
+            "evidence": "BREAK AssertionError 4 != 0. Solo Ran 1 test OK. FIX runs 0.690s, 0.849s, 1.461s all OK."
+          },
+          {
+            "key": "security_awareness",
+            "score": 4,
+            "observation": "IDOR 404 for B; javascript:alert(1) 400; unauth search 401.",
+            "evidence": "test_idor GET/PATCH/DELETE 404; test_url_validation 400 empty store; test_auth 401."
+          },
+          {
+            "key": "production_thinking",
+            "score": 4,
+            "observation": "Suite never opens DATABASE_URL; isolation is setUp resets, not a prod connection string.",
+            "evidence": "module-02-seed-query.py would hit localhost:5432. This suite does not create_engine."
+          },
+          {
+            "key": "communication_clarity",
+            "score": 4,
+            "observation": "Named leftover in-memory codes as the flake, not a scheme-parser bug.",
+            "evidence": "javascript POST stayed 400 during BREAK; len(links) was 4 from prior tests."
+          }
+        ],
+        "strengths": [
+          "IDOR and scheme-bypass tests against the real app.",
+          "Flake reproduced as suite-vs-solo, then proven with three OK reruns."
+        ],
+        "growth_areas": [
+          "Redirect still waits ~0.5–1.4s on Redis TimeoutError; tests do not stub the ping."
+        ],
+        "recommendation": "Short-circuit Redis in tests (or lower ping timeout) so the suite does not inherit localhost:6379 latency.",
+        "public_evidence": [
+          {
+            "artifact": "Isolated ASGI unittest suite",
+            "student_action": "Added six contract tests and fixed a shared-store flake by clearing the in-memory map in setUp.",
+            "technical_detail": "api/app/scripts/module09_test_suite.py IsolatedAppTests; links.clear() in setUp.",
+            "proof": "BREAK 4!=0 full suite vs solo OK. After FIX three runs OK. javascript:alert(1) 400; B cannot mutate A's code.",
+            "ability": "Writes deterministic tests that do not hit production databases.",
+            "reviewer_value": "Catches IDOR and URL-scheme bypass without a live Postgres.",
+            "confidence": "verified"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Test isolation / shared state flake",
+              "evidence": "Full suite 4!=0; same test alone OK; links.clear() restored determinism."
+            },
+            {
+              "concept": "IDOR regression test",
+              "evidence": "Principal-b GET/PATCH/DELETE of A's code returns 404."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "flaky shared state",
+              "approach": "example",
+              "detail": "Removed links.clear(), showed suite vs solo, then restored setUp.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["evidence_first", "structured_reasoning"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}

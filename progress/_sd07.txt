@@ -1,0 +1,18 @@
+STEP 2: DECIDE (Sync vs Async Queue)
+
+No code generation yet.
+
+‍​‍​​​​​​​​​​​‌​‌​‌​‌​‌​‌‌‌​‌​‌​​​​​‌​Tradeoff:
+
+- Option A: synchronous analytics write (in request)
+- Option B: async analytics via queue worker
+
+Probing questions:
+
+- What happens when the database is slow?
+​​​​‌​‌​​​​​‌​‌‌​‌‌​​​‌‌‌‌​​​​‌‌​‌‌‌‌​- What happens when queue is down?
+‌‌‌‌​​‌​‌​‌​​​​​‌​​​​​‌​‌​‌‌​​​​‌​‌​‌‌- What is acceptable data loss for analytics?
+
+​​‌‌​​‌​‌​‌‌​‌​​‌​​‌‌​​‌‌​‌‌‌​‌‌​​‌​​​Decision impact on code:
+
+- Store as decisions.module_07.jobs_strategy = sync | async_queue.‌‌​​‌‌‌​‌​‌​​‌‌‌​​​​​‌‌​‌​‌​‌‌‌​‌‌​‍‌‍

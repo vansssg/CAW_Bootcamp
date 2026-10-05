@@ -1,0 +1,18 @@
+{
+  "summary": "Completed Module 3 reflection with evidence-backed conclusions: synthetic reproduction isolated concurrency races, fixes were validated under matched workloads, and silent timestamp deltas were correctly interpreted as DB write-time semantics after regression-proofing with GREATEST.",
+  "evidence": [
+    "Decision callback (Choice B: synthetic reproduction): Kept the same controlled concurrent workloads before and after fixes, which enabled clean causal verification of both failure reproduction and elimination.",
+    "Hypothesis-driven elimination: proved concurrency was the trigger by reproducing 500 + UniqueViolation under concurrent load, while ruling out data/timing-only explanations with matched inputs and post-fix controls.",
+    "Root cause #1: check-then-act race in analytics writes caused duplicate-key failures under overlap; fixed with atomic ON CONFLICT DO UPDATE.",
+    "Root cause #2: silent timestamp semantics under concurrent upserts required monotonic timestamp protection; fixed with last_accessed_at = GREATEST(analytics.last_accessed_at, EXCLUDED.last_accessed_at).",
+    "Verification proof: no 500 responses under fixed workload, no timestamp regression across rounds, monotonic last_accessed_at behavior, and exact +10 count increments per 10-request round.",
+    "Residual timestamp gap interpretation: differences between DB last_accessed_at and latest HTTP completion are expected DB write-time semantics, not silent corruption."
+  ],
+  "artifacts": [
+    "module3-evaluation-report.json",
+    "module3-fix-proof.json",
+    "module3-break-proof.json",
+    "api/app/main.py",
+    "api/app/scripts/module-03-repro-race.py"
+  ]
+}

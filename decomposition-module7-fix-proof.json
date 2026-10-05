@@ -1,0 +1,13 @@
+{
+  "summary": "FIX: locked thin-role matrix, MUST/CUT lists, and four smoke ACs after RBAC layer; PM note v2 final for send.",
+  "evidence": [
+    "artifacts/adaptation/module-07-fix.md permission matrix + smoke",
+    "Living docs updated in BREAK remain source of truth",
+    "No full restart; boolean bridge partially retracted to org_role"
+  ],
+  "artifacts": [
+    "artifacts/adaptation/module-07-fix.md",
+    "artifacts/adaptation/module-07-adaptation-note.md",
+    "artifacts/adaptation/module-07-updated-plan.md"
+  ]
+}

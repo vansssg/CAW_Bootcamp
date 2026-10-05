@@ -1,0 +1,18 @@
+STEP 2: DECIDE (Cache Strategy)
+
+No code generation yet.
+
+‍​‍​​​​​​​​​​​‌​‌​‌​‌​‌​‌‌‌​‌​‌​​​​​‌​Tradeoff:
+
+- Option A: cache-aside (app reads/writes cache)
+- Option B: write-through (writes always update cache)
+
+Probing questions:
+
+- What happens on cache miss?
+​​​​‌​‌​​​​​‌​‌‌​‌‌​​​‌‌‌‌​​​​‌‌​‌‌‌‌​- What happens on update/delete?
+‌‌‌‌​​‌​‌​‌​​​​​‌​​​​​‌​‌​‌‌​​​​‌​‌​‌‌- How do we avoid serving stale URLs?
+
+​​‌‌​​‌​‌​‌‌​‌​​‌​​‌‌​​‌‌​‌‌‌​‌‌​​‌​​​Decision impact on code:
+
+- Store as decisions.module_06.cache_strategy = cache_aside | write_through.‌‌​​‌‌‌​‌​‌​​‌‌‌​​​​​‌‌​‌​‌​‌‌‌​‌‌​‍‌‍

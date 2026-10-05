@@ -1,0 +1,159 @@
+STEP 7: REFLECT
+
+We are at the end. ‍​‍Not just of this module -- of the entire skill.
+
+​​​Your Postmortem Scope Decision
+
+In Step 2, you chose narrow or broad scope. ​​​How did that choice affect your postmortem?
+
+​​​If you chose narrow, did you find it easier to be specific but worry about missing cross-incident patterns? ​​‌If you chose broad, did you struggle to keep remediations specific enough? ​‌​Neither choice was wrong. ‌​‌Reflect on which served the audience better and what you would choose differently next time.
+
+​‌​Quality Check: Contributing Factors
+
+For each contributing factor, apply the inversion test: does fixing it prevent only this specific bug, or a class of bugs? ‌‌‌"No integration tests for auth edge cases" prevents this bug. ​‌​"No security-focused static analysis in CI" prevents a class. ‌​​Both are valid, but the second has higher leverage.
+
+​​​Quality Check: Remediation Items
+
+For each remediation item, apply the new-engineer test: could someone who joined yesterday execute it based solely on what is written?
+
+‌​​The Blameless Culture Takeaway
+
+Write one sentence about what blameless culture means to you now -- not the definition I gave you in Step 1, but your own understanding based on what you experienced writing this postmortem.
+
+​​​The hardest moment in writing a blameless postmortem is when you know who wrote the bug. ‌​‌And you have to write about it without naming them, because the point is not who made the mistake. ​​​The point is why the system allowed the mistake to matter.
+
+​​‌Ship Recap
+
+Here is what we shipped in this module:
+
+- A complete blameless postmortem with a precise timeline, specific root cause, systemic contributing factors, and actionable remediation items with owners and deadlines.
+​‌‌- The skill of transforming blame language into systems language.
+​‌‌- The ability to critique someone else's postmortem and identify its failure modes.
+
+​​​Here is what we shipped across the entire skill:
+
+- Module 01: Hypothesis-first debugging -- forming testable theories before touching code.
+‌‌‌- Module 02: Log literacy -- reading structured logs as a narrative.
+‌​​- Module 03: Reproduction science -- turning "it sometimes breaks" into a deterministic script.
+​​‌- Module 04: The debugging toolbox -- using profilers and inspection tools over code reading alone.
+‌​‌- Module 05: Incident response -- debugging while communicating honestly with stakeholders.
+‌‌‌- Module 06: Multi-layer debugging -- tracing bugs across components that appear correct in isolation.
+​‌‌- Module 07: Postmortem writing -- documenting what happened and what to change, without blame.
+
+‌‌​The ten bugs are fixed. ​‌​The postmortem prevents the eleventh.
+
+‌​‌Progress Update
+
+Update progress/state.json: mark module 07 as complete, mark skill as complete.
+
+​​​---
+
+Decision Callback
+
+In the DECIDE step, students chose between writing a focused postmortem on a single incident and writing a broader review covering systemic patterns across all ten bugs.
+
+​​‌If they chose A (narrow scope):
+- The challenge they encountered was a consequence of depth revealing one systemic gap without revealing the pattern it belongs to
+- Connect it: "Writing a thorough postmortem on Bug #8 (the auth bypass) led you to specific contributing factors like missing auth middleware integration tests and no SAST in CI. ​​​When you then critiqued the fictional database migration postmortem in the BREAK step, you likely noticed that 'no migration testing in staging' is the same class of gap — missing integration-level validation for a security- or correctness-critical path. ​​‌A narrow postmortem is specific enough to be actionable, but the cross-incident pattern only becomes visible when you step back"
+
+If they chose B (broad scope):
+- The challenge they encountered was a consequence of covering ten bugs forcing remediation items toward generic language
+- Connect it: "Trying to capture systemic patterns across all ten bugs pushed your contributing factors toward high-level observations like 'insufficient integration testing' — which is true but harder to make actionable than 'no test covers empty Authorization header values.' ​‌​When you rewrote the fictional database postmortem in the BREAK step, you practiced the opposite discipline: taking a generic blame statement and making it specific enough that a system change can address it. ‌‌​Broad scope reveals patterns; narrow scope produces remediations precise enough to execute"
+
+Evaluation
+
+This module primarily exercises the postmortem_quality dimension. ​​​The evaluation should assess:
+
+- Did the student write a blameless postmortem with zero blame language?
+‌​‌- Are contributing factors systemic (systems, processes, tools) rather than individual-focused?
+​‌‌- Are remediation items actionable (specific action + owner + deadline)?
+​​‌- Did the student quantify impact with specific numbers?
+‌​​- Could a new engineer read the postmortem and understand what happened?
+‌​‌- Did the student successfully critique and rewrite the bad postmortem in Steps 5 and 6?
+
+​‌‌Use the following evaluation dimensions for the full skill assessment, noting that this module primarily provides evidence for the last:
+
+| Dimension | Key | Relevance to Module 07 |
+|-----------|-----|----------------------|
+| Hypothesis Quality | hypothesis_quality | Not directly exercised -- but the structured thinking transfers |
+| Log Literacy | log_literacy | Lightly exercised -- timeline requires pulling precise timestamps from logs |
+| Reproduction Skill | reproduction_skill | Not directly exercised |
+| Communication Under Pressure | communication_under_pressure | Moderately exercised -- postmortem writing is a form of structured communication to stakeholders |
+| Root Cause Depth | root_cause_depth | Heavily exercised -- contributing factors require digging past the immediate trigger to systemic causes |
+| Postmortem Quality | postmortem_quality | Primary -- this is the core skill of this module |
+
+Submit the evaluation via upsk report using the standard module_evaluation event format defined in SOUL.md, with a narrative summary, dimension scores, specific strengths with evidence, growth areas with evidence, and one actionable recommendation.
+
+​‌​Knowledge Check
+
+Comprehension Questions
+1. ​‌​What core problem does this module solve in postmortem writing?
+​‌‌2. ​​‌Which decision in this module has the biggest impact, and why?
+‌​‌3. ‌‌​What evidence proves the implementation works end-to-end?
+
+‌‌​Mini Practical Task
+- Complete one STEP 4 verification action for postmortem writing and capture proof (command + output, test result, or log snippet).
+
+​‌​Success Criteria
+- Answers are short, specific, and in plain language.
+​​‌- The mini task includes reproducible proof tied to the module deliverable.
+‌​​- You can name one risk and one mitigation from this module.
+
+‌‌‌After completing this REFLECT, evaluate the student and run `upsk report` with this payload template:
+{
+  "nonce": "<current nonce from upsk status/start/next response>",
+  "events": [
+    {
+      "module": 7,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "<2-3 sentence qualitative summary>",
+        "overall": 4,
+        "dimension_scores": [
+        {"key":"hypothesis_quality","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"log_literacy","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"reproduction_skill","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"communication_under_pressure","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"root_cause_depth","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"postmortem_quality","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"}
+        ],
+        "strengths": ["<specific strength with context>"],
+        "growth_areas": ["<specific growth area with context>"],
+        "recommendation": "<one actionable next step>",
+        "public_evidence": [
+          {
+            "artifact": "<feature, route, table, job, test, doc, or deployment touched>",
+            "student_action": "<what the student personally built, changed, verified, or decided>",
+            "technical_detail": "<route/table/file/command/decision involved>",
+            "proof": "<public-safe command output, test result, log summary, URL, or artifact path>",
+            "ability": "<ability this proves>",
+            "reviewer_value": "<why a recruiter or senior engineer should care>",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [{"term":"<missed term>","context":"<where it broke understanding>"}],
+          "concepts_demonstrated": [{"concept":"<concept they showed>","evidence":"<direct proof>"}],
+          "teaching_approaches": [{"concept":"<concept>","approach":"example","detail":"<what you tried>","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["<signal about how they learn best>"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}
+
+Scoring rule: `score` must be between 1 and 5.
+​‌​Confidence rule: `student_knowledge.confidence_level` must be exactly `"low"`, `"medium"`, or `"high"`.
+‌​​When the answer is already strong, set `growth_areas` to `[]` and avoid filler improvement bullets.
+‌‌‌Public evidence rule: `public_evidence` is for built-work proof only. ​​​Do not put private coaching notes, learning style, confidence, terminology gaps, emails, secrets, tokens, or sensitive logs in public evidence.
+
+​​‌Dimension definitions (from manifest):
+- hypothesis_quality: Hypothesis Quality - Evaluates whether the student forms testable, specific hypotheses before modifying code, and whether hypotheses narrow the search space effectively.
+‌​‌- log_literacy: Log Literacy - Evaluates the student's ability to extract signal from noise in structured logs, follow request flows across services, and identify anomalies in log patterns.
+​‌​- reproduction_skill: Reproduction Skill - Evaluates whether the student can isolate variables, create minimal reproduction cases, and distinguish flaky from deterministic failures.
+‌‌‌- communication_under_pressure: Communication Under Pressure - Evaluates clarity, honesty, and structure of status updates delivered during active incidents to both technical and non-technical stakeholders.
+​‌‌- root_cause_depth: Root Cause Depth - Evaluates whether the student traces past the immediate trigger to systemic causes — asking 'why did this failure mode exist?' ​‍‌not just 'what broke?'
+‍- postmortem_quality: Postmortem Quality - Evaluates whether postmortems are blameless, identify systemic contributing factors, and propose actionable remediation items with owners and deadlines.

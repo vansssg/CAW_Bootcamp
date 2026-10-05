@@ -1,0 +1,11 @@
+{
+  "summary": "Reflected on Samsung 2023 ChatGPT leaks: would not paste DATABASE_URL, API keys, JWT_SECRET, invite tokens, or invitee emails into a public model. Prefer local repo-aware agents and zero-retention tenants over a blanket ban that fails at 11pm.",
+  "evidence": [
+    "Would not paste secrets or live tokens; this app already redacts emails in emit_log as [REDACTED_EMAIL] — prompts should be at least that strict.",
+    "Middle path: env-only secrets, zero-retention/enterprise or on-prem model, DLP on paste, local agent reads the repo instead of Ctrl+V into a consumer chat.",
+    "Blanket ban fails under ship pressure; inbound review of what leaves the building is the same skill as outbound review of AI output."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module4-interlude.md"
+  ]
+}

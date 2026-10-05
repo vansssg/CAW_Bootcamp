@@ -1,0 +1,14 @@
+{
+  "summary": "FIX: rewrote the BREAK memo to 238 words with the GraphQL decision in sentence one, FE/SRE/SDK/BFF/GraphQL defined on first use, active owners, and headings Decision/Why/Risks/Next for Priya.",
+  "evidence": [
+    "Word count 238 alphanumeric tokens vs ~350 original (>30% cut). Criterion was under 245.",
+    "Lede: 'We are migrating ShopStream's public API from REST (fixed URLs, canned JSON) to GraphQL (clients ask only for the fields they need) over eight weeks.'",
+    "Definitions: FE UI users see; SRE keeps services fast and up; SDK libraries others use; BFF extra translation service; GraphQL clients ask for fields.",
+    "Active: 'Three backend engineers will work full-time'; 'backend team will track query latency daily' vs original 'risks will be monitored closely'.",
+    "Facts kept: 47 endpoints, 15 aggregations, 40%, 8 weeks, dual-run, BFF rejected, SRE sequential calls, SDK compatibility."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-fix-rewrite.md",
+    "progress/technical-communication/module2-break.md"
+  ]
+}

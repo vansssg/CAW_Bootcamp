@@ -1,0 +1,15 @@
+{
+  "summary": "Completed Module 3 BREAK by isolating the convention drift to the permission-plan output and validating the mismatch against actual runtime error-handling conventions in `api/app/main.py`.",
+  "evidence": [
+    "Created BREAK analysis artifact at `progress/module-03-break-convention-violation.md`.",
+    "Confirmed main diverging output is `progress/module-03-team-invitation-permission-plan.md`.",
+    "Verified permission-plan proposes expanded status mapping (`401/403/404/409/422`) and mixed conflict handling assumptions.",
+    "Verified runtime convention baseline in `api/app/main.py` uses `HTTPException` with `{\"detail\": ...}` envelope and currently demonstrated explicit route statuses are `400` and `404`.",
+    "Conclusion recorded: permission-plan is partially assumption-driven relative to current baseline and requires convention-tightening in FIX.",
+    "No application implementation files were modified during BREAK."
+  ],
+  "artifacts": [
+    "progress/module-03-break-convention-violation.md",
+    "progress/module-03-team-invitation-permission-plan.md"
+  ]
+}

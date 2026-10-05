@@ -1,0 +1,147 @@
+STEP 7: REFLECT
+
+Take a step back and look at what you produced in this module.
+
+‍​‍What You Built
+
+- A dependency graph with 10-12 work items covering all your Module 1 requirements
+- Hard and soft dependency labels on every edge
+- An identified critical path with estimated depth
+- A fixed graph that handles the circular dependency by splitting a node
+
+Reflection Questions
+
+1. ​​​Was this graph useful? ​​​Not "did you complete the exercise" -- would this graph actually help you plan the project? ​​​Could you hand it to a new team member and have them understand the build order?
+
+​​‌2. ​‌​What surprised you? ‌​‌Dependencies you did not expect? ​‌​False dependencies you removed? ‌‌‌Was the critical path longer or shorter than you guessed?
+
+​‌​3. ‌​​How did you handle the cycle? ​​​What was your first reaction to the circular dependency? ‌​​Did you try to reorder things (a planning fix) before recognizing it was a design problem? ​​​That instinct is extremely common. ‌​‌Recognizing when planning cannot save you is a key skill.
+
+​​​4. ​​‌Hard vs soft -- did the distinction change your graph? ​‌‌Does the review system REALLY need payment processing to be complete? ​‌‌Probably not. ​​​How many false hard dependencies did you catch?
+
+‌‌‌Looking Ahead
+
+Your dependency graph feeds directly into Module 3 (Risk-First Ordering), where you will take this graph and decide: given that multiple starting points exist, which one do you build FIRST? ‌​​The answer is not "whichever is easiest" -- it is "whichever retires the most risk."
+
+​​‌The graph you built here defines what is POSSIBLE. ‌​‌Module 3 decides what is SMART.
+
+‌‌‌Decision Callback
+
+In the DECIDE step, students chose between an adjacency list and a visual graph for representing the dependency graph, and between accepting the critical path and actively shortening it.
+
+​‌‌If they chose A (adjacency list + accept critical path):
+- The challenge they encountered was a consequence of the adjacency list making circular dependencies hard to spot visually
+- Connect it: "The Provider Vetting → Admin Dashboard → Provider Data cycle was much harder to see in text form — you had to mentally reconstruct the shape to notice it was a loop. ‌‌​A format that is fast to write made the design problem harder to find"
+
+If they chose B (visual graph + actively shorten):
+- The challenge they encountered was a consequence of splitting nodes adding integration complexity
+- Connect it: "When you split Admin Dashboard into Admin Review Tool (Minimal) and Admin Dashboard (Full) to break the cycle, you created two new integration points that need to be managed — the minimal tool's output must be compatible with what the full dashboard expects. ​‌​Shortening the critical path trades one kind of complexity for another"
+
+Evaluation
+
+Evaluate the student's performance using these dimensions:
+
+- requirement_extraction: Did the student account for all Module 1 requirements in their work items, or did requirements get silently dropped during grouping?
+‌​‌- dependency_thinking: Is the dependency graph correct? ​​​Are hard vs soft dependencies accurately labeled? ​​‌Is the critical path correctly identified? ​​​Did the student recognize the circular dependency as a design problem?
+​​‌- risk_assessment: Did the student begin to notice which items on the critical path carry the most uncertainty? ​‌​(This is a preview of Module 3 -- early signals of risk awareness count.)
+‌‌​- task_clarity: Are the work items clearly defined? ​​​Could another person look at the graph and understand what each node represents without asking questions?
+‌​‌- adaptation_speed: When the circular dependency was introduced, how quickly did the student recognize the problem and move toward a solution? ​‌‌Did they try planning fixes first, or did they jump to the design insight?
+​​‌- integration_judgment: Does the graph reveal awareness of how pieces connect? ‌​​Did the student think about data flow between items, or just about sequential ordering?
+
+‌​‌End-of-module evaluation prompt:
+
+Now evaluate this student's performance on Module 2: Dependency Mapping.
+
+​‌‌For EACH of the six evaluation dimensions (requirement_extraction, dependency_thinking,
+risk_assessment, task_clarity, adaptation_speed, integration_judgment), provide:
+- A score from 1 to 5
+- A specific observation
+- Evidence from the student's work
+
+Then provide:
+- A narrative summary (2-3 sentences)
+- Strengths with evidence
+- Growth areas with evidence
+- One actionable recommendation for Module 3
+
+Format as an <evaluation> JSON block.
+
+​‌​Ship Recap (1 Minute)
+
+- What we shipped: A dependency graph that maps the entire SkillSwap build order, with hard and soft dependencies labeled, the critical path identified, and a circular dependency resolved through node-splitting.
+​‌​- What we learned: Dependencies are not just about ordering -- they reveal the structure of the system. ​‌‌Circular dependencies are design problems, not planning problems. ​​‌The critical path sets the minimum project duration regardless of team size.
+‌​‌- Remaining risk: We have the map, but we have not decided where to start. ‌‌​Some items on the graph are well-understood (auth, CRUD operations) and some are genuinely unknown (payment integration, real-time availability). ‌‌​Module 3 will address which to tackle first.
+
+​‌​Knowledge Check
+
+Comprehension Questions
+1. ​​‌What core problem does this module solve in dependency mapping?
+‌​​2. ‌‌‌Which decision in this module has the biggest impact, and why?
+​‌​3. ‌​​What evidence proves the implementation works end-to-end?
+
+‌‌‌Mini Practical Task
+- Complete one STEP 4 verification action for dependency mapping and capture proof (command + output, test result, or log snippet).
+
+​​​Success Criteria
+- Answers are short, specific, and in plain language.
+​​‌- The mini task includes reproducible proof tied to the module deliverable.
+‌​‌- You can name one risk and one mitigation from this module.
+
+​‌​After completing this REFLECT, evaluate the student and run `upsk report` with this payload template:
+{
+  "nonce": "<current nonce from upsk status/start/next response>",
+  "events": [
+    {
+      "module": 2,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "<2-3 sentence qualitative summary>",
+        "overall": 4,
+        "dimension_scores": [
+        {"key":"requirement_extraction","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"dependency_thinking","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"risk_assessment","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"task_clarity","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"adaptation_speed","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"integration_judgment","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"}
+        ],
+        "strengths": ["<specific strength with context>"],
+        "growth_areas": ["<specific growth area with context>"],
+        "recommendation": "<one actionable next step>",
+        "public_evidence": [
+          {
+            "artifact": "<feature, route, table, job, test, doc, or deployment touched>",
+            "student_action": "<what the student personally built, changed, verified, or decided>",
+            "technical_detail": "<route/table/file/command/decision involved>",
+            "proof": "<public-safe command output, test result, log summary, URL, or artifact path>",
+            "ability": "<ability this proves>",
+            "reviewer_value": "<why a recruiter or senior engineer should care>",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [{"term":"<missed term>","context":"<where it broke understanding>"}],
+          "concepts_demonstrated": [{"concept":"<concept they showed>","evidence":"<direct proof>"}],
+          "teaching_approaches": [{"concept":"<concept>","approach":"example","detail":"<what you tried>","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["<signal about how they learn best>"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}
+
+Scoring rule: `score` must be between 1 and 5.
+‌‌‌Confidence rule: `student_knowledge.confidence_level` must be exactly `"low"`, `"medium"`, or `"high"`.
+​‌‌When the answer is already strong, set `growth_areas` to `[]` and avoid filler improvement bullets.
+​‍‌Public evidence rule: `public_evidence` is for built-work proof only. ‍Do not put private coaching notes, learning style, confidence, terminology gaps, emails, secrets, tokens, or sensitive logs in public evidence.
+
+Dimension definitions (from manifest):
+- requirement_extraction: Requirement Extraction - Evaluates whether the student identifies explicit, implicit, and conflicting requirements from ambiguous prose — including constraints, edge cases, and unstated assumptions.
+- dependency_thinking: Dependency Thinking - Evaluates the student's ability to identify what blocks what, model dependencies as a DAG, find critical paths, and recognize when circular dependencies indicate a design problem.
+- risk_assessment: Risk Assessment - Evaluates whether the student identifies technical unknowns, integration risks, and external dependencies early — and orders work to retire risk before committing to paths that depend on it.
+- task_clarity: Task Clarity - Evaluates whether task specifications are precise enough for another person (or AI agent) to execute without asking questions — including clear scope, acceptance criteria, and interface contracts.
+- adaptation_speed: Adaptation Speed - Evaluates how quickly and effectively the student responds to changing requirements — re-scoping, re-prioritizing, and communicating impact without starting over or panicking.
+- integration_judgment: Integration Judgment - Evaluates the student's ability to bring parallel workstreams together — identifying merge conflicts, contract violations, and emergent bugs that only appear when components meet.

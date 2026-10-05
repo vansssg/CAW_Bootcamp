@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: client has no merchant account or legal entity. Not a library problem. Risk type is business/legal, outside the four technical types. Production W7/W8/W12 blocked; booking/slots/listings still proceed with payment_status=blocked_merchant. Will not build a homemade processor.",
+  "evidence": [
+    "Blocker: no Stripe account, no entity, paperwork not started. Legal cannot accept money.",
+    "Four technical types assumed an account exists. This is organizational/legal.",
+    "Plan: do not swap APIs to fake it. Escalate paperwork as an external milestone.",
+    "Still build W1 W2 W4 W6; paid booking path waits. Demo path does not."
+  ],
+  "artifacts": [
+    "progress/decomposition/module3-break.md",
+    "artifacts/risk-plan-module-03.md"
+  ]
+}

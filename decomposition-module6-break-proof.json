@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: diffed rogue S2 slots output against C1 contract; found enum mismatch status=available vs open|booked (Violation C). Isolation tests passed; merge blocked.",
+  "evidence": [
+    "Contract: artifacts/contracts/module-06-interface-contracts.md slot_status enum open|booked.",
+    "Rogue output: artifacts/parallel/module-06-agent-output-bundle.md S2 sample uses status available.",
+    "Diagnosis: artifacts/parallel/module-06-break.md — Violation C; A/B/D checked clean.",
+    "Action: block agent/t3-slots merge until enum remapped."
+  ],
+  "artifacts": [
+    "artifacts/parallel/module-06-break.md",
+    "artifacts/parallel/module-06-agent-output-bundle.md",
+    "artifacts/contracts/module-06-interface-contracts.md"
+  ]
+}

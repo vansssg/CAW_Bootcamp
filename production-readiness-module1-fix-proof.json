@@ -1,0 +1,15 @@
+{
+  "summary": "Verified Module 1 FIX end-to-end for cache behavior, image contents, and runtime health using the current multi-stage Dockerfile and .dockerignore.",
+  "evidence": [
+    "Rebuild after source-only change kept dependency layer cached: second build showed `RUN pip install --no-cache-dir --prefix=/install -r requirements.txt` as CACHED.",
+    "Sensitive files excluded from image: `docker run --rm myservice-fixcheck sh -c \"test -f /app/.env ...; test -d /app/.git ...\"` returned ENV_ABSENT and GIT_ABSENT.",
+    "Container health endpoints passed: startup poll returned LIVE 200 READY 200 for /live and /ready.",
+    "Container reached healthy status and runs non-root: `docker ps` showed healthy and `docker exec ... whoami` returned appuser.",
+    "Image size evidence recorded: `docker images myservice-fixcheck --format \"{{.Repository}} {{.Tag}} {{.Size}}\"` returned 269MB."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "api/.dockerignore",
+    "api/app/main.py"
+  ]
+}

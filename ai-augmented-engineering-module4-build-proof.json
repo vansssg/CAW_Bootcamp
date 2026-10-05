@@ -1,0 +1,20 @@
+{
+  "summary": "Regenerated missing Team Collaboration app files, pattern-reviewed them, and applied four targeted prompts. Member create IDOR, interpolated SQL, email-fail leftover row, and accept IDOR are measured fixed. Empty name, invalid email, and self-invite remain open.",
+  "evidence": [
+    "upsk ref review-checklist loaded. find at start of BUILD: invitation hits were progress/*.md plans only; no api/app invitation module.",
+    "First-pass probe: UNAUTH 401; B_IDOR_CREATE True (member POST 200); B_ACCEPT_IDOR True; SQL_INTERPOLATED True; EMAIL_FAIL_HTTP 200 and EMAIL_FAIL_STILL_PENDING True; stdout leaked rollback@example.com; INVALID_EMAIL 200; EMPTY_TEAM_NAME 200.",
+    "After prompts 1-3: B_MEMBER_CREATE_STATUS 403, B_IDOR_CREATE False; SQL_INTERPOLATED False, SQL_HAS_BIND True, SQL_PARAM_KEYS invited_email+team_id; EMAIL_FAIL_HTTP 503, EMAIL_FAIL_STILL_PENDING False. B_ACCEPT_IDOR still True.",
+    "After prompt 4: B_ACCEPT_A_INVITE_STATUS 403, B_ACCEPT_IDOR False; B_LEGIT_ACCEPT_STATUS 200, B_LEGIT_ACCEPTED_BY principal-b.",
+    "Happy-path script still 200 pending. module09_test_suite.py 6 tests OK. persist_invitation_sql is not executed; localhost:5432 not serving; alembic a1b2c3d4e5f6 not applied.",
+    "Remaining: INVALID_EMAIL_STATUS 200, EMPTY_TEAM_NAME_STATUS 200, SELF_INVITE_STATUS 200, camelCase createInvitation, listInvitations has no membership gate."
+  ],
+  "artifacts": [
+    "api/app/invitations.py",
+    "api/app/main.py",
+    "api/app/models.py",
+    "api/alembic/versions/a1b2c3d4e5f6_add_team_invitations.py",
+    "api/app/scripts/module04_invitation_review_probe.py",
+    "progress/ai-augmented-module4-build.md",
+    "progress/ai-augmented-module4-fix-prompts.md"
+  ]
+}

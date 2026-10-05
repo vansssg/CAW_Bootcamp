@@ -1,0 +1,16 @@
+{
+  "summary": "Confirmed the permanent FIX: atomic upsert with GREATEST prevents last_accessed_at regression under concurrency, preserves count correctness, and removes silent corruption while keeping expected DB-write-vs-response timestamp semantics.",
+  "evidence": [
+    "SQL fix in api/app/main.py uses one atomic statement: count = analytics.count + 1 and last_accessed_at = GREATEST(analytics.last_accessed_at, EXCLUDED.last_accessed_at).",
+    "Before/after comparison under same workload (10 concurrent requests, single burst): before db_last_accessed_at=2026-08-07T20:45:17.387317+00:00 vs latest_request_end=2026-08-07T20:45:17.404495+00:00; after db_last_accessed_at=2026-08-07T20:45:17.675937+00:00 vs latest_request_end=2026-08-07T20:45:17.689790+00:00.",
+    "Post-fix repeated verification (5 rounds, each 10 concurrent requests) returned only 307 statuses in all rounds.",
+    "Post-fix no-regression checks passed: in every round db_last_accessed_at >= latest_request_start and db_last_accessed_at remained monotonic across rounds.",
+    "Count correctness preserved post-fix: db count increased by exactly +10 per round (deltas: [10,10,10,10]).",
+    "Residual gap between db_last_accessed_at and latest HTTP completion timestamp is expected because last_accessed_at tracks DB write-time semantics, not response completion time."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "module3-break-proof.json",
+    "module3-verify-proof.json"
+  ]
+}

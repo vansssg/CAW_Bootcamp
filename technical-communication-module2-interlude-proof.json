@@ -1,0 +1,14 @@
+{
+  "summary": "Mars Climate Orbiter (1999): Lockheed used lbf-s, JPL expected N-s; spec said only 'total impulse.' $327M. Four words would have been enough. Mapped that to query-depth without a number in technical-explanation.md and to not_owner 404 vs 403 dual-verification on the URL shortener.",
+  "evidence": [
+    "23 Sep 1999 MOI: no reacquisition. Impulse unit mismatch ~4.45x; ~57 km vs 226 km planned altitude; $327M.",
+    "Spec listed total impulse without newton-seconds vs pound-force seconds. Both teams followed their own institutional standard.",
+    "Review board: producer and consumer independently demonstrate interpretation. Not 'did you read the spec?'",
+    "Own doc leftover: GraphQL max depth unnamed (Mars-class missing units). VERIFY had already patched schema/resolver.",
+    "Own interface that WAS dual-checked: not_owner_status=404 proved in module04_auth_verify.py so 403 is not a silent other-meaning."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-interlude.md",
+    "progress/technical-communication/technical-explanation.md"
+  ]
+}

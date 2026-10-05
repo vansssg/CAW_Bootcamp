@@ -1,0 +1,14 @@
+{
+  "summary": "VERIFY: five contributing factors name CI, health, key space, merge gate, and shared pool — not people. Remediations 1-5 are executable scripts/alerts/checkboxes. Highest-impact lesson: layer-boundary contracts must fail the merge. CI still only ruff + test_query_columns.py.",
+  "evidence": [
+    "Blame grep: no 'The developer' or 'Someone' as subject; contributing factors 1-5 are CI, /live vs /ready, key space, DELETE-GET /r gate, create_engine.",
+    "Remediation 1: python app/scripts/module06_break_recreate.py fail if DOUBLED true. Remediation 2 tightened: Actions secrets API_KEY_A/B JWT_SECRET then module04_auth_verify.py 401 matrix. Remediation 5: PR checkbox DELETE then GET /r 404.",
+    "Timeline not 'around midday': 2024-03-15 14:20 UTC PITR; 2026-08-17 08:03:46.217Z-08:09:39Z probe lines.",
+    "Highest-impact lesson: untested contracts. .github/workflows/ci.yml has no module06_break_recreate, module04_auth_verify, or module06_multilayer."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-verify.md",
+    "progress/debugging-module7-postmortem.md",
+    ".github/workflows/ci.yml"
+  ]
+}

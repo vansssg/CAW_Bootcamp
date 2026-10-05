@@ -1,0 +1,55 @@
+Interlude: Healthcare.gov — 55 Contractors, Zero Integration Plan
+
+Delivered between Module 2 (Dependency Mapping) and Module 3 (Risk-First Ordering)
+
+---
+
+October 1, 2013. ‍​A Tuesday morning in Washington, D.C.
+
+‍​The President of the United States had staked his legacy on this moment. ​​The Affordable Care Act — years of political warfare, a Supreme Court battle, a government shutdown — all of it came down to a website. ​​Healthcare.gov. ​​The digital front door where millions of uninsured Americans would finally be able to buy health insurance.
+
+​​At midnight, the site went live. ​​By 6:00 AM Eastern, traffic was surging. ‌​Hundreds of thousands of people were hitting the site simultaneously, filling out forms, creating accounts, trying to do exactly what the government had spent three and a half years and over $600 million building this system to do.
+
+‌​By noon, the numbers told a story that would become a national embarrassment.
+
+‌​Six. ‌​Six people successfully enrolled on launch day. ‌​Not six thousand. ‌‌Not six hundred. ‌​Six human beings, out of millions attempting, managed to navigate the system from start to finish and actually purchase a health insurance plan.
+
+‌​The site didn't just have bugs. ‌​It was a catastrophe at the architectural level. ​​Pages took minutes to load. ​​Sessions dropped randomly. ‌​Error messages pointed nowhere. ​​The system that was supposed to connect applicants to insurance providers could not complete the most basic transaction it was designed for.
+
+​​So what went wrong? ‌​The code wasn't written by amateurs. ‌​The contractors involved were major firms — CGI Federal, Accenture, Booz Allen Hamilton, QSSI, and dozens more. ​​Fifty-five different contractors, each with experienced engineers, each with their own project plan, their own timelines, their own test suites. ​​Each contractor delivered a component. ‌​Each component, tested in isolation, more or less worked.
+
+‌‌But nobody owned the whole.
+
+​‌There was no single dependency graph. ‌​No document that said: "The identity verification module talks to the eligibility engine, which talks to the plan comparison tool, which talks to the enrollment system, which talks to the payment processor — and here are the data formats, handoff points, and failure modes at every boundary." ​​Each contractor knew what they were building. ‌‌Nobody mapped how those 55 pieces connected to each other.
+
+‌‌Think about that for a moment. ​​Fifty-five teams. ​​Fifty-five project plans. ‌‌And not one of those plans described the interfaces between them with enough precision to actually integrate. ​‌The identity verification system was built by one contractor. ‌‌The eligibility determination engine was built by another. ‌​When the identity system passed a verified user to the eligibility engine, what did that handoff look like? ‌‌What data format? ‌‌What error codes? ​​What happened when the identity system was slow? ‌​Nobody had written it down. ‌​Or if they had, nobody had checked that both sides agreed.
+
+‌​The result was predictable — in hindsight. ​​Each piece worked alone. ​​The whole thing collapsed under its own weight. ‌​The identity verification system would authenticate a user, but the session token it generated was incompatible with what the next system expected. ​​The eligibility engine calculated a result, but the data structure it returned didn't match what the plan display system could parse. ​​Load balancing was configured per-component, not system-wide, so a surge of traffic would overwhelm one subsystem while others sat idle.
+
+‌​The most damning detail: nobody tested end-to-end until the final weeks before launch. ‌​Each contractor tested their own work. ‌‌Unit tests passed. ​​Integration tests — the kind that trace a user's journey from "I want insurance" to "I have insurance" across every system boundary — were essentially nonexistent. ​​The first real end-to-end test was launch day, performed by the American public.
+
+‌​When the scale of the disaster became clear, the White House brought in a rescue team. ‌​A small group of technologists, many from Silicon Valley, arrived at a war room set up inside the headquarters of the Centers for Medicare and Medicaid Services. ‌‌They called it "the tech surge."
+
+​​And here is the part of the story that matters most for what you're learning.
+
+‌‌The rescue team did not start by fixing bugs. ​​They did not open Jira and start triaging tickets. ‌​The first thing they did was what should have been done three years earlier: they mapped the system. ‌​They drew the dependency graph. ‌‌They traced every data flow from the user's browser through every backend service and back. ​‌They identified which connections were broken, which services were bottlenecks, and which failures were cascading into other failures.
+
+​​They found the critical path — the minimum set of systems that had to work for a single user to enroll. ‌​And they focused there. ​‌Not on the analytics dashboard. ‌​Not on the admin tools. ​‌Not on edge cases. ‌​They asked: "What is the thinnest possible path through this system that results in one person getting health insurance?" ‌‌And they stabilized that path first.
+
+‌​Then they expanded outward, incrementally. ‌‌Each day, they brought one more subsystem into the working whole. ​​Each day, they tested end-to-end. ‌​Each day, enrollment numbers climbed. ​​By December, the system was handling tens of thousands of enrollments per day. ‌‌By the end of open enrollment, over eight million people had signed up.
+
+​​The fix was not heroic coding. ‌‌It was not brilliant algorithms. ‌​It was the disciplined application of dependency mapping, critical path identification, and incremental integration — exactly the skills you've been practicing.
+
+‌​The tragedy of Healthcare.gov is not that the technology was impossible. ‌​It's that the process failure was entirely preventable. ​‌A single dependency graph, maintained from the start, showing every contractor's deliverable and every interface between them, would have revealed the integration gaps years before launch. ‌‌End-to-end testing starting in month six, not week minus one, would have surfaced the incompatibilities when there was still time to fix them.
+
+​​Fifty-five contractors, each doing their job. ​​Zero people doing the job of connecting those jobs together.
+
+​‌---
+
+Reflection
+
+You just finished building a dependency graph for SkillSwap. ‌​You identified what depends on what, where the critical path runs, and where parallel work is possible. ‌​Now think about Healthcare.gov:
+
+1. ‌​The 55 contractors each had their own project plan. ‌‌Why wasn't that enough? ‌​Each plan described one team's work in detail. ‌‌What was missing that a single dependency graph — one that spanned all 55 teams — would have provided? ​‍Think about what becomes visible only when you see the connections between the parts, not just the parts themselves.
+
+‌‍2. If you were brought in on Day 2 to help, what's the FIRST thing you'd do? Not "fix bugs" — the rescue team explicitly did not start there. Think about process. What do you need to understand before you can fix anything, and how would you build that understanding?

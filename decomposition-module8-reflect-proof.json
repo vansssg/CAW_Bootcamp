@@ -1,0 +1,11 @@
+{
+  "summary": "Module 08 REFLECT complete: integration + traceability done; evaluation 8.3/10. Decomposition & Execution Planning Operator pack finishing.",
+  "evidence": [
+    "upsk report ok; latest_report_module 8; score 8.3",
+    "artifacts/checklists/module-08-*.md"
+  ],
+  "artifacts": [
+    "decomposition-module8-evaluation-report.json",
+    "artifacts/checklists/module-08-traceability-matrix.md"
+  ]
+}

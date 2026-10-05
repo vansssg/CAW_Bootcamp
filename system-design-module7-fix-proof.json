@@ -1,0 +1,12 @@
+{
+  "summary": "process_job now records job_id in _seen_job_ids before append. Replay returns duplicate and FIX_COUNT 1. Redirect still enqueues without waiting on the worker.",
+  "evidence": [
+    "Key: job_id (= request_id). Worker is the daemon thread plus drain_once on analytics read.",
+    "FIX_FIRST written FIX_SECOND duplicate FIX_COUNT 1 FIX_DOUBLE False (was BREAK_COUNT 2).",
+    "Retries need idempotency because at-least-once delivery is the default once you have a queue."
+  ],
+  "artifacts": [
+    "api/app/jobs.py",
+    "api/app/scripts/module07_jobs_verify.py"
+  ]
+}

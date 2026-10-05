@@ -1,0 +1,88 @@
+STEP 3: ARTIFACT CREATION
+
+Artifact creation starts now.
+
+‍​‍​Write all outputs for this module into artifacts/dag-module-02.md.
+
+​​​​Now it is time to take your requirements list from Module 1 and turn it into a real dependency graph for SkillSwap.
+
+​​​​Step 3a: Group Requirements into Buildable Work Items (10 Minutes)
+
+Your Module 1 list probably has 15-20 individual requirements. ​​‌​Some of those are tiny ("send confirmation email") and some are large ("search that feels instant"). ‌​‌​Before we can map dependencies, we need to group these into buildable work items -- chunks of work that a developer (or an AI agent) could pick up and complete.
+
+‌​‌​Aim for 10-12 work items. ‌‌‌​Each item should be:
+
+- Big enough to be meaningful (not "add a field to a form")
+- Small enough to be completable in 1-3 days of focused work
+- Cohesive -- the things inside it belong together
+
+Look at your requirements and ask: which requirements naturally cluster together? ‌​‌​For example, in SkillSwap you might end up with items like:
+
+- User Authentication (registration, login, password management)
+- Listings Data Model (provider profiles, service descriptions, pricing structure, categories)
+- Provider Onboarding (the vetting/approval process for new providers)
+- Availability Management (providers set time slots, conflict detection)
+- Search & Browse (category browsing, search with filters, "feels instant" requirement)
+- Booking Flow (select provider, pick time slot, confirm booking)
+- Payment Processing (charge user, hold funds, 15% commission split)
+- Review System (users rate providers, providers flag no-show users)
+- Admin Dashboard (approve providers, handle disputes, view analytics)
+- Notification System (confirmation emails, booking reminders, cancellation notices)
+- Cancellation Flow (cancel booking, apply cancellation policy, handle refunds)
+- Dispute Resolution (user-provider disagreements, admin escalation)
+
+That is 12 items. ​​​​Your grouping might differ -- that is fine, as long as each item is buildable and nothing from your requirements list got dropped.
+
+‌​​​Check: go through your Module 1 requirements one by one. ​​‌​Can you point to a work item that covers each one? ‌​​​If a requirement is not covered, either add a work item or expand an existing one.
+
+​​‌​Step 3b: Map the Dependencies (10 Minutes)
+
+For every pair of work items, ask this question:
+
+"Does X need to exist -- even partially -- before Y can start?"
+
+‌‌​‌If yes, draw an arrow from X to Y. ‌​​​If no, leave them unconnected.
+
+‌‌‌‌Be careful here. ​​​​There are three mistakes people make:
+
+Mistake 1: Missed Dependencies.
+‌‌​‌"Booking Flow" clearly depends on "User Authentication" (you need to know WHO is booking). ‌‌‌​But does it also depend on "Listings Data Model"? ‌‌‌‌Yes -- you cannot book a provider if you have not defined what a provider looks like in the system. ​​‌​Does "Search & Browse" depend on "Listings Data Model"? ‌​‌​Absolutely -- you cannot search what does not exist.
+
+​​​​Mistake 2: False Dependencies.
+‌​​​Does "Review System" depend on "Payment Processing"? ​​‌​Your first instinct might be yes -- a user pays, gets the service, then leaves a review. ‌​‌‌But technically, the review system just needs a completed booking. ​​​​Whether payment happened is a business rule, not a technical dependency. ‌​‌​You can build and test the review system with bookings that have no payment attached.
+
+‌‌​​Ask yourself: is this dependency TECHNICAL (the code literally cannot work without the other thing) or PROCEDURAL (in real life one comes before the other, but in code they are independent)?
+
+‌‌​​Mistake 3: Circular Dependencies.
+‌​‌​If you find yourself writing "A depends on B" AND "B depends on A" -- stop. ‌‌​‌That is a cycle, and it means your DAG is broken. ​​‌​A cycle means you can never start, because each item is waiting for the other. ​‌‌​We will deal with this in STEP 5, but for now, if you see a cycle, flag it and move on.
+
+​‌‌​Step 3c: Label Hard vs Soft Dependencies (5 Minutes)
+
+For every arrow in your graph, decide:
+
+Hard dependency (solid arrow): X MUST exist before Y can start. ‌‌‌​There is no workaround. ‌‌​​If you tried to build Y without X, the code would not compile, the API would not respond, or the feature would be fundamentally broken.
+
+‌​​​Examples:
+- Listings Data Model --> Search (you literally cannot search data that has no structure)
+- User Authentication --> Booking Flow (you cannot create a booking without a user identity)
+
+Soft dependency (dashed arrow): X SHOULD exist before Y for convenience, but Y could technically start with a stub, mock, or placeholder for X.
+
+‌‌​​Examples:
+- Payment Processing --> Cancellation Flow (you could build cancellation logic with a mock payment interface and wire up real payments later)
+- Notification System --> Booking Flow (you could build the booking flow without sending notifications and add them later -- the booking still works, it just does not email anyone)
+
+The distinction matters because hard dependencies are constraints on your build order. ‌‌‌​Soft dependencies are preferences. ‌​‌​When you are planning sprints, hard dependencies are law. ​‌‌‌Soft dependencies are negotiable.
+
+​​​​What to Produce
+
+Using whichever format you chose in Decision 1, produce:
+
+1. ​‌‌​Your dependency graph with all 10-12 work items
+2. ‌​‌​Every edge labeled as hard (H) or soft (S)
+3. ‌‌‌​A list of items with no incoming dependencies (your starting points)
+4. ‌‌​‍A list of items with no outgoing dependencies (your endpoints)
+
+Take your time. ‌‍This graph is the foundation for the next three modules.
+
+---

@@ -1,0 +1,92 @@
+{
+  "events": [
+    {
+      "module": 7,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Adapted SkillSwap plan for Meridian company booking under a 6-day demo with a minimal bridge, then layered RBAC without restarting: escalated auth/user model, promoted T6, added thin org_role+department, and revised the PM note to acknowledge the scope change.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "requirement_extraction",
+            "score": 4,
+            "observation": "Unpacked company accounts then roles/depts/permissions; kept billing as deferred.",
+            "evidence": "blast-radius tables; break-delta lists three roles and visibility rules."
+          },
+          {
+            "key": "dependency_thinking",
+            "score": 4,
+            "observation": "Cuts preserved T4 path; T6 promoted when visibility depended on list authz.",
+            "evidence": "verify.md cut walkthrough; T6 MUST after RBAC."
+          },
+          {
+            "key": "risk_assessment",
+            "score": 4,
+            "observation": "Named authz matrix as new critical path; Stripe/UI as fallback risks.",
+            "evidence": "adaptation-note v2 risk + curl/scripted accounts fallback."
+          },
+          {
+            "key": "task_clarity",
+            "score": 4,
+            "observation": "Updated plan with preserved/modified/cut/added and T7–T12 scopes.",
+            "evidence": "module-07-updated-plan.md + BREAK delta + fix matrix."
+          },
+          {
+            "key": "adaptation_speed",
+            "score": 5,
+            "observation": "Second change updated living docs; partially retracted pure boolean bridge instead of panic restart or work-harder.",
+            "evidence": "break-delta.md; blast overlay; PM note v1→v2 with explicit why."
+          },
+          {
+            "key": "integration_judgment",
+            "score": 4,
+            "observation": "Kept Module 06 contracts; patched booking/auth contracts for roles without rewriting slots enum.",
+            "evidence": "Preserved open|booked; C2 authz amend in plan."
+          }
+        ],
+        "strengths": [
+          "Layered RBAC onto living blast/plan/PM artifacts instead of starting over.",
+          "Admitted Option B boolean was insufficient and escalated to thin roles deliberately."
+        ],
+        "growth_areas": [],
+        "recommendation": "Module 8: integrate Meridian demo path end-to-end and trace requirements from Module 1 through adapted tickets.",
+        "public_evidence": [
+          {
+            "artifact": "Mid-build adaptation pack",
+            "student_action": "Produced blast radius, updated plan, and PM note; then layered RBAC deltas.",
+            "technical_detail": "artifacts/adaptation/module-07-*.md",
+            "proof": "break-delta + plan BREAK section + adaptation-note v2",
+            "ability": "Replans under changing requirements without discarding progress",
+            "reviewer_value": "Shows composure and structured scope negotiation",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Blast radius",
+              "evidence": "Auth escalated MINOR→MAJOR when roles arrived."
+            },
+            {
+              "concept": "Minimal bridge vs proper model inflection",
+              "evidence": "Partial retract of boolean; thin org_role not full org billing."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "adaptation",
+              "approach": "example",
+              "detail": "Double change in one module with living document updates",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["artifact-first"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "summary": "Implemented and validated a production-oriented Docker setup for the image-processing scenario using Debian Slim + multi-stage build, non-root runtime, health checks, and build-context hygiene.",
+  "evidence": [
+    "Created Python Dockerfile in api/ using chosen Decision B strategy: Debian Slim base with multi-stage builder/runtime separation.",
+    "Single-stage baseline image size was captured as myservice-single:latest 327MB.",
+    "Refactored multi-stage hardened image built as myservice:latest 287MB (smaller runtime image by excluding build-time layers/tools from final runtime stage).",
+    "Added runtime hardening in Dockerfile: non-root user (appuser/appgroup) and HEALTHCHECK targeting service liveness endpoint.",
+    "Added .dockerignore and ran failure drill: with .dockerignore disabled, Docker build context transfer increased to 72.74MB; with .dockerignore enabled, context was only ~2.97kB/18.78kB in clean builds.",
+    "Runtime verification: container launched with required env vars and showed healthy status in docker ps ('Up ... (healthy)').",
+    "Endpoint checks passed from host against mapped container port 3300: GET /live returned 200 and GET /ready returned 200.",
+    "To support readiness/liveness contract, added /live and /ready endpoints in api/app/main.py (ready performs DB check via SELECT 1)."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "api/.dockerignore",
+    "api/app/main.py",
+    "api/requirements.txt"
+  ]
+}

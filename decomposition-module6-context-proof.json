@@ -1,0 +1,13 @@
+{
+  "summary": "Module 06 CONTEXT: identified parallel vs serial tickets and named interface contracts for SkillSwap-style A/B/C/D set. Constraints twist from Module 05 carried forward (prescriptive tickets + standards cite).",
+  "evidence": [
+    "Q1 Parallel now: Ticket A (availability API) + Ticket C (provider profile frontend) — different layers; contract = provider profile JSON (id UUID, display_name, services[], ratings summary).",
+    "Also parallel once contract exists: Ticket B (booking API) + Ticket D (email) if they agree on booking_created event shape (booking_id, learner_id, provider_id, starts_at).",
+    "Q2 Cannot parallel: A and B — B consumes open slots from A; booking without availability API has nothing to book.",
+    "Q3 Contract A↔C: GET provider shape with UUID ids. Contract B↔D: booking_created payload fields listed above. user_id/learner_id = UUID everywhere (Module 05 lesson).",
+    "Rejected all-parallel (misses A→B) and none-parallel (over-serialization)."
+  ],
+  "artifacts": [
+    "decomposition-module6-context-proof.json"
+  ]
+}

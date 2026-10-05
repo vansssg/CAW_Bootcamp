@@ -1,0 +1,13 @@
+{
+  "summary": "Cache-aside with TTL 60s, Redis-down fallback, PATCH invalidation restored, abuse 429 kept. Caching is not free: stale Location when invalidate was skipped.",
+  "evidence": [
+    "Strategy A cache-aside. Logging rule from M05 still holds. Mini task: module06_cache_verify.py miss/hit/invalidate + STALE_AVOIDED True.",
+    "Risk: stale redirects. Mitigation: invalidate on PATCH/DELETE. Redis-down: fall back, 0.2s timeout, do not hang.",
+    "Twist abuse_spike implement_now: 8x307 then 429 on GET /r/{code}."
+  ],
+  "artifacts": [
+    "progress/system-design-module6-fix.md",
+    "api/app/scripts/module06_cache_verify.py",
+    "system-design-module6-evaluation-report.json"
+  ]
+}

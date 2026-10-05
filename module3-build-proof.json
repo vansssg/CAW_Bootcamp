@@ -1,0 +1,16 @@
+{
+  "summary": "Aligned redirect analytics with the Module 3 contract, reproduced the concurrency race under load, then fixed it with an atomic Postgres upsert and re-verified with the same reproduction script.",
+  "evidence": [
+    "Reproduction conditions were held constant at 30 concurrent requests across 5 rounds.",
+    "Pre-fix run on check-then-insert path returned a 500 response in round 1 (status counts included {\"307\":29,\"500\":1}) and ended with 'BUG REPRODUCED: observed HTTP 500 under concurrent load.'",
+    "Server logs during pre-fix run showed 'duplicate key value violates unique constraint \"analytics_link_id_bucket_unique\"' (UniqueViolation), confirming the race on (link_id, timestamp_bucket).",
+    "Applied fix by replacing check-then-insert with one atomic SQL statement: INSERT ... ON CONFLICT (link_id, timestamp_bucket) DO UPDATE SET count = analytics.count + 1, last_accessed_at = NOW().",
+    "Post-fix run with the identical 30x5 workload returned only 307 responses in every round and ended with 'NO REPRO: no HTTP 500 observed under current test conditions.'",
+    "Post-fix log scan found no UniqueViolation entries."
+  ],
+  "artifacts": [
+    "progress/module-01-diagnosis.md",
+    "api/app/main.py",
+    "api/app/scripts/module-03-repro-race.py"
+  ]
+}

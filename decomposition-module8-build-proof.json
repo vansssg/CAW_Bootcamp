@@ -1,0 +1,13 @@
+{
+  "summary": "Module 08 BUILD (standalone, big-bang): pre-merge contract check PASS post-enum-fix; merge log + bisect plan; 5 scenarios; full M01 traceability with Built/Simplified/Deferred/Blocked — no silent losses.",
+  "evidence": [
+    "artifacts/checklists/integration-module-08.md — Phase 1 seams + Phase 2 big-bang results",
+    "artifacts/checklists/module-08-integration-test-plan.md — scenarios 1–5 combined verification",
+    "artifacts/checklists/module-08-traceability-matrix.md — 30 M01 IDs + Meridian rows statused"
+  ],
+  "artifacts": [
+    "artifacts/checklists/integration-module-08.md",
+    "artifacts/checklists/module-08-integration-test-plan.md",
+    "artifacts/checklists/module-08-traceability-matrix.md"
+  ]
+}

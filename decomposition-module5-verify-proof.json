@@ -1,0 +1,19 @@
+{
+  "summary": "AI-agent roleplay on T4 (POST /api/bookings): raised 3 questions, classified 2 as spec gaps and 1 as implementation decision, revised T4 (and synced T2/T3/T5/T6 to sync SessionLocal). Red-flag scan: no 'appropriate/properly', status codes listed, JSON shapes shown, DB connection path specified.",
+  "evidence": [
+    "Ticket under test: artifacts/tickets/module-05/t4-post-bookings.md (AI-ready).",
+    "Q1 SPEC GAP: get_db location + async vs sync — revised to sync SessionLocal, add get_db yield helper in api/app/db.py, import from app.db import get_db.",
+    "Q2 SPEC GAP: how to resolve provider_display_name/service_title from slot_id — added required slots→services→providers SQL JOIN path and conditional UPDATE for race-safe booking.",
+    "Q3 IMPLEMENTATION DECISION: ORM models vs raw SQL — left to executor; contract (columns, statuses, JSON, codes) is fixed either way.",
+    "Red-flag scan across T1-T6: no undefined 'appropriate/properly'; Postgres via DATABASE_URL/SessionLocal; endpoints list 400/404/409/401 as applicable; request/response JSON shown; T4↔T1/T3 contracts via fixed seed UUIDs.",
+    "Also aligned T2/T3/T5/T6 signatures from AsyncSession to sync Session to match api/app/db.py."
+  ],
+  "artifacts": [
+    "artifacts/tickets/module-05/t4-post-bookings.md",
+    "artifacts/tickets/module-05/t2-get-providers.md",
+    "artifacts/tickets/module-05/t3-get-provider-slots.md",
+    "artifacts/tickets/module-05/t5-auth-register-provider.md",
+    "artifacts/tickets/module-05/t6-get-my-bookings.md",
+    "decomposition-module5-verify-proof.json"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "summary": "Redirect must stay 307 if the analytics queue is down. Idempotency key for a click is short_code + hour bucket (and request_id for exactly-once per request) so retries cannot double-count.",
+  "evidence": [
+    "Queue down: fail-open the redirect (M05/M06: analytics is a side path). Returning 500 because a click was not recorded would make GitLab-style ops pain the user's problem. We already mapped analytics writes to fail_closed=False before the in-memory redirect path.",
+    "Idempotency: (short_code, timestamp_bucket=hour) matches the old analytics UNIQUE(link_id, timestamp_bucket) upsert. Per-request exactly-once would add request_id so a retried worker cannot increment twice. A retry without that key is the overnight double-count incident.",
+    "localhost:6379 is still down — any queue proof will be in-process, not a live Redis/Celery broker. We will not claim a worker consumed a Redis list."
+  ],
+  "artifacts": [
+    "api/app/main.py"
+  ]
+}

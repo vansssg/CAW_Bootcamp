@@ -1,0 +1,14 @@
+{
+  "summary": "BUILD: wrote technical-explanation.md top-down for Priya. Lede: ShopStream migrates REST to GraphQL in 8 weeks to cut ~40% of frontend calls and delete 15 aggregation endpoints. Terms defined, risks/mitigations, owned next steps.",
+  "evidence": [
+    "Headline test: first two sentences state the decision (REST to GraphQL, 8 weeks) and why (exact fields, 40% fewer calls, delete 15 aggregations).",
+    "Required headings present. REST/GraphQL/endpoint/BFF defined on first use with buffet vs fixed-menu analogy.",
+    "One-job paragraphs. Active voice next steps table with who/when/done-when. No 'let us know if you have questions'.",
+    "Alternatives named: BFF extra ops; standardized REST still mismatches web vs mobile.",
+    "DECIDE A: conclusion first, then why, then risks, then Priya implications."
+  ],
+  "artifacts": [
+    "progress/technical-communication/technical-explanation.md",
+    "progress/technical-communication/module2-decide.md"
+  ]
+}

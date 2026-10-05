@@ -1,0 +1,11 @@
+{
+  "summary": "Module 04 CONTEXT: blameless postmortems ask systemic 'why did the system allow that' not 'why did you'; near-miss reporting rises; Etsy DB drop → confirmation, tested restores, fast alerts.",
+  "evidence": [
+    "Q1: System-framed questions yield defensive-free detail; person-framed questions yield hiding.",
+    "Q2: Knowing no punishment increases near-miss reports → better data → fewer real outages.",
+    "Postmortem = learning investigation, not punishment memo."
+  ],
+  "artifacts": [
+    "technical-communication-module4-context-proof.json"
+  ]
+}

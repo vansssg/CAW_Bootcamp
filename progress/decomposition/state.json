@@ -1,0 +1,12 @@
+{
+  "bootcamp.product_scenario": "skillswap",
+  "skill": "decomposition-execution-planning",
+  "product": "SkillSwap",
+  "constraints": [
+    "instant search under target load",
+    "no double-booking of time slots",
+    "explicit testable cancellation",
+    "consistent commission and payout",
+    "multi-city without full rebuild"
+  ]
+}

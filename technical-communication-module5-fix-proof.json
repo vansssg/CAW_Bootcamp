@@ -1,0 +1,10 @@
+{
+  "summary": "FIX: stakeholder rewrite of Marcus email — business-first, risks unburied, clear triple ask; eng jargon relegated to optional appendix.",
+  "evidence": [
+    "module-05-fix-marcus-rewrite.md parent-test opening",
+    "Memory/scale validation as go/no-go not footnote"
+  ],
+  "artifacts": [
+    "artifacts/stakeholder/module-05-fix-marcus-rewrite.md"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "summary": "Ran Module 3 VERIFY checks for config fail-fast behavior and startup/runtime posture; captured passing validation evidence plus local runtime blockers (dependency startup and Docker daemon unavailable).",
+  "evidence": [
+    "Service startup attempt with valid `.env` (`./.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 3060`) reached `Started server process` then stalled at `Waiting for application startup.` for current local dependency state.",
+    "Endpoint probe during that startup attempt failed to connect (`URLError: [WinError 10061] No connection could be made because the target machine actively refused it`), so `/live` and `/ready` could not be confirmed in this environment.",
+    "Missing required variable check passed fail-fast requirement: `DATABASE_URL= ./.venv/Scripts/python.exe -c \"import app.main\"` crashed with `ValueError: Missing required environment variable: DATABASE_URL`.",
+    "Startup log safety/source check: config and runtime logging paths were inspected; no code path logs `DATABASE_URL`, `REDIS_URL`, or `JWT_SECRET` values in startup/request logs.",
+    "Container `.env` image check is currently blocked locally because Docker daemon is unavailable (`open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified`)."
+  ],
+  "artifacts": [
+    "api/app/config.py",
+    "api/app/main.py",
+    "production-readiness-module3-build-chunk1-proof.json"
+  ]
+}

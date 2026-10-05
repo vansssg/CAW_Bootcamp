@@ -1,0 +1,15 @@
+{
+  "summary": "BREAK: healthcheck pointed at /ready. LIVE 200 READY 503 database disconnected. Probe 503 so a platform would kill the single container. No Railway or compose run.",
+  "evidence": [
+    "Dockerfile HEALTHCHECK and railway.toml healthcheckPath set to /ready.",
+    "LIVE_STATUS 200 READY_STATUS 503 READY_OK False READY_DATABASE disconnected (~4.5s ConnectionTimeout).",
+    "PROBE_STATUS_IF_HEALTHCHECK 503 PLATFORM_WOULD_KILL_SINGLE_CONTAINER True.",
+    "CI_DEPLOY_REQUIRES_READY_200 True in yaml; deploy job not executed (no DEPLOY_BASE_URL / no token). RAILWAY_OR_COMPOSE_NOT_RUN True."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "railway.toml",
+    "api/app/scripts/module10_break_probe.py",
+    "progress/system-design-module10-break.md"
+  ]
+}

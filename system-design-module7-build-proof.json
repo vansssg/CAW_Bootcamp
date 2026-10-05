@@ -1,0 +1,13 @@
+{
+  "summary": "Async in-process click queue (Redis/Celery broker is down). Redirect enqueues job_id=request_id with ip_hash; worker writes events. Two redirects -> clicks 2. Replay same job_id is duplicate. Queue-down still 307. Purge removed 1 event older than 30 days.",
+  "evidence": [
+    "CLICKS_AFTER_TWO_REDIRECTS 2; ANALYTICS 200 last_clicked set; STORES_RAW_IP False IP_HASH_SAMPLE d861b7e91033ebc1 equals sha256(203.0.113.9)[:16] RAW_IP_IN_BODY False",
+    "IDEM_FIRST written IDEM_SECOND duplicate CLICKS_AFTER_REPLAY 3 (not 4). QUEUE_DOWN_REDIRECT 307. Did not docker-stop Redis — it was already down; set_queue_down(True) is the drop path.",
+    "PURGE_STATUS 200 removed 1 retention_days 30; CLICKS_BEFORE_PURGE 4 AFTER 3. retention_days=30. Command: module07_jobs_verify.py. Celery was not started because localhost:6379 does not serve."
+  ],
+  "artifacts": [
+    "api/app/jobs.py",
+    "api/app/main.py",
+    "api/app/scripts/module07_jobs_verify.py"
+  ]
+}

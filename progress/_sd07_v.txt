@@ -1,0 +1,7 @@
+STEP 4: VERIFY
+
+Ask the student:
+
+- Why do retries create duplicate processing risk?
+‍​‍​​​​​​​​​​​‌​‌​‌​‌​‌​‌‌‌​‌​‌​​​​​‌​​​​​‌​‌​​​​​‌​‌‌​‌‌​​​‌‌‌‌- What is an idempotency key in this context?
+​​​​‌‌​‌‌‌‌​‌‌‌‌​​‌​‌​‌​​​​​‌​​​​​‌​‌​‌‌​​​​‌​‌​‌‌​​‌‌​​‌​‌​‌‌​‌- What should happen if analytics fails: block redirect or degrade?​​‌​​‌‌​​‌‌​‌‌‌​‌‌​​‌​​​‌‌​​‌‌‌​‌​‌​​‌‌‌​​​​​‌‌​‌​‌​‌‌‌​‌‌​‍‌‍

@@ -1,0 +1,14 @@
+{
+  "summary": "FIX: rewrote fictional outage — pipeline must pass migrations on production-like staging, not 'John was careless'. Our postmortem: factor 6 Redis-backed untested; CI recreate must not pass if REDIS_DOWN; CODEOWNERS replaces PR checkbox; alert includes cache_sot_mismatch.",
+  "evidence": [
+    "Fictional root cause is now: pipeline applies migrations without a staging DB with production-like row counts. Local tiny-data test would miss the dropped users index.",
+    "Fictional remediations: CI migrate+login p99; CODEOWNERS **/migrations/**; login 5xx alert; freeze or CI-green; rollback curl 200. Zero 'John' / 'try to' / 'be careful'.",
+    "Blind spot: our recreate ran with REDIS_DOWN True. Remediation 1 now fails if REDIS_DOWN. Factor 6 added.",
+    "PR checkbox was human behavior (same class as 'developers should test'). Remediation 5 is CODEOWNERS on auth.py cache.py jobs.py db.py."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-fix.md",
+    "progress/debugging-module7-postmortem.md",
+    "progress/debugging-module7-break.md"
+  ]
+}

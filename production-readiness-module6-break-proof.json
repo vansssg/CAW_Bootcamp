@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: runaway retries and missing jitter disproved. Never-heal symptom is Postgres still down plus weak half-open logging, not reset_timeout=999999. Probe breaker closed after a successful trial.",
+  "evidence": [
+    "Failure A: retry_with_backoff max_retries=2; /ready drill one timeout log per request not hundreds.",
+    "Failure C: retry delays 0.0978s and 0.1899s, delay_ms 97 and 189, not identical 100/200.",
+    "Failure B: reset_timeout=30 in api/app/resilience.py; probe PROBE_STATE_AFTER_SUCCESS closed. Live docker start postgres not available so production breaker stays open for a real ConnectionTimeout on trial — correct, but logs do not name half-open vs open."
+  ],
+  "artifacts": [
+    "progress/production-module6-break.md",
+    "api/app/resilience.py",
+    "api/app/scripts/module06_degradation_drill.py"
+  ]
+}

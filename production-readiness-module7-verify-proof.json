@@ -1,0 +1,17 @@
+{
+  "summary": "VERIFY: overview has all seven sections. Three runbooks have detection, diagnosis with IS/NOT output, fix, verification, 15-min escalation. Walked postgres-unreachable against real down DB; 5 first-test mismatches. Red-flag scan inlined copy-paste commands into the other two runbooks.",
+  "evidence": [
+    "docs/service-overview.md: two-sentence purpose; deps table with without-it and M06 fallback; endpoints; env vs hardcoded breaker; git push origin main; git revert --no-edit HEAD; #linkops-alerts 15 min.",
+    "Three runbooks: postgres-unreachable, high-error-rate, high-latency. No <placeholder>. Restarts are docker restart url-shortener-prod or git revert. Logs named: postgres_connect_or_query_timeout, circuit_open_fallback.",
+    "Drill walk: LIVE 200 0.052; READY1 503 4.082; READY2 503 4.073 breaker still closed; Docker pipe missing; TimeoutError timed out. Five postgres-unreachable edits. Did not docker stop.",
+    "When to update: after this drill (5 mismatches), after infra change that alters commands (Docker daemon, DB_CONNECT_TIMEOUT_S, fail_max), and on a scheduled re-walk. Drift is invisible until you execute; first walk proved JSON spacing and '4ms after one /ready' were wrong.",
+    "Runbook vs wiki: postgres-unreachable.md is do-this-then-this under pager; service-overview.md is how the service works. Would not follow the overview to recover 5432."
+  ],
+  "artifacts": [
+    "docs/service-overview.md",
+    "docs/runbooks/postgres-unreachable.md",
+    "docs/runbooks/high-error-rate.md",
+    "docs/runbooks/high-latency.md",
+    "progress/production-module7-runbook-drill.md"
+  ]
+}

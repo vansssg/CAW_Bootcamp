@@ -1,0 +1,12 @@
+{
+  "summary": "Interface mismatch: with the audit listener unregistered, POST comment is 200 and comment.created is on the bus, but audit comment count is 0. Path-prefix middleware would have logged resource teams, not comment.",
+  "evidence": [
+    "BREAK_COMMENT_HTTP 200; BREAK_BUS_HAS_COMMENT_CREATED True; BREAK_AUDIT_COMMENT_COUNT 0; BREAK_COMMENTS_MISSING_FROM_AUDIT True.",
+    "BREAK_NAIVE_MIDDLEWARE_RESOURCE teams; BREAK_GAP emit_without_subscriber.",
+    "Agent 1 emit vs Agent 3 middleware: contract did not originally force add_global_listener."
+  ],
+  "artifacts": [
+    "api/app/scripts/module06_break_probe.py",
+    "progress/ai-augmented-module6-break.md"
+  ]
+}

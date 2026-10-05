@@ -1,0 +1,14 @@
+{
+  "summary": "Wrote URL-shortener FMEA: dependency inventory (Postgres has no timeout; Redis unused on path), 12 failure modes, and two real simulations — DB already down (/live 200, connect hang) and connect_timeout=1 (ConnectionTimeout in 4.451s).",
+  "evidence": [
+    "Inventory: api/app/db.py create_engine(DATABASE_URL) has no connect_timeout; REDIS_URL is config-only; no external HTTP APIs in main.py; logs are stdout StreamHandler.",
+    "Simulation 1 (DB down, no docker stop because daemon/port already unused): ASGI GET /live -> 200 {\"ok\":true}; default engine.connect hung in Module 04 and GET /ready blocked BREAK (killed). No 5xx metric for the hang.",
+    "Simulation 2: connect_args connect_timeout=1 -> SIM2_RESULT OperationalError, SIM2_ELAPSED_S 4.451, message connection timeout expired. Production engine still has no timeout (gap).",
+    "Risk surface counted: 6 hang/crash/unhandled modes on the request path (Postgres down/slow, pool, DNS, disk, OOM)."
+  ],
+  "artifacts": [
+    "progress/production-module5-fmea.md",
+    "api/app/scripts/module05_timeout_sim.py",
+    "api/app/db.py"
+  ]
+}

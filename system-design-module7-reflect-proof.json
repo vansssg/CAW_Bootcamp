@@ -1,0 +1,13 @@
+{
+  "summary": "Async analytics queue: 307 never waits on the worker. job_id idempotency restored after a double-count inject. IP hashed. Purge keeps 30-day retention. No Celery/Redis broker claimed.",
+  "evidence": [
+    "DECIDE B async_queue. Two redirects clicks=2. Replay duplicate. Queue-down 307. Purge 4->3.",
+    "Retries need idempotency because delivery is at-least-once. Key is job_id.",
+    "Risk: in-process queue dies on restart. Mitigation: Redis/Celery when :6379 serves."
+  ],
+  "artifacts": [
+    "api/app/jobs.py",
+    "api/app/scripts/module07_jobs_verify.py",
+    "system-design-module7-evaluation-report.json"
+  ]
+}

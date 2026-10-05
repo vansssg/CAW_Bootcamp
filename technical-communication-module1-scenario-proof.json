@@ -1,0 +1,14 @@
+{
+  "summary": "Selected Scenario B (authsvc) for Technical Communication Launchpad because the workspace already has a live API-key auth surface, so reviews and docs can cite real 401/404/not_owner behavior instead of inventing a dashboard.",
+  "evidence": [
+    "Scenario B constraints map to existing code: X-API-Key via API_KEY_A/API_KEY_B, JWT_SECRET is not an API-key alias, not_owner_status=404, public GET /r/{code}.",
+    "Precision of language is the teaching stake: tokens expire vs tokens revoked, 401 unauthenticated vs 404 not_found for another owner's code — those distinctions already exist in api/app/auth.py and the error envelope.",
+    "Default Scenario A (analytics dashboard) would force invented ClickHouse/GDPR docs. Authsvc reuses System Design M04/M05 artifacts: module04_auth_verify.py, redact_secrets, error envelope {error:{code,message,request_id}}.",
+    "bootcamp.product_scenario = authsvc"
+  ],
+  "artifacts": [
+    "api/app/auth.py",
+    "api/app/scripts/module04_auth_verify.py",
+    "api/app/main.py"
+  ]
+}

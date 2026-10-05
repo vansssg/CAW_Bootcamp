@@ -1,0 +1,13 @@
+{
+  "summary": "Verified FMEA: 12 failure-mode rows, two command-backed simulations, desired handling differs from current, pool-exhaustion called out as the newly seen mode, and top risk is Postgres hang because it produces no 5xx.",
+  "evidence": [
+    "Row count: 12 in progress/production-module5-fmea.md (required 8 plus partition, DNS, pool, clock).",
+    "Simulations: GET /live 200 while DB down; connect_timeout=1 -> OperationalError ConnectionTimeout in 4.451s. Default engine still hangs (Module 04 kill after ~30s).",
+    "New mode: connection pool exhaustion, missed because DB-down was treated as a single failure; hang occupies pool slots without incrementing http_requests_total 5xx.",
+    "Top fix: Postgres slow/hang first — high probability, total freeze, HighErrorRate silent. Transient vs permanent: restart timeout may retry; missing schema and this-laptop-down must not retry forever."
+  ],
+  "artifacts": [
+    "progress/production-module5-verify.md",
+    "progress/production-module5-fmea.md"
+  ]
+}

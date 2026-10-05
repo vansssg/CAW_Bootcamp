@@ -1,0 +1,19 @@
+{
+  "summary": "BUILD local fallback: restored /ready with checks JSON, compose app service, CI build+gated deploy. Compose failed on Docker Desktop pipe. ASGI smoke: live 200, ready 503 database disconnected, metrics 200.",
+  "evidence": [
+    "/live 200 {\"ok\":true}. /ready 503 {\"ok\":false,\"checks\":{\"database\":\"disconnected\",\"cache\":\"disconnected\",\"uptime_seconds\":4}}. /readyz same status. /metrics 200 http_requests_total present. SMOKE_EXIT 0.",
+    "docker compose -f infra/docker-compose.yml up -d --build app: unable to get image redis:7-alpine — open //./pipe/dockerDesktopLinuxEngine. COMPOSE_EXIT 1. No public URL.",
+    "Secret names only from api/.env.example: APP_ENV PORT DATABASE_URL REDIS_URL LOG_LEVEL JWT_SECRET CORS_ORIGIN API_KEY_A API_KEY_B. Values not printed.",
+    "CI: build needs lint+test tags url-shortener:${{ github.sha }}. deploy needs build and vars.DEPLOY_BASE_URL. Friday push without that var does not ship.",
+    "Rollback IMAGE_TAG=<previous_sha> compose up -d app untested (daemon down). Failure-first is this host: wrong/down DB makes /ready 503 not 200."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/Dockerfile",
+    "infra/docker-compose.yml",
+    "infra/deploy-local.sh",
+    ".github/workflows/ci.yml",
+    "api/app/scripts/module08_deploy_smoke.py",
+    "progress/production-module8-build.md"
+  ]
+}

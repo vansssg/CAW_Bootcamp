@@ -1,0 +1,14 @@
+{
+  "summary": "Team suite on ASGI: endpoint, permission matrix (viewer cannot comment), cross-team 403, E2E create-invite-accept-comment-audit. CI now runs module08_team_suite after module09. Docs match actual statuses. No Alembic; team store is memory.",
+  "evidence": [
+    "MODULE08_TEAM_SUITE_OK True. E_TEAMS_UNAUTH 401; E_INVITE_DUPLICATE 409; P_VIEWER_CANNOT_COMMENT 403; P_VIEWER_CANNOT_SELF_ADMIN 403; X_CROSS_ALL_DENIED True.",
+    "E2E I_AUDIT_PAIRS includes team created, invitation created, invitation accepted, comment created, mention notify. I_MODULE09_EXIT 0.",
+    "CI test job adds python -m app.scripts.module08_team_suite. Did not run alembic against DATABASE_URL. Docs: api/docs/team-collaboration.md."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module8-build.md",
+    "api/app/scripts/module08_team_suite.py",
+    "api/docs/team-collaboration.md",
+    ".github/workflows/ci.yml"
+  ]
+}

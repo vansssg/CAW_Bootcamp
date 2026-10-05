@@ -1,0 +1,11 @@
+{
+  "summary": "FIX applied: shared booking_status enum; dashboard no longer uses active; contract checklist updated for status agreement.",
+  "evidence": [
+    "module-08-fix.md shared enum and verify steps",
+    "integration-module-08.md Phase 1 item 3 status agreement enforced going forward"
+  ],
+  "artifacts": [
+    "artifacts/checklists/module-08-fix.md",
+    "artifacts/checklists/module-08-break.md"
+  ]
+}

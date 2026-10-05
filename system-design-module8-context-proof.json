@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: max page_size 50 because GET /api/admin/links has no upper bound today and MAX_IN_MEMORY_LINKS is 10000. Allowlist sort=created_at|clicks and order=asc|desc. No code this step.",
+  "evidence": [
+    "list_links(page=1, limit=10) only rejects limit<1. limit=10000 would slice owned[0:10000] — the whole map.",
+    "MAX_IN_MEMORY_LINKS=10000 in api/app/main.py. Unbounded search is the lesson outage (full table scan at peak).",
+    "Allowlist sort/order, not free-form ORDER BY. q is parameterized substring; tags are equality.",
+    "5432 and 6379 still down — no live EXPLAIN this module unless that changes."
+  ],
+  "artifacts": [
+    "progress/system-design-module8-context.md",
+    "api/app/main.py"
+  ]
+}

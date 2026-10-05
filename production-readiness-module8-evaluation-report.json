@@ -1,0 +1,104 @@
+{
+  "events": [
+    {
+      "module": 8,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Capstone used the local compose fallback because Docker Desktop and any public platform were unavailable. /ready was restored with dependency checks and image_sha; a business smoke proved POST /links 200 persisted=memory and GET /r 307 while /ready stayed 503. Bounded in-memory stores and a new runbook cover the ready-green/users-failing split. Public URL, timed rollback, and git push were not done.",
+        "overall": 3,
+        "dimension_scores": [
+          {
+            "key": "containerization_quality",
+            "score": 3,
+            "observation": "Added compose app service, IMAGE_TAG, HEALTHCHECK /live; never started a container because the engine pipe is missing.",
+            "evidence": "docker compose up -d --build app: open //./pipe/dockerDesktopLinuxEngine; image url-shortener:${IMAGE_TAG:-local}."
+          },
+          {
+            "key": "pipeline_design",
+            "score": 3,
+            "observation": "CI build needs lint+test and tags the git SHA; deploy is gated on vars.DEPLOY_BASE_URL so Friday main pushes do not ship.",
+            "evidence": ".github/workflows/ci.yml deploy if: github.ref == refs/heads/main && vars.DEPLOY_BASE_URL != ''."
+          },
+          {
+            "key": "observability_coverage",
+            "score": 4,
+            "observation": "/ready returns checks including database, cache, uptime_seconds, image_sha, in_memory_links; /metrics includes http_requests_total, duration, urls_total.",
+            "evidence": "READY 503 {\"ok\":false,\"checks\":{\"database\":\"disconnected\",\"cache\":\"disconnected\",\"uptime_seconds\":4,\"image_sha\":\"unknown\",\"in_memory_links\":0}}; /metrics 200 1346 bytes."
+          },
+          {
+            "key": "failure_thinking",
+            "score": 4,
+            "observation": "Found ready vs work-path split, unbounded RAM stores, and SHA-less process; did not invent a green public /ready.",
+            "evidence": "POST_LINKS 200 persisted memory while READY 503; GIT_SHA_IN_PROCESS UNSET; DEBUG_ERROR 500."
+          },
+          {
+            "key": "degradation_design",
+            "score": 3,
+            "observation": "Breaker still fail-closes /ready; creates still persist=memory. Caps stop unbounded growth but do not make writes durable.",
+            "evidence": "MAX_IN_MEMORY_LINKS 10000; SMOKE still persisted=memory; /ready 200 never observed."
+          },
+          {
+            "key": "documentation_quality",
+            "score": 4,
+            "observation": "Recorded compose failure, listed env names without values, and added a runbook for ready-green user failures.",
+            "evidence": "docs/runbooks/ready-green-users-failing.md; progress/production-module8-verify.md public URL missing."
+          }
+        ],
+        "strengths": [
+          "Refused to claim a public URL or a sub-2-minute rollback when Docker and Railway were absent.",
+          "Measured the inverse lie: /ready 503 while POST /links 200 persisted=memory and /r 307.",
+          "Blue-green + automated rollback reasoning named the /readyz path-drift and the hole if rollback keys only off SELECT 1."
+        ],
+        "growth_areas": [
+          "No live compose deploy, so IMAGE_SHA stayed unknown and rollback was not timed.",
+          "Durable Postgres writes for POST /links were not implemented; memory SoT remains."
+        ],
+        "recommendation": "When Docker Desktop is running, time IMAGE_TAG rollback on compose and fail /ready in production if image_sha is unknown.",
+        "public_evidence": [
+          {
+            "artifact": "Deploy-and-verify local fallback with readiness checks and business smoke",
+            "student_action": "Hardened /ready JSON, gated CI deploy, bounded in-memory stores, and ran ASGI smoke plus a failed compose up.",
+            "technical_detail": "GET /ready and /readyz; module08_deploy_smoke.py; infra/docker-compose.yml app service; ci.yml build+deploy jobs.",
+            "proof": "SMOKE_OK True: LIVE 200, READY 503 with image_sha, POST /links 200 persisted=memory, GET /r 307. compose: Docker Desktop pipe missing.",
+            "ability": "Treats deploy as verification with honest environment blockers, not as a pipeline checkbox.",
+            "reviewer_value": "Shows readiness vs business-path split and SHA-tagged rollback design without fabricating a cloud URL.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Deploy vs upload",
+              "evidence": "CI deploy skipped without DEPLOY_BASE_URL; compose up failed; smoke still required."
+            },
+            {
+              "concept": "Readiness vs liveness vs smoke",
+              "evidence": "/live 200, /ready 503 SELECT 1, POST /links 200 memory, GET /r 307."
+            },
+            {
+              "concept": "Config drift",
+              "evidence": "image_sha=unknown unless IMAGE_TAG/GITHUB_SHA injected; compose DATABASE_URL overrides .env."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Failure-first without a public host",
+              "approach": "example",
+              "detail": "Used already-down Postgres as the bad DATABASE_URL drill; /ready 503 with checks.database=disconnected.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "operational_risk_awareness",
+            "honest_blocker_reporting"
+          ],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}

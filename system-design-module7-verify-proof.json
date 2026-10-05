@@ -1,0 +1,12 @@
+{
+  "summary": "Retries re-deliver the same job; without a job_id set they increment twice (overnight 'growth'). Idempotency key is job_id (= request_id). Analytics failure must not block 307.",
+  "evidence": [
+    "IDEM_FIRST written IDEM_SECOND duplicate — same payload replay did not add a fourth click (CLICKS_AFTER_REPLAY 3 = 2 redirects + 1 unique replay).",
+    "Idempotency key: job_id from X-Request-ID / request.state.req_id. Two different redirects have two ids so clicks=2 is correct; retrying one id stays 1.",
+    "QUEUE_DOWN_REDIRECT 307 — degrade/drop the click, never stall the hot path. Blocking redirect would couple users to a queue that is already down."
+  ],
+  "artifacts": [
+    "api/app/jobs.py",
+    "api/app/scripts/module07_jobs_verify.py"
+  ]
+}

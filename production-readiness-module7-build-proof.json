@@ -1,0 +1,16 @@
+{
+  "summary": "BUILD: docs/service-overview.md plus three linear runbooks. Followed postgres-unreachable.md against the real down DB. Five first-test mismatches fixed from LIVE 200 0.052, READY 503 4.082 service_unavailable, Docker pipe error, TCP TimeoutError. Did not docker stop/start.",
+  "evidence": [
+    "Overview: two-sentence purpose, dependency table with M06 fallbacks, endpoints, env vs hardcoded breaker constants, git push deploy (CI does not ship), git revert rollback, 15-minute escalation.",
+    "Runbooks: postgres-unreachable, high-error-rate, high-latency. Container names linkops-postgres and url-shortener-prod. Never docker rm.",
+    "Drill: LIVE 200 0.052 {\"ok\":true}; READY1 503 4.082; READY2 503 4.073; docker Desktop pipe missing; TimeoutError timed out on 5432.",
+    "Five runbook edits after walking the list as a stranger. /ready 200 not claimed."
+  ],
+  "artifacts": [
+    "docs/service-overview.md",
+    "docs/runbooks/postgres-unreachable.md",
+    "docs/runbooks/high-error-rate.md",
+    "docs/runbooks/high-latency.md",
+    "progress/production-module7-runbook-drill.md"
+  ]
+}

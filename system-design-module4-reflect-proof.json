@@ -1,0 +1,14 @@
+{
+  "summary": "API-key auth with principal_id, 404 not-owner, public redirect, and proven 429 matrix. IDOR on admin list reproduced then closed; keys moved to env. Memory-backed create because Postgres is down.",
+  "evidence": [
+    "Auth method A: X-API-Key. Practice learned: authN != authZ (BREAK_IDOR_LEAK True then FIX_IDOR_LEAK False).",
+    "Checkpoint: NO_AUTH 401; CREATE_A 200; GET /r/{code} 307 public; 6th POST /links 429. JWT_SECRET as key now 401.",
+    "Risk: in-memory store/limiter. Mitigation: owner column in Postgres + Redis limiter when those ports serve. Did not fabricate a DB write."
+  ],
+  "artifacts": [
+    "progress/system-design-module4-reflect.md",
+    "system-design-module4-evaluation-report.json",
+    "api/app/scripts/module04_auth_verify.py",
+    "api/app/scripts/module04_auth_break.py"
+  ]
+}

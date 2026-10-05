@@ -1,0 +1,12 @@
+{
+  "summary": "Module 06 REFLECT complete: evaluation submitted (overall 4 / 8.3/10). Isolated branches + checkpoint syncs; caught status available vs open enum violation.",
+  "evidence": [
+    "upsk report ok; latest_report_module 6; score 8.3/10",
+    "integration_judgment 5; contracts + break/fix artifacts under artifacts/parallel and artifacts/contracts"
+  ],
+  "artifacts": [
+    "decomposition-module6-evaluation-report.json",
+    "artifacts/contracts/module-06-interface-contracts.md",
+    "artifacts/parallel/module-06-execution-plan.md"
+  ]
+}

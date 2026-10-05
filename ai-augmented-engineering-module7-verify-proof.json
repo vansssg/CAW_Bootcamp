@@ -1,0 +1,15 @@
+{
+  "summary": "Targeted allowlist on createInvitation: member/viewer only. First edit dropped ADMIN_ROLES and invite routes 500; restored both constants. Recheck: owner/superadmin 400, member invite+accept 200 role=member, privilege escalation False, cross-team all 403, module09 exit 0.",
+  "evidence": [
+    "Fix prompt in progress/ai-augmented-module7-fix-prompt.md. INVITE_ROLES member/viewer after require_team_admin; invalid role HTTP 400 Invalid role.",
+    "Regression: SCAN_B_INVITE_OWNER_STATUS 500 and V_MEMBER_ROLE_STATUS 500 when ADMIN_ROLES was removed. After restore: SCAN_A_INVITE_OWNER_STATUS 400; SCAN_ROLE_SUPERADMIN_STATUS 400; SCAN_PRIVILEGE_ESCALATION False.",
+    "VERIFY: V_OWNER_ROLE_STATUS 400; V_SUPERADMIN_ROLE_STATUS 400; V_MEMBER_ROLE_STATUS 200; V_ACCEPT_MEMBER_STATUS 200; V_B_ROLE member; V_PRIVILEGE_ESCALATION False.",
+    "Cross-team B on A's secret team: V_CROSS_INVITE 403; V_CROSS_COMMENT 403; V_CROSS_AUDIT 403; V_CROSS_LIST 403; V_CROSS_ALL_DENIED True. V_MODULE09_EXIT 0. Postgres/Redis/Docker not claimed."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-verify.md",
+    "progress/ai-augmented-module7-fix-prompt.md",
+    "api/app/invitations.py",
+    "api/app/scripts/module07_verify.py"
+  ]
+}

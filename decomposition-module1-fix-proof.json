@@ -1,0 +1,14 @@
+{
+  "summary": "FIX: proposed Option 1 platform-first 24h-from-booking refunds vs Option 2 provider buckets plus 1h cooling-off. U-F8 and P-F4 marked BLOCKED. Named affected pay/earnings/testability rows. Flagged calendar-autonomy vs concurrent-book tension.",
+  "evidence": [
+    "Option 1: full refund if canceled_at - booked_at < 24h; P-F4 dies; one checkout sentence.",
+    "Option 2: 1h platform floor then structured provider policy vs appointment; shown before pay.",
+    "Did not pick for the PM. Mixing is the six-week rebuild.",
+    "Touched: U-F5 hold vs capture, O-F5/P-F6 earnings after refund, O-Q2 structured vs free-text.",
+    "Tension: P-F1 simple calendar vs O-C2 thousands of concurrent books → slot lock/version."
+  ],
+  "artifacts": [
+    "progress/decomposition/module1-fix.md",
+    "artifacts/requirements/module-01-requirements.md"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "events": [
+    {
+      "module": 7,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose AI-assisted hybrid (B). The first-pass scan marked POST invite authorized because require_team_admin existed; a human critical-path probe with role=owner showed SCAN_PRIVILEGE_ESCALATION True. VERIFY allowlisted invite roles, then a 500 from dropping ADMIN_ROLES was restored. BREAK was composition: duplicate pending invites, GET list tokens, accept overwrite (viewer to member). FIX mounted PUT with admin/owner, no self-modify, enum, and closed those three invite holes. Thirteen PUT cases passed.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "prompt_quality",
+            "score": 4,
+            "observation": "Fix prompts named the route, the wrong check, the allowlist, and what not to change, then added six PUT constraints plus pending uniqueness and token stripping.",
+            "evidence": "progress/ai-augmented-module7-fix-prompt.md; INVITE_ROLES member/viewer; PUT constraints 1-6."
+          },
+          {
+            "key": "review_thoroughness",
+            "score": 4,
+            "observation": "Auth map caught unconstrained invite.role in BUILD. Missed until BREAK that GET tokens, duplicate pending, and accept overwrite compose into self-promotion.",
+            "evidence": "SCAN_PRIVILEGE_ESCALATION True in BUILD; BREAK_VIEWER_PROMOTED True; BREAK_GET_LIST_TOKEN_LEAK True."
+          },
+          {
+            "key": "iteration_efficiency",
+            "score": 4,
+            "observation": "One allowlist edit caused HTTP 500 when ADMIN_ROLES was removed; restored both constants, then one composition patch. No rewrite of comments/audit.",
+            "evidence": "V_MEMBER_ROLE_STATUS 500 then 200; FIX_THIRTEEN_ALL True without restarting the team modules."
+          },
+          {
+            "key": "judgment",
+            "score": 5,
+            "observation": "Did not invent a live PUT in BUILD; treated invite.role as the analog. Did not claim Postgres, Redis, or Docker. Human hour spent on role writes, not scanner green.",
+            "evidence": "DECIDE B; PUT 404 in BREAK then constrained PUT in FIX; V_MODULE09_EXIT 0 via ASGI only."
+          },
+          {
+            "key": "final_quality",
+            "score": 4,
+            "observation": "Owner/superadmin invite 400; viewer cannot self-promote; thirteen PUT cases; cross-team 403; module09 green. GET audit still any member; no single E2E journey.",
+            "evidence": "FIX_THIRTEEN_ALL True; BREAK_VIEWER_PROMOTED False; V_CROSS_ALL_DENIED True; V_MODULE09_EXIT 0."
+          }
+        ],
+        "strengths": [
+          "Probed role=owner even when the scanner marked POST invite as authorized.",
+          "Measured the BREAK composition instead of only restating the lesson PUT curl."
+        ],
+        "growth_areas": [
+          "BUILD listed GET token leak and accept overwrite as separate mediums; they were not combined until BREAK."
+        ],
+        "recommendation": "Add a composition pass after every auth map: for each medium finding, name one other finding that would turn it critical if both are true.",
+        "public_evidence": [
+          {
+            "artifact": "Team invite role allowlist and member role PUT",
+            "student_action": "Rejected unconstrained invitation roles, then added PUT /teams/{id}/members/{uid} with admin/owner checks, blocked self-modify, and closed duplicate-pending plus list-token privilege writes.",
+            "technical_detail": "createInvitation INVITE_ROLES; update_member_role; listInvitations omits token; acceptInvitation 409 if already a member",
+            "proof": "FIX_THIRTEEN_ALL True; BREAK_VIEWER_PROMOTED False after fix; V_PRIVILEGE_ESCALATION False; V_CROSS_ALL_DENIED True; module09 exit 0.",
+            "ability": "Reviews AI-generated authorization as privilege, not as the presence of a middleware function.",
+            "reviewer_value": "Shows they can turn a security review into a constrained patch with regression tests, not a vague 'fix auth' prompt.",
+            "confidence": "verified"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "privilege-analysis",
+              "evidence": "Viewer accepted a second pending invite after GET list leaked a token and became member; FIX_THIRTEEN_ALL True on PUT."
+            },
+            {
+              "concept": "security-audit",
+              "evidence": "Auth map plus SCAN_PRIVILEGE_ESCALATION True then False; cross-team all 403."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Finding composition",
+              "approach": "example",
+              "detail": "Ran a probe that chained duplicate invite, list token, and accept overwrite instead of only PUT 404.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "probe_then_patch"
+          ],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

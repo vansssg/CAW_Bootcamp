@@ -1,0 +1,33 @@
+Interlude: The Cloudflare Regex That Took Down the Internet
+
+Delivered between Module 4 (Authentication) and Module 5 (Error Handling)
+
+---
+
+July 2, 2019. ‍​‍​​Cloudflare processes roughly 10% of all HTTP requests on the internet.
+
+​​​​​At 13:42 UTC, a software engineer deployed a new firewall rule to Cloudflare's Web Application Firewall. ​​​​‌The rule contained a regular expression designed to detect a specific attack pattern. ​‌​‌​The regex looked fine. ‌​‌​‌It passed review. ‌‌​‌​It was syntactically correct.
+
+‌​​​​It also caused catastrophic backtracking.
+
+​‌​​​Within seconds, every CPU on every Cloudflare edge server worldwide spiked to 100%. ​​‌​‌Not some of them. ​​​​​All of them. ‌​‌‌​Every Cloudflare Point of Presence — 194 cities across 90 countries — was suddenly unable to process HTTP traffic.
+
+‌‌​​​Cloudflare customers saw 502 errors. ‌‌‌‌​Their customers saw nothing at all. ​​​‌‌Discord went down. ​‌‌‌‌Major websites vanished. ​‌‌‌‌For 27 minutes, a significant chunk of the internet was unreachable.
+
+​​‌​‌The root cause? ​‌​​​A single regular expression: (?:(?:\"|'|\]|\}|\\|\d|(?:nan|infinity|true|false|null|undefined|symbol|math)|\|\-|\+)+[)];?((?:\s|-|~|!|{}|\|\||\+).(?:.=.*)))`
+
+That .(?:.=.*) at the end. ​​‌​​On certain inputs, the regex engine explores an exponential number of paths trying to find a match. ​​​‌​The CPU never gives up — it just keeps trying until every core is saturated.
+
+‌​‌‌​A single regex. ​​​‌​No hack. ‌​‌‌​No attack. ​‌‌​​Just a deploy that nobody caught.
+
+‌​‌​‌The postmortem is brutal in its honesty. ‌​‌​​Cloudflare published every detail: the exact regex, the exact timeline, the exact failure cascade. ‌​​‌‌They admitted their WAF did not have CPU usage limits per rule. ​​‌‌​They admitted their testing did not include backtracking detection. ‌‌‌​‌They admitted their deploy process allowed a global rollout without canary testing.
+
+‌​​‌​---
+
+Reflection
+
+You just built authentication. ​​‌‌​You are about to build error handling. ​‌‌‌​Consider this:
+
+1. ‌​‌​​The Cloudflare engineer who wrote that regex was not incompetent. ‌‌‌​​They were experienced. ​​​‌‌The regex was reviewed. ​‌​‌​But nobody asked: "What happens with adversarial input?" ‌‌‌​‌When you build your error handling, what is your equivalent of the adversarial input? ‌​‍‌‍What happens when your system receives something it was never designed for?
+
+2. Cloudflare's response was to publish everything. The full postmortem, the exact code, the timeline. Some companies would have hidden behind "a brief service disruption." Why does transparency matter in incident response? How would you write a postmortem for the bugs you have fixed so far?

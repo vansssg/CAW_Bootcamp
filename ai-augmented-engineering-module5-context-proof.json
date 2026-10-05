@@ -1,0 +1,12 @@
+{
+  "summary": "CONTEXT: surface vs structural, two-iteration rule, and the activity-feed micro-exercise. Iterate on Output B (right architecture, stubs). Restart Output A (DB NOTIFY coupling). Invitation IDOR/email/regex were surface; a Link-field or NOTIFY design would have been structural.",
+  "evidence": [
+    "Surface on this service: camelCase names, email format, empty team name — each fix left accept/SQL/create intact.",
+    "Structural counterfactual: Postgres NOTIFY on INSERT while localhost:5432 is down, or storing invites on Link rows — would require a rewrite, not a follow-up.",
+    "Two-iteration: prompts 1-3 on create/SQL/email converged; accept IDOR needed a new named prompt, not a fifth patch on the same broken SQL helper.",
+    "Micro-exercise: iterate B (pub/sub, fill stubs); restart A (NOTIFY, no team filter). Sunk cost is keeping A's clean naming."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module5-context.md"
+  ]
+}

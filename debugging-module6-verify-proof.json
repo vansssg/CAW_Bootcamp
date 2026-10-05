@@ -1,0 +1,14 @@
+{
+  "summary": "VERIFY: Bug10 chain is 10 steps worker persist fail → shared pool → /ready hang; /live stays up. Bug9 stayed invisible because QA creates/reads and a 60s TTL self-heals. Alert: worker pool saturation or job_retry_backoff rate. Did not lower TTL or grow the API pool.",
+  "evidence": [
+    "Chain: persist fail → immediate retry (naive 6 in 0.0s) → checkout on shared engine → pool full → /ready waits pool_timeout=1 → probes fail. /live 200 0.003s does not checkout.",
+    "After fix: dead_letter 6 attempts 3.107s delays 0.1..1.6; POOL_ISOLATED True. Live pool fill not observed (5432 TimeoutError).",
+    "Bug9: DELETE 200 SOT False then GET /r 404. Seeded stale cache 404 cache_sot_mismatch. TTL_S=60. Not a TTL reduction.",
+    "Alert: worker checked-out == 2 for >10s or job_retry_backoff logs, not 5xx."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-verify.md",
+    "progress/debugging-module6-build.md",
+    "api/app/scripts/module06_multilayer_probe.py"
+  ]
+}

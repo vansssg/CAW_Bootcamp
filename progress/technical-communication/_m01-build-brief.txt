@@ -1,0 +1,113 @@
+STEP 3: BUILD
+
+Artifact drafting starts now.
+
+‍​‍Real Artifact Path
+
+Default path (recommended): use the scenario below. ​​​It is self-contained and does not require any prior upsk artifacts.
+
+​​​Advanced portfolio option (optional): if you already have an artifact from another skill (for example a Dockerfile, system design, or migration plan), you can review that instead.
+
+​​​Artifact Contract
+
+Save your final submission as code-review.md.
+
+​​‌Required headings in code-review.md:
+
+- # Code Review: Add user summary generation
+- ## Decision
+- ## Strengths
+- ## Required Changes (Bugs)
+- ## Suggestions (Readability / Style)
+- ## Final Verdict
+
+The Scenario
+
+You are a developer on a small team building an internal tool that manages user accounts. ​‌​A teammate has submitted a pull request that adds a function to process a list of user records and return a summary. ‌​‌Here is the PR.
+
+​‌​PR Title: "Add user summary generation"
+
+PR Description: "This adds a function to process user records and generate a summary report. ‌‌‌It counts active and inactive users and calculates the average account age."
+
+​‌​The Code (Python):
+
+def generate_user_summary(users):
+    """Generate a summary of user records."""
+    ‌​​d = {}
+    cnt = 0
+    cnt2 = 0
+    total_age = 0
+
+    for i in range(len(users)):
+        user = users[i]
+        if user["status"] == "active":
+            cnt = cnt + 1
+            total_age = total_age + user["account_age_days"]
+        else:
+            cnt2 = cnt2 + 1
+            total_age = total_age + user["account_age_days"]
+
+    d["active_users"] = cnt
+    d["inactive_users"] = cnt2
+    d["total_users"] = cnt + cnt2
+    d["average_account_age"] = total_age / cnt
+
+    # Build the label
+    if cnt > cnt2:
+        if cnt > 100:
+            if d["average_account_age"] > 365:
+                d["health"] = "mature"
+            else:
+                d["health"] = "growing"
+        else:
+            d["health"] = "small-active"
+    else:
+        d["health"] = "at-risk"
+
+    return d
+
+What Is in This PR (Your Reviewer's Cheat Sheet)
+
+This PR contains exactly four things worth commenting on. ​​​Part of the skill of code review is identifying each type:
+
+1. ‌​​One correctness bug. ​​​Line d["average_account_age"] = total_age / cnt will crash the program with a ZeroDivisionError if there are zero active users. ‌​‌The variable cnt would be 0, and dividing by zero is a runtime error -- the program stops and throws an exception. ​​​This is not a style issue. ​​‌This is a bug that will break in production.
+
+​‌‌2. ​‌‌One readability issue. ​​​The variable names d, cnt, cnt2, and total_age are unclear. ‌‌‌Someone reading this code six months from now (including the author) will have to mentally decode what each one means. ‌​​cnt and cnt2 are particularly bad -- which count is which? ​​‌Also, the for i in range(len(users)) pattern is less readable than iterating directly over the list. ‌​‌And the deeply nested if/else block for health classification is hard to follow.
+
+‌‌‌3. ​‌‌One defensible style choice. ‌‌​The author used a dictionary (d) and built it up manually instead of using a dataclass, named tuple, or dedicated return object. ​‌​This is a valid approach -- especially for a small internal tool. ‌​‌You might prefer a different pattern, but this is not wrong. ​​​It is a preference.
+
+​​‌4. ​​​One thing done well. ​​‌The function is self-contained. ​‌​It takes input, processes it, and returns a result with no side effects (it does not modify the input, write to a database, or print anything). ‌‌​This is good design. ​​​The docstring exists, even if it is minimal. ‌​‌And the health classification logic, while nested, does capture a real business concept.
+
+​‌‌Your Task
+
+Write a full code review of this PR using the style you chose in STEP 2. ​​‌Here are the requirements:
+
+Every criticism must include a suggestion or a question. ‌​​Not "this is wrong" but "this will crash when there are zero active users -- consider adding a check like if cnt == 0: return early or set a default" or "What should happen when there are no active users? ‌​‌Right now this line will raise a ZeroDivisionError."
+
+​‌‌You must acknowledge at least one positive aspect. ​‌​Real code reviews that are 100% negative are demoralizing and dishonest. ​‌​There is always something worth calling out -- even if it is just "the function signature is clean" or "I like that this has no side effects."
+
+​‌‌You must distinguish bugs from style preferences. ​​‌The division-by-zero is a bug. ‌​‌It will break the program. ‌‌​The variable naming is a readability concern. ‌‌​The dictionary-vs-dataclass choice is a style preference. ​‌​These three categories deserve different levels of urgency in your review. ​​‌Treating a style preference like a critical bug is how reviewers lose credibility.
+
+‌​​The review must be actionable without a meeting. ‌‌‌When the author reads your review, they should know exactly what to do next. ​‌​They should not need to Slack you, schedule a call, or guess what you meant. ‌​​This is the gold standard: could the author merge or revise based solely on what you wrote?
+
+‌‌‌The Read-Aloud Test
+
+PAUSE. ​​​Before you finalize your review, try this:
+
+Read your review aloud, but pretend you are the PR author receiving it. ​​‌Read every comment as if someone wrote it about your code.
+
+‌​‌Does anything sting? ​‌​Does any comment feel like a personal dig rather than a technical observation? ‌‌‌Does anything make you feel defensive rather than informed?
+
+​‌‌If it stings, rewrite it. ​‍‌The technical point can stay. ‍The phrasing changes.
+
+Here are examples of the same feedback with very different impact:
+
+| Stings | Lands |
+|--------|-------|
+| "Why would you name a variable d?" | "Could we rename d to something like summary? It would make the return value clearer when reading the function." |
+| "This will obviously crash." | "This line will raise a ZeroDivisionError when there are no active users. What should the function return in that case?" |
+| "This nesting is a mess." | "This nested if/else block is doing a lot of work. Would it be clearer as a separate helper function, or maybe an early-return pattern?" |
+
+Notice the pattern: questions and suggestions instead of judgments. The technical substance is identical. The human experience is completely different.
+
+---

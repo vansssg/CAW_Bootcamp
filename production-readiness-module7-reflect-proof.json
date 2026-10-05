@@ -1,0 +1,16 @@
+{
+  "summary": "REFLECT: kept checklist after the drill; added Step 2b when /ready 404 silenced the list. Used runbooks have pasted host output. Onboard path is overview then one runbook. Stale-path prevention is PR+incident+weekly re-walk. Mini proof: /readyz 503 4.049.",
+  "evidence": [
+    "DECIDE A checklist still chosen; hybrid only for PATH DRIFT after BREAK 404 0.008 with no row.",
+    "Used vs ignored: five first-walk patches (JSON spacing, no 4ms after one probe, Docker pipe error) plus /readyz after 404.",
+    "Onboard: docs/service-overview.md then docs/runbooks/*. Gaps: no ServiceDown book; /readyz 200 never seen; Docker Desktop down.",
+    "Prevent drift: same PR as health-route change; update after every incident; weekly re-walk; ASGI one-liners as smoke.",
+    "Mini VERIFY: status 503 secs 4.049 error.code=service_unavailable failure_mode=postgres_connect_or_query_timeout on /readyz."
+  ],
+  "artifacts": [
+    "progress/production-module7-reflect.md",
+    "docs/service-overview.md",
+    "docs/runbooks/postgres-unreachable.md",
+    "production-readiness-module7-evaluation-report.json"
+  ]
+}

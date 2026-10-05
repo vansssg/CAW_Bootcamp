@@ -1,0 +1,11 @@
+{
+  "summary": "Challenger interlude: accuracy insufficient without audience-framed stakes and escalation process; need both persuasive communication and halt-authority procedures.",
+  "evidence": [
+    "Q1: Being right fails when burden-of-proof flips and audience hears engineering charts not decision stakes; advise decision memo with consequence, ask, and escalate path — not more charts alone.",
+    "Q2: Reframe 'no canary' as revenue/reputation: 'We can ship Friday, but first bad deploy hits all users for hours with no automatic stop — canary costs 1 day and limits blast to 5%.' Emphasize downside dollars/customers not pipeline jargon.",
+    "Q3: Procedures (any engineer can halt) + communication skills both required; skills without authority = ignored memo; process without skills = unused red button. Neither replaces the other."
+  ],
+  "artifacts": [
+    "technical-communication-module4-interlude-proof.json"
+  ]
+}

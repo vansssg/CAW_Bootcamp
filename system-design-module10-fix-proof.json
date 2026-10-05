@@ -1,0 +1,15 @@
+{
+  "summary": "FIX: healthcheck back to /live. LIVE 200 so liveness would not kill the single container. /ready still 503 with database disconnected. docker info exit 1 — no container curl. Shutdown handler and 30s graceful flag remain.",
+  "evidence": [
+    "BREAK was HEALTHCHECK /ready with READY 503. FIX Dockerfile and railway.toml healthcheckPath /live.",
+    "LIVE_STATUS 200 PROBE_STATUS_IF_HEALTHCHECK 200 PLATFORM_WOULD_KILL_SINGLE_CONTAINER False.",
+    "READY_STATUS 503 READY_DATABASE disconnected. SHUTDOWN_HANDLER True GRACEFUL_SHUTDOWN_FLAG True.",
+    "docker info exit 1. CONTAINER_RUN not_run. Curl replacement: ASGI GET /live and GET /ready."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "railway.toml",
+    "api/app/scripts/module10_fix_probe.py",
+    "progress/system-design-module10-fix.md"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: vetting→admin dashboard→provider data→vetting is a cycle. Reordering cannot start any node. Weakest assumption: data does not exist until approved. Second: vetting requires the full dashboard. PM phrasing: three features each wait on another so none can start.",
+  "evidence": [
+    "Cycle: W3 needs W12, W12 needs W2, W2 needs W3 if live-only data.",
+    "Not a task-list order problem; definitions make a logical impossibility.",
+    "Weakest: submit vs go-live (pending status). Also: CLI/spreadsheet approve without full admin UI.",
+    "Dashboard needing some rows is the most believable of the three edges."
+  ],
+  "artifacts": [
+    "progress/decomposition/module2-break.md",
+    "artifacts/dag-module-02.md"
+  ]
+}

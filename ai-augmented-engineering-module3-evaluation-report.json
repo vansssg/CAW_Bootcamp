@@ -1,0 +1,101 @@
+{
+  "events": [
+    {
+      "module": 3,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student applied context engineering with strong execution discipline by building layered-surgical context packages, producing three first-pass artifacts, and then validating convention fit against repository evidence. They identified a concrete convention drift in error-status assumptions, traced it to missing explicit error-contract context, and confirmed improvement through a targeted rerun. Their reasoning stayed evidence-first throughout BUILD, VERIFY, BREAK, and FIX, with clear separation between observed behavior and assumptions.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "prompt_quality",
+            "score": 5,
+            "observation": "Constructed clear context bundles with explicit file inclusion rationale and omission-risk analysis, then tightened context contracts to reduce drift.",
+            "evidence": "Defined reusable system-level context and per-task bundles in `progress/module-03-system-context.md` and `progress/module-03-context-packages.md`."
+          },
+          {
+            "key": "review_thoroughness",
+            "score": 5,
+            "observation": "Performed convention-level verification against source-of-truth files and captured specific mismatch patterns rather than vague quality judgments.",
+            "evidence": "Recorded per-task matches/mismatches and missing-context hypotheses in `progress/module-03-verify-convention-matching.md`."
+          },
+          {
+            "key": "iteration_efficiency",
+            "score": 4,
+            "observation": "Used a focused single-breakpoint correction loop and validated improvement with a direct rerun, avoiding unnecessary broad rework.",
+            "evidence": "Applied one targeted context fix and re-ran permission plan to produce `progress/module-03-team-invitation-permission-plan-rerun.md`."
+          },
+          {
+            "key": "judgment",
+            "score": 5,
+            "observation": "Made strong decisions about what must be evidenced versus what must remain explicitly assumption-tagged.",
+            "evidence": "Distinguished evidenced `400/404` behavior from assumption-only `401/403/409/422` mappings during BREAK/FIX and in rerun output."
+          },
+          {
+            "key": "final_quality",
+            "score": 4,
+            "observation": "Delivered a complete context-engineering artifact chain with traceable verification and fix evidence while preserving non-invasive workflow constraints.",
+            "evidence": "Shipped requirements/schema/permission artifacts plus verify-break-fix documentation under `progress/` without application code changes."
+          }
+        ],
+        "strengths": [
+          "Strong context selection discipline with clear file-level justification and scope control.",
+          "Excellent evidence-driven review quality, including explicit convention matching and mismatch tracing.",
+          "High engineering judgment in isolating root cause to missing context and proving correction through rerun evidence."
+        ],
+        "growth_areas": [],
+        "recommendation": "In Module 4, keep the same convention checks but add a compact pre-run checklist that explicitly locks error/status contracts and required evidence files before each agent run.",
+        "public_evidence": [
+          {
+            "artifact": "Context-engineering package for Team Invitation planning",
+            "student_action": "Built reusable system context and three task-specific context bundles, executed first-pass outputs, verified convention fit, and corrected a drift via targeted context update and rerun.",
+            "technical_detail": "Produced `progress/module-03-system-context.md`, `progress/module-03-context-packages.md`, `progress/module-03-team-invitation-requirements.md`, `progress/module-03-team-invitation-schema-plan.md`, `progress/module-03-team-invitation-permission-plan.md`, `progress/module-03-verify-convention-matching.md`, `progress/module-03-break-convention-violation.md`, `progress/module-03-fix-missing-context.md`, and `progress/module-03-team-invitation-permission-plan-rerun.md`.",
+            "proof": "BREAK evidence identified error-contract drift; FIX rerun aligned output to `HTTPException` + `{\"detail\":\"...\"}` conventions grounded in `api/app/main.py`.",
+            "ability": "Designs and verifies AI context packages that improve output compatibility with an existing codebase.",
+            "reviewer_value": "Demonstrates practical AI-assisted engineering maturity: precise context curation, convention-aware review, and evidence-backed correction loops.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Layered-surgical context engineering",
+              "evidence": "Explained and applied architecture/local/constraint context separation to produce first-pass artifacts."
+            },
+            {
+              "concept": "Convention drift detection",
+              "evidence": "Identified mismatch between proposed error status handling and runtime-convention evidence in `api/app/main.py`."
+            },
+            {
+              "concept": "Context-first corrective iteration",
+              "evidence": "Corrected output drift by updating context constraints and rerunning Task 3 instead of changing prompt intent."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Convention matching verification",
+              "approach": "example",
+              "detail": "Used concrete file-level comparison against runtime handlers, model/migration patterns, and error envelope behavior.",
+              "effective": true
+            },
+            {
+              "concept": "Root-cause tracing in BREAK/FIX",
+              "approach": "guided_discovery",
+              "detail": "Prompted hypothesis-first diagnosis, then validated with direct convention evidence and rerun confirmation.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "structured_reasoning",
+            "risk_aware_review"
+          ],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

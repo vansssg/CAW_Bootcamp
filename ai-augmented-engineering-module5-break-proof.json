@@ -1,0 +1,13 @@
+{
+  "summary": "Round-3 spiral: heartbeat/reconnect path closes the WebSocket after the first event. First invitation.created arrives; the second does not; socket closes silently. Bus architecture is unchanged.",
+  "evidence": [
+    "BREAK_DROP_FLAG True; BREAK_FIRST_EVENT_OK True; BREAK_SECOND_EVENT_MISSING True; BREAK_SILENT_CLOSE True.",
+    "Diagnosis: round3_heartbeat_close_after_first_dispatch — reconnection handler conflicts with the Queue writer from round 2.",
+    "Log was still converging before this round (4/4). This drop is a regression, not a plateau."
+  ],
+  "artifacts": [
+    "api/app/activity.py",
+    "api/app/scripts/module05_activity_break.py",
+    "progress/ai-augmented-module5-break.md"
+  ]
+}

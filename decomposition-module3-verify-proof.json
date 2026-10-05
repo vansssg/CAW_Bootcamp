@@ -1,0 +1,13 @@
+{
+  "summary": "VERIFY: first three retire identity, listing/city/pending, and the payment unknown. Auth is item 1 as foundation not as risk. Demo five is W1 W2 W7 W4 W6. Spike is item 3 before W8.",
+  "evidence": [
+    "After item 3: know whether payments fit refund clocks; UI not yet piled on.",
+    "Auth score 2 dependency vs W7 score 5 integration. Foundational != risky.",
+    "Bottom 3: W10 email vendor is hidden integration but soft; W9 still 1.",
+    "Demo 5 matches order prefix. Spike sits on W7 before production W8."
+  ],
+  "artifacts": [
+    "progress/decomposition/module3-verify.md",
+    "artifacts/risk-plan-module-03.md"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "summary": "FIX: redirect keys link:redirect:<code>, dedup analytics:dedup:<job_id>. Invalidate only redirect. Purge events on DELETE. Recreate clicks 2 not 4. Namespaces disjoint. Redis still down so keys are in-process.",
+  "evidence": [
+    "BEFORE_DELETE_CLICKS 2 AFTER_DELETE_EVENTS 0 AFTER_RECREATE_CLICKS 2 DOUBLED False",
+    "cache_invalidate cache_key=link:redirect:deadbeef; REDIRECT_KEYS ['link:redirect:deadbeef']; NAMESPACES_DISJOINT True",
+    "IDEM_SECOND duplicate still; STALE_AVOIDED True on PATCH; JOBS:0 CACHE:0"
+  ],
+  "artifacts": [
+    "progress/debugging-module6-fix.md",
+    "api/app/cache.py",
+    "api/app/jobs.py",
+    "api/app/main.py",
+    "api/app/scripts/module06_break_recreate.py"
+  ]
+}

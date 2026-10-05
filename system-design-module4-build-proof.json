@@ -1,0 +1,16 @@
+{
+  "summary": "Protected link CRUD with X-API-Key mapped to principal_id; redirect stays public. not_owner_status=404. Rate limits proven: create 5/min, redirect 8/min, analytics 5/min (no login route).",
+  "evidence": [
+    "NO_AUTH_CREATE_STATUS 401 body API key required; BAD_KEY_CREATE_STATUS 401; PUBLIC_LIVE_STATUS 200; CREATE_A_STATUS 200 owner principal-a persisted=memory short_code 55c6dbbb",
+    "Owner scope: GET_A_AS_A_STATUS 200; GET_A_AS_B_STATUS 404 Link not found; ANALYTICS_A_AS_B_STATUS 404; DELETE_A_AS_B_STATUS 404; A_STILL_OWNS_STATUS 200; REDIRECT_PUBLIC_STATUS 307 Location https://example.com/a",
+    "CREATE_RATE_STATUSES [200 x5, 429 x2] CREATE_LINK_PER_MIN 5; REDIRECT_RATE_STATUSES [307 x8, 429 x2] REDIRECT_PER_MIN 8; ANALYTICS_RATE_STATUSES [200 x5, 429 x2] ANALYTICS_PER_MIN 5; login_per_min n/a",
+    "Command: api/.venv/Scripts/python.exe app/scripts/module04_auth_verify.py (ASGI, no uvicorn/DB). Threat model: unauthenticated writes, IDOR across principals, redirect enumeration; mitigations are API key, 404 hide, per-route 429."
+  ],
+  "artifacts": [
+    "api/app/auth.py",
+    "api/app/ratelimit.py",
+    "api/app/main.py",
+    "api/app/scripts/module04_auth_verify.py",
+    "progress/system-design-module4-build.md"
+  ]
+}

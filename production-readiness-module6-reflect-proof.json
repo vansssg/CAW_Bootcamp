@@ -1,0 +1,12 @@
+{
+  "summary": "Completed Module 06 REFLECT: kept pybreaker + 1s timeouts; stacked timeout/retry/breaker with measured 4.1s then 4ms; PM framing is fast 503 not fake URLs.",
+  "evidence": [
+    "Would not add ConnectionTimeout retries: CONTEXT 4x load; drill already 4.1s x5 before open.",
+    "Mini task: module06_degradation_drill.py TIMINGS 4.131..0.004; FAST_AFTER_THRESHOLD_COUNT 5.",
+    "Risk: half-open trial against still-down DB; mitigation is circuit_before_call logs and a M07 runbook not to loop /ready."
+  ],
+  "artifacts": [
+    "progress/production-module6-reflect.md",
+    "production-readiness-module6-evaluation-report.json"
+  ]
+}

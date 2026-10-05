@@ -1,0 +1,11 @@
+{
+  "summary": "Module 03 CONTEXT: design docs catch cross-team constraints before build; min useful doc is 1-page RFC with problem, proposed approach, alternatives, and ask for review.",
+  "evidence": [
+    "Q1: Wrong approach mid-build caught earlier by circulating a short design/RFC to infra/owners (WebSockets/$200K load-balancer story).",
+    "Q2: Minimum feedback doc: problem statement, proposed approach, 1–2 alternatives rejected, dependencies/constraints ask, success metric — one page.",
+    "Design doc = should we / how (before decision); spec = exactly what (after decision)."
+  ],
+  "artifacts": [
+    "technical-communication-module3-context-proof.json"
+  ]
+}

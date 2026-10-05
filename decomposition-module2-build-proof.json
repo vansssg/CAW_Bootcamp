@@ -1,0 +1,14 @@
+{
+  "summary": "BUILD: 12 SkillSwap work items in artifacts/dag-module-02.md. Visual DAG with H/S edges. Starts W1 Auth and W2 Listings. Endpoints search, reviews, notify, refund+admin. Actively shortened by splitting payment interface and cancel policy contract. Reviews depend on booking not payment.",
+  "evidence": [
+    "12 items cover all 25 M01 rows; auth promoted from silence so booking compiles.",
+    "Hard: listings→search, auth→booking, slots→booking, W11→W12 (cannot code both cancel options).",
+    "Soft: notify after booking; payment iface→refunds; onboard→booking in test.",
+    "False dep avoided: reviews need completed booking, not W8 payment.",
+    "Critical path: max(W1+W7, W2+W4+W6) then W12. Search is slack — not first (search-without-model)."
+  ],
+  "artifacts": [
+    "artifacts/dag-module-02.md",
+    "artifacts/requirements/module-01-requirements.md"
+  ]
+}

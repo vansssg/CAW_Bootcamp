@@ -1,0 +1,15 @@
+{
+  "summary": "Technical Communication pretest: PR feedback that separates style from bugs, a PM-facing queue explanation from Module 07, a top-down status paragraph, a blameless VP incident note, and API-docs-first documentation.",
+  "evidence": [
+    "Q1 PR comment: 'The behavior looks correct. Nested if/else makes the happy path hard to see. Consider returning 401/400 at the top of require_api_key (we already do that for missing/invalid X-API-Key) so the rest of the handler is the success case. Not a blocker.' Distinguishes working code from readability; suggests early returns we actually use.",
+    "Q2 PM: Service A calling B is like standing at the kitchen until the dish is done. A queue is a ticket the kitchen takes so the waiter can seat the next table. GET /r/{code} is the waiter (must stay 307). Click analytics is the kitchen ticket — if the ticket machine is down we still seat people and may lose a count. That is why we chose async_queue in System Design M07.",
+    "Q3 Status: Search latency is fixed: 2.3s to 180ms after adding a missing index (full table scan). Next: add monitoring so a scan cannot sit unnoticed for 3 weeks.",
+    "Q4 VP: From 14:15–15:00 login failed after a 14:00 deploy changed the auth URL without updating clients (~45 min user impact). Cause: config drift between API and client. Fix shipped 14:45; fully restored 15:00. No names.",
+    "Q5 One pager for API consumers: base URL, auth (X-API-Key), example request/response, error envelope (code/message/request_id), and 401/404/429/500 meanings. Consumers need to call it at 3am, not read our internals."
+  ],
+  "artifacts": [
+    "api/app/auth.py",
+    "api/app/jobs.py",
+    "api/app/main.py"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "FIX: split Admin into W12a minimal approve/reject and W12b full dashboard. Listings support pending status. Cycle gone. Booking critical path unchanged; onboarding path W2→W12a→W3 can start. Full dashboard is slack.",
+  "evidence": [
+    "artifacts/dag-module-02.md work items W12, W12a, W12b.",
+    "New H edges: W2→W12a→W3; W3+W2→W12b. Old W3→full-admin→W2→W3 removed.",
+    "W12 refund still W11→W12 only. Not in the cycle.",
+    "Critical path booking still 5 levels listings-slots-booking-policy-refund. W12a is 1d on onboarding, not stacked on booking."
+  ],
+  "artifacts": [
+    "artifacts/dag-module-02.md",
+    "progress/decomposition/module2-fix.md"
+  ]
+}

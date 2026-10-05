@@ -1,0 +1,13 @@
+{
+  "summary": "401 was created in require_api_key, mapped by http_exception_handler into the envelope, and the inject concatenated X-User-Email into error_detail. Removed the pii= concat, kept emit_log redaction (secrets, sentinel, emails), and re-ran the 401 with ada@example.com.",
+  "evidence": [
+    "Flow: require_api_key raises HTTPException 401 -> http_exception_handler builds error_payload(401, Invalid API key, request_id) -> client JSON. Logs: method/path/status/error_detail only.",
+    "FIX_PII_IN_LOGS False FIX_HAS_PII_FIELD False FIX_BODY unauthenticated/Invalid API key/req-0ed03838. Same request previously logged pii=ada@example.com.",
+    "Regression: module05_error_verify.py still 400/422/500 envelopes, SERVER_HAS_TRACE False, SENTINEL_IN_LOGS False."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/scripts/module05_error_verify.py",
+    "progress/system-design-module5-break.md"
+  ]
+}

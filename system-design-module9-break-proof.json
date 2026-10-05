@@ -1,0 +1,12 @@
+{
+  "summary": "BREAK: dropped links.clear() so tests share the in-memory store. Full suite FAIL len(links) 4!=0 on javascript test; same test solo OK.",
+  "evidence": [
+    "setUp no longer calls links.clear().",
+    "Full suite FAILED (failures=1) AssertionError: 4 != 0 in test_url_validation_rejects_javascript.",
+    "unittest IsolatedAppTests.test_url_validation_rejects_javascript alone: Ran 1 test OK."
+  ],
+  "artifacts": [
+    "api/app/scripts/module09_test_suite.py",
+    "progress/system-design-module9-break.md"
+  ]
+}

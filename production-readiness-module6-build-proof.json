@@ -1,0 +1,16 @@
+{
+  "summary": "Added 1s Postgres timeouts, pybreaker (fail_max=5) with 503 fallback, and retry-with-jitter for transient OS errors only. Drill: first five /ready ~4.1s, then circuit open and next five 503 in 0.004s.",
+  "evidence": [
+    "Timeouts: connect_timeout=1, statement_timeout=1000ms; timeout log includes dependency=postgres operation=ready timeout_ms=1000 error_type=ConnectionTimeout.",
+    "Breaker drill 10x GET /ready: timings [4.131, 4.089, 4.078, 4.069, 4.08, 0.004, 0.004, 0.004, 0.004, 0.004]; HAS_CIRCUIT_OPENED_LOG True; HAS_CIRCUIT_OPEN_FALLBACK True; FAST_AFTER_THRESHOLD_COUNT 5.",
+    "Fallback is HTTP 503 service temporarily unavailable, not a fake URL. Analytics path uses fail_closed=False.",
+    "retry_with_backoff: RETRY_HELPER_CALLS 2 after ConnectionError then ok. OperationalError is not retried. Probe breaker recovered: PROBE_STATE_AFTER_SUCCESS closed. docker start postgres not run — DB is not local."
+  ],
+  "artifacts": [
+    "api/app/resilience.py",
+    "api/app/db.py",
+    "api/app/main.py",
+    "api/app/scripts/module06_degradation_drill.py",
+    "progress/production-module6-build.md"
+  ]
+}

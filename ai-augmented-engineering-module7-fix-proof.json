@@ -1,0 +1,15 @@
+{
+  "summary": "Mounted PUT /teams/{id}/members/{uid} with admin/owner gate, no self-modify, role enum, admin cannot mint owner, member.updated audit. Closed BREAK composition: unique pending email, list omits token, accept 409 if already a member. Thirteen PUT cases passed; viewer no longer self-promotes.",
+  "evidence": [
+    "FIX_THIRTEEN_ALL True: viewer/member self and other 403; admin viewer->member 200 and member->viewer 200; admin promote owner 403; admin self 403; owner member->admin 200 and promote owner 200; owner self 403; superadmin 400; empty 400.",
+    "FIX_AUDIT_MEMBER_UPDATED True via member.updated on the activity bus.",
+    "After fix: BREAK_DUP_MEMBER_INVITE 409; BREAK_GET_LIST_TOKEN_LEAK False; BREAK_VIEWER_PROMOTED False; BREAK_PUT_MEMBERS_STATUS 403.",
+    "VERIFY still V_PRIVILEGE_ESCALATION False; V_CROSS_ALL_DENIED True; V_MODULE09_EXIT 0. ASGI only."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-fix.md",
+    "progress/ai-augmented-module7-fix-prompt.md",
+    "api/app/invitations.py",
+    "api/app/scripts/module07_fix.py"
+  ]
+}

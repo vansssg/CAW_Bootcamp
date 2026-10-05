@@ -1,0 +1,90 @@
+{
+  "events": [
+    {
+      "module": 4,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose five-whys and wrote a blameless OrderProcessor postmortem with systemic root cause and six DoD-backed system actions. Catalogued 24 blame instances in the peer doc and produced a blameless rewrite emphasizing silent-success and monitoring gaps.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "review_quality",
+            "score": 5,
+            "observation": "Caught subtle and explicit blame (24 instances) and the missed systemic silent-failure root cause.",
+            "evidence": "module-04-break-blame-catalog.md count 24; Q1 silent success path."
+          },
+          {
+            "key": "writing_clarity",
+            "score": 4,
+            "observation": "VP-readable summary; skimmable five-whys and tables for factors/actions.",
+            "evidence": "module-04-orderprocessor-postmortem.md sections 1–5."
+          },
+          {
+            "key": "audience_awareness",
+            "score": 4,
+            "observation": "New joiners can learn system failure modes without needing who was on call.",
+            "evidence": "Roles not names in AIs; blameless note on deprecation policy."
+          },
+          {
+            "key": "structure_quality",
+            "score": 4,
+            "observation": "Summary → five-whys → root cause → factors → actions → lessons.",
+            "evidence": "Heading order in orderprocessor postmortem."
+          },
+          {
+            "key": "actionability",
+            "score": 5,
+            "observation": "Every AI has role owner, deadline, and implementable DoD; monitoring specifies metric/threshold/channel.",
+            "evidence": "orders_created_per_min < 10 for 5 min → #ops-alerts; fail-closed persist test."
+          }
+        ],
+        "strengths": [
+          "Systemic root cause (not 'be more careful').",
+          "Exhaustive blame audit proving chill-effect on near-miss reporting."
+        ],
+        "growth_areas": [],
+        "recommendation": "Operator pack: practice stakeholder incident updates that stay blameless under executive pressure.",
+        "public_evidence": [
+          {
+            "artifact": "OrderProcessor blameless postmortem",
+            "student_action": "Authored five-whys postmortem with systemic actions for silent checkout drops.",
+            "technical_detail": "artifacts/postmortems/module-04-orderprocessor-postmortem.md",
+            "proof": "Six AIs with DoD; orders/min alert specified",
+            "ability": "Writes blameless incident learnings that drive system change",
+            "reviewer_value": "Turns outages into durable reliability improvements",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Blameless postmortem",
+              "evidence": "Rewrite removes names from root cause/AIs."
+            },
+            {
+              "concept": "Five whys",
+              "evidence": "DECIDE B; chain to systemic cause."
+            },
+            {
+              "concept": "Contributing factor vs root cause",
+              "evidence": "Fire vs fuel framing in factors table."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "postmortems",
+              "approach": "example",
+              "detail": "Write good doc then dissect blame-heavy twin",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["artifact-first"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

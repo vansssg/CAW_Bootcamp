@@ -1,0 +1,13 @@
+{
+  "summary": "Fail-fast envelope shipped: 4xx/5xx with code/message/request_id, stacks only in logs, PII inject closed. Logging rule: never copy headers into error_detail.",
+  "evidence": [
+    "Strategy A fail-fast: validation 400/422, unauthenticated 401, internal_error 500. Loud failures stay joinable via request_id rather than raw stacks in the body.",
+    "Logging rule: log request_id, route, status, duration_ms; redact secrets/emails; do not log X-API-Key or X-User-Email. Mini task: module05_error_verify.py SERVER_STATUS 500 SERVER_HAS_TRACE False SENTINEL_IN_LOGS False.",
+    "Risk: mystery hangs without timeouts — already mitigated on /ready in Production M05 (503). Remaining: prove 503 envelope in this harness when Postgres is up."
+  ],
+  "artifacts": [
+    "progress/system-design-module5-fix.md",
+    "api/app/scripts/module05_error_verify.py",
+    "system-design-module5-evaluation-report.json"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: build the scariest unknown first. Ranked Stripe highest risk, schema medium, CRUD lowest. A spike is a time-boxed throwaway that answers one question. SkillSwap without payments is not a product; W7/W8 belong before polished search.",
+  "evidence": [
+    "Oil-well: test well before pipeline. UI-first startup hit 100 req/h API vs 10k needed; three months of frontend trash.",
+    "Ranking matches expected: payment (external) > schema (lasting, owned) > CRUD (familiar). Risk is unknowns, not hours.",
+    "Spike: hours, throwaway, one question — e.g. Stripe test charge+refund vs U-F8 clocks.",
+    "Tied to DAG: do not staff W5 search first; W7 payment iface is the test well."
+  ],
+  "artifacts": [
+    "progress/decomposition/module3-context.md",
+    "artifacts/dag-module-02.md"
+  ]
+}

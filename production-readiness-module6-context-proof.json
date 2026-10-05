@@ -1,0 +1,13 @@
+{
+  "summary": "Mapped graceful degradation to this shortener: timeouts without a breaker still tax every request ~4s; retries would multiply load on an already-unreachable Postgres.",
+  "evidence": [
+    "Micro-exercise 1 applied here: Postgres is not 5s-slow, it is ConnectionTimeout in ~4.3s per attempt (FIX_READY_ELAPSED_S 4.271). Three retries would make a user wait ~17s (4.3s x 4) for POST /links. We currently retry zero times at the app layer.",
+    "Micro-exercise 2: 100 concurrent POST /links would open 100 connect attempts, each blocking ~4s, even after M05 fail-closed 503. A circuit breaker open-state would return fallback immediately and stop hammering localhost:5432.",
+    "Failing fast: M05 changed hang/TIMEOUT with no 5xx into 503 in 4.271s. That is better than 20s 'success' because threads are released, HighErrorRate can fire, and the user is not staring at a spinner. Remaining gap: 4s is still too slow once the failure is known — that is the breaker.",
+    "Recommendation-engine analogy: analytics INSERT is nice-to-have (already fail-open after lookup). Postgres lookup/create is load-bearing; fallback must not invent a URL (DECIDE A). Breaker + 503 is the graceful path, not serving a guessed redirect."
+  ],
+  "artifacts": [
+    "progress/production-module5-fix.md",
+    "api/app/db.py"
+  ]
+}

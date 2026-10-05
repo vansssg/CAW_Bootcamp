@@ -1,0 +1,12 @@
+{
+  "summary": "BREAK: 45+ jargon hits in Marcus email; buried risk = unvalidated +42.5GB memory vs autoscaling headroom (peak-season capacity). FIX: rewritten memo opens with Black Friday business impact and explicit go/no-go asks.",
+  "evidence": [
+    "artifacts/stakeholder/module-05-break-marcus-email.md",
+    "artifacts/stakeholder/module-05-fix-marcus-rewrite.md",
+    "Buried risk called out as holiday scale failure mode"
+  ],
+  "artifacts": [
+    "artifacts/stakeholder/module-05-break-marcus-email.md",
+    "artifacts/stakeholder/module-05-fix-marcus-rewrite.md"
+  ]
+}

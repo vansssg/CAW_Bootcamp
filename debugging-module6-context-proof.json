@@ -1,0 +1,16 @@
+{
+  "summary": "CONTEXT: multi-layer bugs live on contracts. Mapped three boundaries: cache vs links dict, SQLAlchemy pool vs memory creates, in-process queue vs analytics drain. Health of each part can be green while the handshake is wrong.",
+  "evidence": [
+    "GET /r/{code} uses cache then links dict. Invalidate on PATCH + 60s TTL only. FIFO cap 10000 can drop dict entries the cache still holds.",
+    "GET /ready SELECT 1 on the pool (~4s 503 ConnectionTimeout) while POST /links 200 persisted=memory — pool green/red is not the write path.",
+    "enqueue_click to queue.Queue; analytics calls drain_once. Queue accept ≠ event visible. MAX_EVENTS 10000 silent drop. Same process as the DB pool (retry cascade).",
+    "Vocabulary: pool exhaustion = every checkout taken, API waits not crash. Cascade = retries on one path starve another."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-context.md",
+    "api/app/cache.py",
+    "api/app/db.py",
+    "api/app/jobs.py",
+    "api/app/main.py"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "events": [
+    {
+      "module": 2,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student demonstrated strong prompt decomposition discipline by turning an ambiguous feature request into structured, dependency-aware planning artifacts and then validating them through a reproducibility-focused VERIFY pass. They identified underspecified policy areas, converted those gaps into a stricter Prompt v2 and process gates, and clearly explained the quality impact of each change. Across BUILD, VERIFY, and FIX, they consistently treated AI output as planning hypotheses and used explicit evidence before acceptance.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "prompt_quality",
+            "score": 5,
+            "observation": "Produced clear, constrained prompts and then improved them with explicit policy contracts after detecting ambiguity during verification.",
+            "evidence": "Created planning artifacts and a Prompt v2 in `progress/module-02-task1-fix.md` that fixed role taxonomy, identity rules, duplicate behavior, error model, expiry policy, and evidence boundaries."
+          },
+          {
+            "key": "review_thoroughness",
+            "score": 5,
+            "observation": "Applied structured review criteria to evaluate both output quality and prompt adequacy, including reproducibility and underspecification analysis.",
+            "evidence": "Documented in `progress/module-02-task1-verify.md`: what was produced, what was clear, what was underspecified, and what additional context was needed."
+          },
+          {
+            "key": "iteration_efficiency",
+            "score": 4,
+            "observation": "Used a focused single-cycle VERIFY->FIX loop to improve prompt determinism without unnecessary reruns or broad rework.",
+            "evidence": "Moved directly from Task 1 execution evidence to targeted prompt/process corrections captured in `progress/module-02-task1-fix.md`."
+          },
+          {
+            "key": "judgment",
+            "score": 5,
+            "observation": "Made high-quality decisions about where ambiguity was acceptable versus where hard contracts were required before implementation.",
+            "evidence": "Explicitly prioritized dependency-aware contracts and evidence gates in REFLECT answers and FIX process updates."
+          },
+          {
+            "key": "final_quality",
+            "score": 4,
+            "observation": "Delivered complete, reusable planning documentation with clear acceptance framing and no unintended implementation changes.",
+            "evidence": "Shipped `progress/module-02-invitation-requirements.md`, `progress/module-02-invitation-schema-plan.md`, `progress/module-02-permission-plan.md`, `progress/module-02-task1-verify.md`, and `progress/module-02-task1-fix.md`."
+          }
+        ],
+        "strengths": [
+          "Strong ability to convert ambiguous feature intent into structured, dependency-aware decomposition artifacts.",
+          "Excellent evidence-first review discipline, including explicit reproducibility checks and underspecification tracking.",
+          "High engineering judgment in tightening prompt/process contracts before any implementation work."
+        ],
+        "growth_areas": [],
+        "recommendation": "In Module 3, keep the same verification rigor but add a lightweight numeric scoring rubric per prompt run (ambiguity count, assumption count, reproducibility pass/fail) to quantify iteration quality over time.",
+        "public_evidence": [
+          {
+            "artifact": "Team Invitation decomposition and verification package",
+            "student_action": "Directed AI to produce planning specifications, verified reproducibility, and implemented a refined Prompt v2 and process gates based on observed underspecification.",
+            "technical_detail": "Created and reviewed five module artifacts: `progress/module-02-invitation-requirements.md`, `progress/module-02-invitation-schema-plan.md`, `progress/module-02-permission-plan.md`, `progress/module-02-task1-verify.md`, and `progress/module-02-task1-fix.md`.",
+            "proof": "VERIFY record captured reproducibility and ambiguity findings; FIX record documented concrete prompt/process changes and non-code-change confirmation.",
+            "ability": "Decomposes AI work into reviewable tasks and improves prompt contracts using evidence-driven iteration.",
+            "reviewer_value": "Demonstrates practical AI-augmented engineering maturity: reliable decomposition, critical review, and disciplined quality controls before coding.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Dependency-aware prompt decomposition",
+              "evidence": "Defined AI task inputs, outputs, acceptance criteria, and dependencies as the main control for ambiguity."
+            },
+            {
+              "concept": "Reproducibility as prompt quality test",
+              "evidence": "Compared Task 1 rerun output with the earlier artifact and judged structural consistency and drift sources."
+            },
+            {
+              "concept": "Contract-first prompt hardening",
+              "evidence": "Introduced Prompt v2 with fixed policies for roles, identity matching, duplicates, errors, and expiry rules."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Prompt decomposition quality",
+              "approach": "example",
+              "detail": "Used concrete artifact-based checks to evaluate output sections, assumption handling, and external acceptance criteria.",
+              "effective": true
+            },
+            {
+              "concept": "Ambiguity reduction via process controls",
+              "approach": "guided_discovery",
+              "detail": "Guided the learner to identify underspecified decisions from VERIFY evidence and convert them into explicit Prompt v2 contracts.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "structured_reasoning",
+            "risk_aware_review"
+          ],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

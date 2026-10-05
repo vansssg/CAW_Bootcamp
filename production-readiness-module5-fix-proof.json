@@ -1,0 +1,16 @@
+{
+  "summary": "FIX: production engine now has connect/pool/statement timeouts; DB failures return 503 with a named failure_mode log; /live stays 200. Re-sim: /ready 503 in 4.271s, POST /links 503, GET /r/abc123 503, no traceback to the client.",
+  "evidence": [
+    "api/app/db.py sets connect_timeout=2, pool_timeout=2, statement_timeout=2000ms. raise_db_unavailable maps OperationalError to HTTP 503 detail=service temporarily unavailable.",
+    "Re-sim module05_failure_fix_verify.py: FIX_LIVE_STATUS 200; FIX_READY_STATUS 503 ELAPSED_S 4.271; FIX_CREATE_STATUS 503; FIX_REDIRECT_STATUS 503; logs include database unavailable, failure_mode=postgres_connect_or_query_timeout, action=ready, error_type=ConnectionTimeout.",
+    "FMEA gained partial-failure row: GET /r/{code} write-on-read; analytics insert is now decoupled (warn + redirect) while lookup timeout is fail-closed 503.",
+    "User body has no Traceback (FIX_NO_STACK_TO_USER True). Hang-without-5xx is closed for these paths."
+  ],
+  "artifacts": [
+    "api/app/db.py",
+    "api/app/main.py",
+    "progress/production-module5-fix.md",
+    "progress/production-module5-fmea.md",
+    "api/app/scripts/module05_failure_fix_verify.py"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "summary": "Module 07 BUILD: blast-radius tables for company bridge + 6-day cut list; preserve/patch plan with T7–T11; PM adaptation note for Meridian demo scope.",
+  "evidence": [
+    "artifacts/adaptation/module-07-blast-radius.md — per-artifact NO/MINOR/MAJOR; MUST/SHOULD/CUT tickets.",
+    "artifacts/adaptation/module-07-updated-plan.md — Preserved/Modified/Cut/Added; T7–T11 sizes.",
+    "artifacts/adaptation/module-07-adaptation-note.md — PM message: what ships, what waits, risk, ask for Meridian intro.",
+    "DECIDE B minimal bridge applied; Decision 2 preserve-and-patch applied in plan."
+  ],
+  "artifacts": [
+    "artifacts/adaptation/module-07-blast-radius.md",
+    "artifacts/adaptation/module-07-updated-plan.md",
+    "artifacts/adaptation/module-07-adaptation-note.md"
+  ]
+}

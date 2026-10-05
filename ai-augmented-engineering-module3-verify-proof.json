@@ -1,0 +1,17 @@
+{
+  "summary": "Completed Module 3 VERIFY by checking all three first-pass outputs against repository conventions and documenting convention matches, mismatches, and likely missing context per task.",
+  "evidence": [
+    "Created VERIFY artifact at `progress/module-03-verify-convention-matching.md`.",
+    "Task 1 convention review captured three matches (FastAPI/Pydantic/HTTPException style, parameterized SQL expectations, Alembic migration lifecycle) and one ambiguity (400 vs 409 conflict policy).",
+    "Task 2 convention review captured three matches (SQLAlchemy type/index style, migration sequencing, dependency discipline) and one ambiguity (assumed `teams` baseline not yet present in current schema).",
+    "Task 3 convention review captured three matches (error envelope, route-layer checks, env-driven security constraints) and one ambiguity (expanded 401/403/409/422 mapping without existing auth route baseline).",
+    "For each ambiguity, likely missing context was identified to explain why first-pass outputs remained assumption-heavy.",
+    "No application implementation files were modified during VERIFY; output is documentation-only."
+  ],
+  "artifacts": [
+    "progress/module-03-team-invitation-requirements.md",
+    "progress/module-03-team-invitation-schema-plan.md",
+    "progress/module-03-team-invitation-permission-plan.md",
+    "progress/module-03-verify-convention-matching.md"
+  ]
+}

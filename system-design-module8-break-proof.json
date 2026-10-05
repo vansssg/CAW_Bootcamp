@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: injected off-by-one offset=page*page_size. page=1 page_size=10 returns 0 items while total=3. page=1 page_size=1 skips the first row. Last page empty.",
+  "evidence": [
+    "search_memory offset = page * page_size (BREAK) instead of (page-1)*page_size.",
+    "ALL_TOTAL 3 ALL_COUNT 0 on page=1 page_size=10.",
+    "P1_SKIPPED_FIRST True. EMPTY_LAST_WHEN_PAGE_EQ_TOTAL 0.",
+    "Not FTS (backend memory) and not injection (sort allowlist unchanged)."
+  ],
+  "artifacts": [
+    "api/app/search.py",
+    "api/app/scripts/module08_search_break.py",
+    "progress/system-design-module8-break.md"
+  ]
+}

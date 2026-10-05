@@ -1,0 +1,11 @@
+{
+  "summary": "Hard inject: 401 handler logs X-User-Email into error_detail. Symptom: ada@example.com appears in the warn log while the JSON envelope stays generic.",
+  "evidence": [
+    "BREAK_STATUS 401 BREAK_BODY {\"error\":{\"code\":\"unauthenticated\",\"message\":\"Invalid API key\",\"request_id\":\"req-e878d35c\"}}",
+    "BREAK_PII_IN_LOGS True log: error_detail=Invalid API key pii=ada@example.com",
+    "Class: PII in error logs (adaptive hard). Client envelope did not leak the email; the log line did."
+  ],
+  "artifacts": [
+    "api/app/main.py"
+  ]
+}

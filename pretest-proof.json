@@ -1,0 +1,17 @@
+{
+  "summary": "Completed Module 1 pretest and setup check with practical, production-aware answers.",
+  "evidence": [
+    "Setup check on Windows + bash: node/npm/pnpm/git/docker/docker compose/curl available; python available via `python` and `pip`; `python3` alias missing in shell.",
+    "Self-rating: ok.",
+    "Health vs readiness: health = process alive; readiness = fully initialized and safe to serve requests.",
+    "Public redirect misuse: phishing via hidden malicious destination behind trusted short links.",
+    "500 triage first checks: logs/traces first, then recent code/deploy/config changes.",
+    "Idempotency: repeated execution yields same safe outcome; prevents duplicate side effects during retries.",
+    "Index tradeoff: index maintenance slows writes when data changes.",
+    "Testing preference: integration-heavy to catch cross-component issues unit tests can miss.",
+    "Environment preference: bash/WSL."
+  ],
+  "artifacts": [
+    "c:/UPSK-Bootcamp/pretest-proof.json"
+  ]
+}

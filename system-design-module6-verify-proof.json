@@ -1,0 +1,12 @@
+{
+  "summary": "Invalidation is hard because every write path must drop the same key the read path uses. Caching auth-protected rows would leak across principals. If Redis is down we fall back to the store — already proven REDIS_DOWN True with 307.",
+  "evidence": [
+    "Invalidation: PATCH must call invalidate_redirect_target(code) or GET /r/{code} keeps the old Location. We proved STALE_AVOIDED True only after that call; skipping it is the BREAK we will inject.",
+    "Auth-protected data: we cache only public redirect targets (code->long_url), never principal-scoped GET /links/{code} bodies. Caching A's analytics under a shared key would be IDOR via cache.",
+    "Redis unavailable: redis-py ping with 0.2s timeout failed; LOG_REDIS_DOWN_FALLBACK True; redirect still 307 from memory SoT. We did not hang and did not fabricate a Redis HIT."
+  ],
+  "artifacts": [
+    "api/app/cache.py",
+    "api/app/scripts/module06_cache_verify.py"
+  ]
+}

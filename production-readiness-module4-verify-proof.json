@@ -1,0 +1,16 @@
+{
+  "summary": "Verified Prometheus counters/histogram/gauge from GET /metrics, hybrid logs with JSON contract fields, 500 error logs with matching request_id and stack trace, and three complete alert rules. Postgres-backed uvicorn scrape remains blocked.",
+  "evidence": [
+    "Metrics: GET /metrics 200; http_requests_total{method=\"GET\",path=\"/live\",status=\"200\"} 9.0; http_requests_total{method=\"GET\",path=\"/debug/error\",status=\"500\"} 1.0; histogram buckets populated; urls_total present.",
+    "Logs: development pretty request line includes timestamp, INFO, message, service_name=url-shortener, request_id=req-upstream-abc (header honored). JSON formatter path: PROD_JSON_REQUIRED_OK True with timestamp/level/message/service_name/request_id.",
+    "Error: GET /debug/error returned 500, request_id req-fc01b1af on response and ERROR unhandled exception log, stack_trace contains RuntimeError: forced observability test error.",
+    "Alerts file progress/production-module4-alert-rules.yml has 3 alerts each with expr/for/severity/summary/description/runbook.",
+    "Limitation: did not scrape a live uvicorn process because SQLAlchemy connect to localhost:5432 hangs; verification used ASGI HTTP-scope without lifespan."
+  ],
+  "artifacts": [
+    "progress/production-module4-verify.md",
+    "progress/production-module4-build.md",
+    "progress/production-module4-alert-rules.yml",
+    "api/app/scripts/module04_observability_verify.py"
+  ]
+}

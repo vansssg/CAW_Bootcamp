@@ -1,0 +1,16 @@
+{
+  "summary": "Registered audit on activity.add_global_listener at import and stopped copying invitation 403 text onto comments. Comment create 200 now produces an audit comment row; non-author PATCH 403 says comment, not invitation.",
+  "evidence": [
+    "FIX_LISTENER_COUNT 1; FIX_COMMENT_HTTP 200; FIX_AUDIT_COMMENT_COUNT 1; FIX_COMMENTS_IN_AUDIT True.",
+    "FIX_NON_AUTHOR_403 403; FIX_403_NOT_INVITATION True; FIX_403_MESSAGE You are not allowed to modify this comment.",
+    "Did not add path-prefix middleware that would label the resource teams."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/comments.py",
+    "api/app/activity.py",
+    "progress/ai-augmented-module6-fix-prompt.md",
+    "api/app/scripts/module06_fix_probe.py",
+    "progress/ai-augmented-module6-fix.md"
+  ]
+}

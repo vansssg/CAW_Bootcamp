@@ -1,0 +1,12 @@
+{
+  "summary": "VERIFY: three commands are copy-pasteable; port/URL defined once in canonical table; new-hire gaps closed with prereq checks; escalation path present; no vague 'check the logs'.",
+  "evidence": [
+    "curl health, kubectl logs, helm rollback — pasteable",
+    "Single canonical table for port 8080 / namespace / release name",
+    "Prereq version checks + Notion bootstrap pointer",
+    "§6 escalate with PD policy name"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-orderflow-runbook.md"
+  ]
+}

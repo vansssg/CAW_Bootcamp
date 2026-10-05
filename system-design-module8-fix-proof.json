@@ -1,0 +1,13 @@
+{
+  "summary": "FIX: offset=(page-1)*page_size. First page 3/3, page=1 is first row, last page 1 item, page=4 empty with total 3. sort injection still 400. FTS still bound :q.",
+  "evidence": [
+    "Minimal fail was ALL_TOTAL 3 ALL_COUNT 0. After fix FIX_ALL_COUNT 3 FIX_FIRST_PAGE_FULL True.",
+    "FIX_P1_IS_FIRST True. FIX_LAST_PAGE_COUNT 1 FIX_LAST_IS_LAST True. FIX_PAST_END_COUNT 0 TOTAL 3.",
+    "FIX_INJECT_SORT_STATUS 400. FIX_FTS_BOUND True. Formula (page - 1) * page_size."
+  ],
+  "artifacts": [
+    "api/app/search.py",
+    "api/app/scripts/module08_search_fix.py",
+    "progress/system-design-module8-fix.md"
+  ]
+}

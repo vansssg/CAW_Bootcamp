@@ -1,0 +1,13 @@
+{
+  "summary": "BUILD: annotated all DAG nodes 1-5 with risk types. Top 3 are payment spike (5), cancel contract (5), slot lock (4) — not auth. Build order front-loads W7 spike after W1/W2, slots before search, full admin last. Hard edges respected.",
+  "evidence": [
+    "W7 score 5 integration; W11 score 5; W4 score 4 novelty. W1 is 2 dependency — high fan-out, low unknown.",
+    "W9 reviews score 1. CRUD fields are tedious not risky.",
+    "Order: W1, W2, W7 spike, W4, W12a||, W3, W6, W11, W8, W12, W5, then W9/W10/W12b.",
+    "No DAG violation: W8 after W6+W7; W12 after W11; W4 after W2; W7 after W1."
+  ],
+  "artifacts": [
+    "artifacts/risk-plan-module-03.md",
+    "artifacts/dag-module-02.md"
+  ]
+}

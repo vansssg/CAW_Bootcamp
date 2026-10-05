@@ -1,0 +1,12 @@
+{
+  "summary": "BREAK: flagged Jamie Kafka doc for (1) missing Alternatives, (2) unvalidated 10k writes/s DB claim, (3) non-actionable mitigations (monitor/scale). Documented damage if approved as-is.",
+  "evidence": [
+    "artifacts/design-docs/module-03-break-jamie-gaps.md",
+    "Gap1: no alternatives section at all",
+    "Gap2: DB headroom asserted without validation/open question",
+    "Gap3: lag mitigation not followable at 3AM; RF3 ≠ producer failure mode"
+  ],
+  "artifacts": [
+    "artifacts/design-docs/module-03-break-jamie-gaps.md"
+  ]
+}

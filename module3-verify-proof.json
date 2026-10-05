@@ -1,0 +1,19 @@
+{
+  "summary": "Verified the race condition root cause and fix with evidence-backed answers: concurrency was the trigger, single-request testing was insufficient, check-then-insert is the risky pattern, and atomic upsert eliminated failures under the same workload.",
+  "evidence": [
+    "Reproduction conditions: 30 concurrent requests, 5 rounds, same short code target.",
+    "Pre-fix vulnerable check-then-insert path reproduced failure with HTTP 500 and database UniqueViolation on analytics_link_id_bucket_unique.",
+    "Post-fix atomic SQL upsert (INSERT ... ON CONFLICT (link_id, timestamp_bucket) DO UPDATE) under the identical 30x5 workload returned only 307 responses.",
+    "Post-fix verification showed no UniqueViolation entries, confirming the race window was removed.",
+    "Q1 conclusion: trigger variable was concurrency; data shape and clock timing were not primary triggers under matched test inputs/workload.",
+    "Q2 conclusion: single curl validates happy-path behavior but not concurrent failure modes; thorough testing must match incident conditions.",
+    "Q3 conclusion: any SELECT then conditional INSERT/UPDATE path on shared rows is a race candidate and should be replaced with atomic DB operations or explicit locking.",
+    "Q4 conclusion: concurrency level controls probability of hitting the race window; lower minimum trigger concurrency implies higher production risk."
+  ],
+  "artifacts": [
+    "progress/module-01-diagnosis.md",
+    "api/app/main.py",
+    "api/app/scripts/module-03-repro-race.py",
+    "module3-build-proof.json"
+  ]
+}

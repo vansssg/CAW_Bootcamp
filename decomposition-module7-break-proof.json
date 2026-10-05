@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: layered Meridian RBAC onto living blast/plan/PM note; escalated auth+user model to MAJOR; promoted T6 MUST; added T12; partially retracted pure boolean bridge for thin org_role+department.",
+  "evidence": [
+    "artifacts/adaptation/module-07-break-delta.md — five questions answered; Option B insufficient alone",
+    "Updated blast-radius BREAK overlay; updated-plan BREAK delta; adaptation-note v2",
+    "Cuts funded authz: T10 polish cut; org invoice still cut"
+  ],
+  "artifacts": [
+    "artifacts/adaptation/module-07-break-delta.md",
+    "artifacts/adaptation/module-07-blast-radius.md",
+    "artifacts/adaptation/module-07-updated-plan.md",
+    "artifacts/adaptation/module-07-adaptation-note.md"
+  ]
+}

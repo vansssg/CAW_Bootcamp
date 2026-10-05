@@ -1,0 +1,11 @@
+{
+  "summary": "Module 07 REFLECT complete: evaluation submitted (8.3/10). Mid-build adaptation with RBAC layer on living docs.",
+  "evidence": [
+    "upsk report ok; latest_report_module 7; score 8.3",
+    "artifacts/adaptation/module-07-*.md"
+  ],
+  "artifacts": [
+    "decomposition-module7-evaluation-report.json",
+    "artifacts/adaptation/module-07-updated-plan.md"
+  ]
+}

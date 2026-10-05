@@ -1,0 +1,7 @@
+{
+  "summary": "Recorded canonical product scenario for AI-Augmented Engineering Module 1 as Team Collaboration (team-collaboration).",
+  "evidence": [
+    "Scenario selected: Team Collaboration (`team-collaboration`) per module instruction for this skill version.",
+    "Confirmed this scenario includes role-based permissions, invite flow safety, ordered real-time activity feed behavior, and audit-log completeness constraints."
+  ]
+}

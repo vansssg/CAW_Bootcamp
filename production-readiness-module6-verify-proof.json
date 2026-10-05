@@ -1,0 +1,14 @@
+{
+  "summary": "Verified 1s Postgres timeouts, breaker open after 5 /ready failures, 4ms 503 fallback, jittered retries 97ms/189ms, and half-open close on a probe breaker. Live docker start postgres was not possible.",
+  "evidence": [
+    "External calls: only Postgres on the request path; connect_timeout=1, statement_timeout=1000ms, pool_timeout=1. No outbound HTTP. Redis unused in handlers.",
+    "Open: 10x GET /ready statuses all 503; timings first five ~4.07-4.13s then 0.004s x5; circuit_state_change to open at fail_max=5; circuit_open_fallback on remaining.",
+    "Jitter: retry delays [0.0978, 0.1899] seconds, delay_ms 97 and 189, not exact 100/200.",
+    "Close: probe breaker PROBE_TRIAL ok and PROBE_STATE_AFTER_SUCCESS closed. Limitation: no docker start postgres in this environment."
+  ],
+  "artifacts": [
+    "progress/production-module6-verify.md",
+    "progress/production-module6-build.md",
+    "api/app/scripts/module06_degradation_drill.py"
+  ]
+}

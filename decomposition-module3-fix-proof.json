@@ -1,0 +1,13 @@
+{
+  "summary": "FIX: stub processPayment so booking continues; live processor is a blocked future ticket. Two-sentence PM escalation for merchant-account date. Slot lock and city model move up. Team does not wait.",
+  "evidence": [
+    "Contract: processPayment(booking_id, amount, method) -> {status, transaction_id}; stub success in dev.",
+    "PM: blocked because no merchant entity; need a date; stub so development continues. Not 'payments are hard'.",
+    "Revised order: W7 stub at 3; W8 listed as BLOCKED waiting on client; W4 novelty up.",
+    "Did not propose a homemade processor or a vendor swap as a legal fix."
+  ],
+  "artifacts": [
+    "artifacts/risk-plan-module-03.md",
+    "progress/decomposition/module3-fix.md"
+  ]
+}

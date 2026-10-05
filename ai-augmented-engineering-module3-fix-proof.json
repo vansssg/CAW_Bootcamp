@@ -1,0 +1,16 @@
+{
+  "summary": "Completed Module 3 FIX by tracing the permission-plan convention drift to missing explicit error-handling context, adding that missing context, and re-running Task 3 to confirm convention alignment.",
+  "evidence": [
+    "Created FIX trace artifact at `progress/module-03-fix-missing-context.md`.",
+    "Recorded precise violation: original permission plan treated expanded status mappings as baseline while runtime evidence in `api/app/main.py` explicitly demonstrates `HTTPException` with `{\"detail\": ...}` plus 400/404 usage.",
+    "Applied context correction: strict non-optional constraint to preserve `HTTPException` + `{\"detail\":\"...\"}` envelope and to separate evidenced status codes from future assumptions.",
+    "Re-ran Task 3 using corrected context and saved output to `progress/module-03-team-invitation-permission-plan-rerun.md`.",
+    "Re-run result shows improved alignment: error envelope now explicitly fixed to `{\"detail\":\"...\"}`, with 400/404 grounded in evidence and 401/403/409/422 clearly marked as assumptions.",
+    "No application implementation files were modified during FIX."
+  ],
+  "artifacts": [
+    "progress/module-03-fix-missing-context.md",
+    "progress/module-03-team-invitation-permission-plan.md",
+    "progress/module-03-team-invitation-permission-plan-rerun.md"
+  ]
+}

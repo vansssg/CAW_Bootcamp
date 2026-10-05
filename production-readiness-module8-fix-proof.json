@@ -1,0 +1,18 @@
+{
+  "summary": "FIX: business smoke separate from /ready; bounded links/cache/jobs; image_sha on /ready; production hides /debug/error; new runbook. Smoke: live 200, ready 503 with image_sha unknown, POST 200 persisted memory, 307. No git push. Docker still down.",
+  "evidence": [
+    "READY 503 checks include image_sha=unknown and in_memory_links. POST_LINKS 200 persisted memory. REDIRECT 307. SMOKE_OK True.",
+    "MAX_IN_MEMORY_LINKS 10000 FIFO OrderedDict; cache MAX_LOCAL 1000; jobs MAX_EVENTS 10000.",
+    "docs/runbooks/ready-green-users-failing.md covers ready-green user 404s and SHA drift.",
+    "Did not push main. compose still fails on Docker Desktop pipe. /ready 200 not claimed."
+  ],
+  "artifacts": [
+    "progress/production-module8-fix.md",
+    "api/app/main.py",
+    "api/app/cache.py",
+    "api/app/jobs.py",
+    "api/app/scripts/module08_deploy_smoke.py",
+    "docs/runbooks/ready-green-users-failing.md",
+    "infra/docker-compose.yml"
+  ]
+}

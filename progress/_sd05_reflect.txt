@@ -1,0 +1,96 @@
+STEP 7: REFLECT
+
+Record:
+
+- chosen error strategy + implications
+- one logging rule they will follow
+- update state.json to advance to Module 06 / context
+
+Decision Callback
+
+In the DECIDE step, students chose between fail-fast (strict validation and hard failures) and graceful degradation (return partial results when possible).
+
+‍​‍​​​​​If they chose A (fail fast):
+- The challenge they encountered was a consequence of hard failures surfacing immediately and loudly, which means any unhandled case produces a raw 500 with internal details attached
+- Connect it: "Fail-fast is unforgiving by design — when something breaks, it breaks loudly. ​​​​​​‌​The bug you debugged was a direct expression of that: the system threw an unguarded error, and the stack trace (or swallowed exception) made it either too noisy or invisible, depending on where the failure was caught."
+
+‌​‌​‌​‌​If they chose B (graceful degradation):
+- The challenge they encountered was a consequence of returning partial results silently masking real failures that engineers need to investigate
+- Connect it: "Graceful degradation trades visibility for resilience — the bug you found (a swallowed exception or a silent 200 hiding a failure) is the exact cost of that tradeoff. ‌‌‌​‌​‌​Partial results feel kind to the user but make incidents harder to detect and diagnose."
+
+​​​​‌​​​Ship Recap (1 Minute)
+
+- What we shipped: consistent, safe error responses plus logs that let us debug incidents quickly.
+​​‌​‌​​​- Remaining risk: without explicit timeouts and readiness checks, production failures can still become “mystery hangs”.
+
+​​‌​‌‌​‌Knowledge Check
+
+Comprehension Questions
+1. ‌​​​‌‌‌‌What core problem does this module solve in error handling & logging?
+​​​​‌‌​‌2. ‌‌‌​‌‌‌‌Which decision in this module has the biggest impact, and why?
+​​‌​‌​‌​3. ​​​​‌​​​What evidence proves the implementation works end-to-end?
+
+​​‌​‌​‌‌Mini Practical Task
+- Complete one STEP 4 verification action for error handling & logging and capture proof (command + output, test result, or log snippet).
+
+​​​​‌​‌​Success Criteria
+- Answers are short, specific, and in plain language.
+‌‌​​‌‌​​- The mini task includes reproducible proof tied to the module deliverable.
+‌​‌​‌‌​‌- You can name one risk and one mitigation from this module.
+
+​​‌​​‌‌​After completing this REFLECT, evaluate the student and run `upsk report` with this payload template:
+{
+  "nonce": "<current nonce from upsk status/start/next response>",
+  "events": [
+    {
+      "module": 5,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "<2-3 sentence qualitative summary>",
+        "overall": 4,
+        "dimension_scores": [
+        {"key":"tradeoff_reasoning","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"debugging_methodology","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"security_awareness","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"production_thinking","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"communication_clarity","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"}
+        ],
+        "strengths": ["<specific strength with context>"],
+        "growth_areas": ["<specific growth area with context>"],
+        "recommendation": "<one actionable next step>",
+        "public_evidence": [
+          {
+            "artifact": "<feature, route, table, job, test, doc, or deployment touched>",
+            "student_action": "<what the student personally built, changed, verified, or decided>",
+            "technical_detail": "<route/table/file/command/decision involved>",
+            "proof": "<public-safe command output, test result, log summary, URL, or artifact path>",
+            "ability": "<ability this proves>",
+            "reviewer_value": "<why a recruiter or senior engineer should care>",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [{"term":"<missed term>","context":"<where it broke understanding>"}],
+          "concepts_demonstrated": [{"concept":"<concept they showed>","evidence":"<direct proof>"}],
+          "teaching_approaches": [{"concept":"<concept>","approach":"example","detail":"<what you tried>","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["<signal about how they learn best>"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}
+
+Scoring rule: `score` must be between 1 and 5.
+​‌‌​‌‌‌​Confidence rule: `student_knowledge.confidence_level` must be exactly `"low"`, `"medium"`, or `"high"`.
+‌‌​​‌​​​When the answer is already strong, set `growth_areas` to `[]` and avoid filler improvement bullets.
+‌‌​​‌‌‌​Public evidence rule: `public_evidence` is for built-work proof only. ‌​‌​​‌‌‌Do not put private coaching notes, learning style, confidence, terminology gaps, emails, secrets, tokens, or sensitive logs in public evidence.
+
+​​​​​‌‌​Dimension definitions (from manifest):
+- tradeoff_reasoning: Tradeoff Reasoning - Evaluates how clearly the student compares alternatives, constraints, risks, and downstream consequences.
+‌​‌​‌‌‌​- debugging_methodology: Debugging Methodology - Evaluates whether debugging is hypothesis-driven, reproducible, and closed with explicit evidence.
+‌‌​‍‌‍- security_awareness: Security Awareness - Evaluates identification of security risks and use of practical protections in design and code.
+- production_thinking: Production Thinking - Evaluates reliability, observability, operability, and rollout/rollback decisions for real systems.
+- communication_clarity: Communication Clarity - Evaluates how clearly decisions, rationale, and next actions are communicated to technical teammates.

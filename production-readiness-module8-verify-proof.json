@@ -1,0 +1,17 @@
+{
+  "summary": "VERIFY: no public URL. ASGI /live 200, /ready 503 with database disconnected checks, /metrics 200 with http_requests_total duration urls_total. Compose deploy failed. Rollback not timed.",
+  "evidence": [
+    "No https:// curl. docker compose up -d --build app: Docker Desktop pipe missing.",
+    "/ready 503 {\"ok\":false,\"checks\":{\"database\":\"disconnected\",\"cache\":\"disconnected\",\"uptime_seconds\":4}} — not unconditional 200.",
+    "/metrics 200 1346 bytes includes http_requests_total, http_request_duration_seconds, urls_total.",
+    "Broken-DB gate proven on this host; no LB so public traffic was never switched. /live still 200.",
+    "Rollback under 2 minutes: not measured. IMAGE_TAG compose rollback untested.",
+    "Pipeline: push main → lint+test → docker build SHA → deploy only if vars.DEPLOY_BASE_URL set.",
+    "Monday check: /ready checks.database, postgres_connect_or_query_timeout logs, Actions skip/fail. Memory leak: HighLatencyP95; RSS not on /ready."
+  ],
+  "artifacts": [
+    "progress/production-module8-verify.md",
+    "api/app/scripts/module08_deploy_smoke.py",
+    ".github/workflows/ci.yml"
+  ]
+}

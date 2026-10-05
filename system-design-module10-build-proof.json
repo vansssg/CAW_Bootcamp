@@ -1,0 +1,18 @@
+{
+  "summary": "BUILD: single container binds 0.0.0.0 and PORT, HTTP timeouts 5/30s, /live health /ready 503, CI on PRs runs module09 tests, migrations one-off alembic. Compose uses postgres hostname. No Railway or docker up claimed.",
+  "evidence": [
+    "DOCKER_HOST_ALL_INTERFACES True DOCKER_PORT_FROM_ENV True keep-alive 5 graceful 30 HEALTHCHECK /live.",
+    "CI_ON_PULL_REQUEST True CI_RUNS_MODULE09 True. RAILWAY_HEALTH_LIVE True.",
+    "COMPOSE_APP_USES_POSTGRES_HOSTNAME True. SHUTDOWN_HANDLER True MIGRATE_ONE_OFF True. DB_CONNECT_TIMEOUT_S 1.",
+    "LIVE_STATUS 200 READY_STATUS 503. DOCKER_COMPOSE_NOT_CLAIMED True."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    ".github/workflows/ci.yml",
+    "railway.toml",
+    "api/.env.example",
+    "api/app/scripts/migrate.sh",
+    "api/app/scripts/module10_deploy_verify.py",
+    "progress/system-design-module10-build.md"
+  ]
+}

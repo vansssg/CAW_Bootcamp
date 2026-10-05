@@ -1,0 +1,37 @@
+groups:
+  - name: url-shortener-observability
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          service: url-shortener
+        annotations:
+          summary: "Error rate exceeds 5%"
+          description: "More than 5% of requests are returning 5xx over the last 5 minutes."
+          runbook: "progress/production-module4-runbook-high-error-rate.md"
+
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 2
+        for: 3m
+        labels:
+          severity: warning
+          service: url-shortener
+        annotations:
+          summary: "P95 latency exceeds 2 seconds"
+          description: "95th percentile request latency is above 2 seconds for 3 minutes."
+          runbook: "progress/production-module4-runbook-high-latency.md"
+
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: url-shortener
+        annotations:
+          summary: "Metrics target is unreachable"
+          description: "Prometheus cannot scrape the service /metrics endpoint for over 1 minute."
+          runbook: "progress/production-module4-runbook-service-down.md"

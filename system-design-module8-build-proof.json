@@ -1,0 +1,16 @@
+{
+  "summary": "BUILD: GET /links/search before /links/{code}. Owner-scoped, page_size max 50 rejected not clamped, FTS SQL parameterized. ASGI proof: 401 unauth, 400 on page_size=51 and sort injection, q=example total 3 principal-a only, tag=docs 2, page 1 vs 2 distinct. Backend memory; 5432 not queried.",
+  "evidence": [
+    "CREATE_A 200 200 200 CREATE_B 200. UNAUTH_STATUS 401. HUGE_PAGE_STATUS 400 page_size must be <= 50. BAD_SORT_STATUS 400.",
+    "SEARCH_STATUS 200 SEARCH_TOTAL 3 SEARCH_BACKEND memory SEARCH_OWNERS ['principal-a'] B_LEAKED False.",
+    "TAG_DOCS_TOTAL 2. P1_COUNT 1 P2_COUNT 1 TOTAL 3 P1_NE_P2 True. PAGE0_STATUS 400.",
+    "FTS_PARAM_Q True. SEARCH_USE_POSTGRES None. Did not claim GIN created on localhost:5432."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/search.py",
+    "api/app/sql/links_fts.sql",
+    "api/app/scripts/module08_search_verify.py",
+    "progress/system-design-module8-build.md"
+  ]
+}

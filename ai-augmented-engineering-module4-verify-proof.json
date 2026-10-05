@@ -1,0 +1,16 @@
+{
+  "summary": "Verified five invitation edge cases over ASGI. Already-member 409, empty team name 400, unauth 401, non-admin/non-member 403, invalid email 400. First-pass had 200s for 1/2/5; fixes now execute, not comments.",
+  "evidence": [
+    "VERIFY_1_ALREADY_MEMBER_STATUS 409 for POST /teams/1/invitations email=b@example.com (principal-b already member).",
+    "VERIFY_2_EMPTY_NAME_STATUS 400 and VERIFY_2_SPACE_NAME_STATUS 400 for POST /teams name empty or whitespace.",
+    "VERIFY_3_UNAUTH_STATUS 401 for POST /teams/1/invitations with no X-API-Key.",
+    "VERIFY_4_MEMBER_NOT_ADMIN_STATUS 403 (principal-b member of team 1) and VERIFY_4_NON_MEMBER_STATUS 403 (B on A's new team 2).",
+    "VERIFY_5_INVALID_EMAIL_STATUS 400 for email=not-an-email.",
+    "Regression: B_ACCEPT_IDOR False (403); B_LEGIT_ACCEPT_STATUS 200 for b@example.com on team 2; EMAIL_FAIL_HTTP 503 leftover pending False; SQL_INTERPOLATED False SQL_HAS_BIND True. Postgres still down; SQL helper not executed against a database."
+  ],
+  "artifacts": [
+    "api/app/invitations.py",
+    "api/app/scripts/module04_invitation_review_probe.py",
+    "progress/ai-augmented-module4-verify.md"
+  ]
+}

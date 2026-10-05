@@ -1,0 +1,105 @@
+{
+  "events": [
+    {
+      "module": 5,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student turned a hang-with-green-/live outage into fail-closed 503s by adding engine connect/pool/statement timeouts and mapping OperationalError to a named failure_mode log. BREAK used existing evidence instead of another infinite connect: /ready TIMEOUT with no 5xx, plus GET /r/{code} coupling a user read to an analytics write. FIX re-sim showed /ready 503 in 4.271s and POST /links 503 without a traceback in the client body.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "containerization_quality",
+            "score": 3,
+            "observation": "Timeouts were added on the SQLAlchemy engine the container process uses; no Docker DNS /etc/hosts injection was run.",
+            "evidence": "api/app/db.py connect_timeout=2 and statement_timeout=2000ms; Docker daemon was previously unavailable so Option A DNS was diagnosed from code and localhost URL, not docker exec."
+          },
+          {
+            "key": "pipeline_design",
+            "score": 3,
+            "observation": "Failure handling is in the request path, not a new CI stage.",
+            "evidence": "No GitHub Actions job was added; verification is api/app/scripts/module05_failure_fix_verify.py against ASGI."
+          },
+          {
+            "key": "observability_coverage",
+            "score": 4,
+            "observation": "Hang is now a 503 that HighErrorRate can see, with logs that name the mode instead of a generic 500.",
+            "evidence": "FIX re-sim log: database unavailable action=ready failure_mode=postgres_connect_or_query_timeout error_type=ConnectionTimeout; /live still 200 in 0.159s."
+          },
+          {
+            "key": "failure_thinking",
+            "score": 4,
+            "observation": "Ranked unbounded connect wait as highest risk because it is invisible to 5xx alerts, and added the missed partial-failure row for redirect writes.",
+            "evidence": "BREAK artifact: S1_READY_HANG_NO_500_NO_METRIC_COMPLETION vs GET /r/{code} SELECT then INSERT analytics; FMEA gained postgres partial-failure row."
+          },
+          {
+            "key": "degradation_design",
+            "score": 4,
+            "observation": "Implemented per-path stance: 503 on lookup/create, keep /live up, fail-open only on analytics after a successful lookup.",
+            "evidence": "GET /ready and POST /links return 503 in 4.2–4.9s; redirect lookup 503; analytics insert is a separate transaction with warn postgres_write_partial_failure."
+          },
+          {
+            "key": "documentation_quality",
+            "score": 4,
+            "observation": "FMEA inventory, 12+ modes, simulations with actual timings, and FIX table comparing hang vs 503.",
+            "evidence": "progress/production-module5-fmea.md, break.md, fix.md include command outputs FIX_READY_ELAPSED_S 4.271 and Sim2 ConnectionTimeout 4.451s."
+          }
+        ],
+        "strengths": [
+          "Did not repeat the infinite engine.connect hang; reused TIMEOUT and Sim2 timings as BREAK evidence.",
+          "Made fail-closed detectable: ConnectionTimeout -> named log -> 503 instead of fail-opaque hang.",
+          "Caught GET /r/{code} as a write-on-read partial-failure mode and decoupled analytics from redirect."
+        ],
+        "growth_areas": [
+          "Analytics fail-open path was not exercised against a live read-only Postgres (lookup still times out in this environment).",
+          "No circuit breaker/backoff yet; that is Module 06, and tight client retries on 503 remain a residual risk."
+        ],
+        "recommendation": "In Module 06, add a circuit breaker around engine.connect so repeated ConnectionTimeout on /links does not keep paying the 4s connect_timeout on every request.",
+        "public_evidence": [
+          {
+            "artifact": "Fail-closed Postgres timeouts and 503 mapping",
+            "student_action": "Added connect/pool/statement timeouts and mapped database unavailability to HTTP 503 with a named failure-mode log, keeping /live independent.",
+            "technical_detail": "api/app/db.py connect_timeout=2; api/app/main.py raise_db_unavailable on /ready, POST /links, redirect lookup; analytics INSERT decoupled from redirect.",
+            "proof": "module05_failure_fix_verify.py: GET /live 200 in 0.159s; GET /ready 503 in 4.271s; POST /links 503; GET /r/abc123 503; client body service temporarily unavailable; log failure_mode=postgres_connect_or_query_timeout.",
+            "ability": "Turns dependency hang into a bounded, observable fail-closed response without inventing fallback data.",
+            "reviewer_value": "Shows production judgment: timeouts, 503 vs 500, liveness vs readiness, and not coupling redirects to telemetry writes.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Fail-closed vs fail-open per path",
+              "evidence": "URL lookup/create 503; analytics write warn+redirect; /live 200 without Postgres."
+            },
+            {
+              "concept": "Slow/unreachable vs crash",
+              "evidence": "Before FIX /ready TIMEOUT with no 5xx; after FIX ConnectionTimeout in 4.271s as 503."
+            },
+            {
+              "concept": "Partial failure (read vs write)",
+              "evidence": "GET /r/{code} SELECT then INSERT analytics; /ready is SELECT 1 only."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Highest-risk ranking",
+              "approach": "example",
+              "detail": "Compared hang (no 5xx) vs other modes using recorded ASGI and Sim2 timings.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "hypothesis_driven",
+            "operational_risk_awareness",
+            "tradeoff_reasoning"
+          ],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

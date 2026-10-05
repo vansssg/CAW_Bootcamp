@@ -1,0 +1,14 @@
+{
+  "summary": "FIX: rewrote the hostile PR comment with the same name/loop/nest/dataclass points as questions and suggestions, labeled ZeroDivisionError as a must-fix bug, added a no-side-effects strength, and kept dict-vs-dataclass as a nit.",
+  "evidence": [
+    "Rule 1: 'unreadable' became rename d/cnt/cnt2; 'never heard of iterating' became for user in users; no 1995/Python 101/mess/we.",
+    "Rule 2: health nest got early-return helper suggestion instead of 'refactor the whole thing'.",
+    "Rule 3: Bug labeled on total_age / cnt ZeroDivisionError when cnt==0; also noted mixed-average.",
+    "Rule 4: Positive: no side effects, easy to test.",
+    "After: hostile review delays merge via dataclass debate; rewrite merges same day. Hostile vs collaborative next-PR confidence."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module1-fix.md",
+    "progress/technical-communication/module1-break.md"
+  ]
+}

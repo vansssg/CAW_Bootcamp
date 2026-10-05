@@ -1,0 +1,13 @@
+{
+  "summary": "FIX: added half-open/trial logging so a never-heal symptom can be distinguished from a still-down database. Probe showed open -> half-open -> closed with circuit_before_call circuit_state=half-open.",
+  "evidence": [
+    "BreakerLogger.before_call/failure/success added in api/app/resilience.py; circuit_open_fallback now logs circuit_state.",
+    "Heal-probe: circuit_state_change to CircuitHalfOpenState, circuit_before_call circuit_state=half-open, circuit_call_succeeded, TRIAL ok.",
+    "Live docker start postgres still not available; a trial against ConnectionTimeout would re-open and now log circuit_call_failed."
+  ],
+  "artifacts": [
+    "api/app/resilience.py",
+    "api/app/main.py",
+    "progress/production-module6-fix.md"
+  ]
+}

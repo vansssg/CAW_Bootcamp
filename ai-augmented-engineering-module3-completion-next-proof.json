@@ -1,0 +1,23 @@
+{
+  "summary": "Completed Module 3 end-to-end by building layered-surgical context packages, generating first-pass planning outputs, detecting a convention drift, fixing it via explicit missing-context constraints, and submitting the module evaluation.",
+  "evidence": [
+    "Built reusable system context and task bundles: `progress/module-03-system-context.md` and `progress/module-03-context-packages.md`.",
+    "Generated first-pass Task outputs: `progress/module-03-team-invitation-requirements.md`, `progress/module-03-team-invitation-schema-plan.md`, and `progress/module-03-team-invitation-permission-plan.md`.",
+    "Completed convention-matching verify pass in `progress/module-03-verify-convention-matching.md` with explicit matches/mismatches and missing-context hypotheses.",
+    "Captured BREAK diagnosis in `progress/module-03-break-convention-violation.md`, identifying permission-plan error-status assumptions drifting from currently evidenced runtime conventions.",
+    "Applied FIX by tightening error-contract context and re-running Task 3, recorded in `progress/module-03-fix-missing-context.md` and `progress/module-03-team-invitation-permission-plan-rerun.md`.",
+    "Submitted Module 3 evaluation report successfully via `upsk report` using `ai-augmented-engineering-module3-evaluation-report.json`."
+  ],
+  "artifacts": [
+    "progress/module-03-system-context.md",
+    "progress/module-03-context-packages.md",
+    "progress/module-03-team-invitation-requirements.md",
+    "progress/module-03-team-invitation-schema-plan.md",
+    "progress/module-03-team-invitation-permission-plan.md",
+    "progress/module-03-verify-convention-matching.md",
+    "progress/module-03-break-convention-violation.md",
+    "progress/module-03-fix-missing-context.md",
+    "progress/module-03-team-invitation-permission-plan-rerun.md",
+    "ai-augmented-engineering-module3-evaluation-report.json"
+  ]
+}

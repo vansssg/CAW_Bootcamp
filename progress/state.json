@@ -1,0 +1,28 @@
+{
+  "debugging-incident-response": {
+    "pack": "operator",
+    "module_07": "complete",
+    "skill_complete": true
+  },
+  "system-design-fundamentals": {
+    "pack": "operator",
+    "module_08": "complete",
+    "search_strategy": "db_native",
+    "module_09": "complete",
+    "test_strategy": "unit_heavy",
+    "module_10": "complete",
+    "deploy_strategy": "single_container",
+    "bootcamp_complete": true
+  },
+  "ai-augmented-engineering": {
+    "pack": "practitioner",
+    "module_04": "complete",
+    "review_method": "pattern_based",
+    "module_05": "complete",
+    "iteration_strategy": "refine_first",
+    "module_06": "complete",
+    "parallelization_plan": "interface_first",
+    "merge_strategy": "sequential_integration"
+  },
+  "updated": "2026-08-17"
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "Interlude: S3 2017 applied to this shortener — transitive deps, health checks that lie, and failure-detection hosted on the failing path.",
+  "evidence": [
+    "Transitive chain for this app: FastAPI -> SQLAlchemy pool -> psycopg -> TCP -> localhost:5432 -> (if it were cloud) EBS/DNS/IAM. FMEA listed Postgres but not the pooler or disk under Postgres. GET /ready is SELECT 1 on that same chain, so a pooler/DNS failure looks identical to 'database down'.",
+    "Health-check lie already observed: GET /live 200 while data paths hung, then after FIX /ready is 503 on ConnectionTimeout. If /ready had stayed SELECT-only on a read replica, it would still be the S3 pattern: health stored on the broken subsystem.",
+    "Failure-detection coupling: /metrics and error logs live in the same process as engine.connect. HighErrorRate only fires after FIX because 503 is now returned; before that, the alert system was silent for the same reason the AWS status page stayed green — detection shared fate with the dependency.",
+    "Fallback when dashboards lie: bounded timeouts plus process-local /live, plus named failure_mode logs. Not claimed: an external Prometheus on a separate host."
+  ],
+  "artifacts": [
+    "progress/production-module5-fmea.md",
+    "progress/production-module5-fix.md"
+  ]
+}

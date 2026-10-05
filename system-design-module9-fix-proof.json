@@ -1,0 +1,12 @@
+{
+  "summary": "FIX: restored links.clear() in setUp. Shared-store flake was 4 leftover codes. Three full-suite runs OK.",
+  "evidence": [
+    "Root cause: process-global OrderedDict links. javascript POST was already 400; assertion saw other tests' codes.",
+    "setUp again: reset_rates, reset_jobs, reset_cache, links.clear(). No DATABASE_URL.",
+    "Run 1 6 tests 0.690s OK. Run 2 0.849s OK. Run 3 1.461s OK."
+  ],
+  "artifacts": [
+    "api/app/scripts/module09_test_suite.py",
+    "progress/system-design-module9-fix.md"
+  ]
+}

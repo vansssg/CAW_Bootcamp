@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: the bad review is technically defensible on names, range(len), nesting, and dataclass, but it is a communication failure. Eight charged phrases, no actionable patches, no ZeroDivisionError, no strengths, and 'not how we do things' as fake process.",
+  "evidence": [
+    "Tone count 8: stopped reading; d? cnt? cnt2?; 1995 sarcasm; never heard of iterating; Python 101; mess; refactor the whole thing; not how we do things.",
+    "Actionability: no rename targets, no health helper, no dataclass fields. Missing suggestions: zero code examples.",
+    "Critical bug missed: d['average_account_age'] = total_age / cnt still crashes when cnt==0; mixed-average also unmentioned.",
+    "Nothing positive: no-side-effects and docstring ignored. 'we' treats a preference as a rule.",
+    "Core question: Option B — defensive author, worse future PRs. Intent vs impact gap."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module1-break.md",
+    "progress/technical-communication/code-review.md"
+  ]
+}

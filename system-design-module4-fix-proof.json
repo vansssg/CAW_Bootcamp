@@ -1,0 +1,16 @@
+{
+  "summary": "IDOR was authN without authZ on GET /api/admin/links. Restored owner filter; moved API keys into env and stopped treating JWT_SECRET as an API key. Regression: B's list is empty (no A's URL); JWT_SECRET as X-API-Key is 401.",
+  "evidence": [
+    "Vulnerability: BREAK_IDOR_LEAK True with B listing A's https://secret.example/a-private. AuthN passed (200) but the list skipped owner == principal_id.",
+    "FIX_LIST_B_BODY count 0 items []; FIX_IDOR_LEAK False; FIX_JWT_SECRET_AS_API_KEY_STATUS 401 Invalid API key. Config now requires API_KEY_A/API_KEY_B length >=32, distinct, not equal to JWT_SECRET.",
+    "Regression also re-ran module04_auth_verify.py: GET_A_AS_B 404; CREATE_RATE 200x5 then 429; REDIRECT 307x8 then 429; ANALYTICS 200x5 then 429."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/auth.py",
+    "api/app/config.py",
+    "api/.env.example",
+    "api/app/scripts/module04_auth_break.py",
+    "progress/system-design-module4-fix.md"
+  ]
+}

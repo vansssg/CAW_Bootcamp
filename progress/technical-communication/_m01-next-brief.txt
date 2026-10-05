@@ -1,0 +1,35 @@
+STEP 1: CONTEXT
+
+No artifact drafting yet.
+
+‍​‍​​Why Technical Writing Can Be a Matter of Survival (3-5 min)
+
+Let me tell you a story about a company that lost $440 million in 45 minutes. ​​​​​Not because of bad code. ​​​​‌Because of bad writing.
+
+​‌​‌​In August 2012, Knight Capital Group -- one of the largest stock trading firms in the United States -- deployed a routine software update to their trading servers. ‌​‌​‌Something went wrong. ‌‌​‌​The update accidentally reactivated a piece of old trading code that should have been removed years earlier. ‌​​​​That old code started firing off massive, erratic stock trades at machine speed.
+
+​‌​​​Engineers scrambled. ​​‌​‌They knew there was a rollback procedure somewhere. ​​​​​The internal runbook -- think of a runbook like an emergency instruction manual, the document you grab when the building is on fire and you need to know which exit to use -- existed. ‌​‌‌​It had the right information in it.
+
+‌‌​​​But the runbook was written as a dense wall of paragraph-form prose. ‌‌‌‌​No headings. ​​​‌‌No bullet points. ​‌‌‌‌No way to scan it quickly. ​‌‌‌‌Imagine trying to find one specific sentence in a 20-page novel while your house is burning down. ​​‌​‌That is what the Knight Capital engineers faced.
+
+​‌​​​By the time responders located the relevant section and figured out what to do, Knight Capital had lost $440 million. ​​‌​​The company nearly went bankrupt overnight. ​​​‌​They had to be rescued by outside investors within 48 hours.
+
+‌​‌‌​The information existed. ​​​‌​The writing killed them.
+
+‌​‌‌​Why This Matters For You
+
+You will write technical documents throughout your career. ​‌‌​​Not all of them will be life-or-death. ‌​‌​‌But every single one will either help someone act quickly and correctly, or slow them down and confuse them.
+
+‌​‌​​Technical writing is not about being fancy. ‌​​‌‌Think of it like LEGO instructions. ​​‌‌​A 10-year-old can build a 2,000-piece LEGO set because the instructions are step-by-step, visual, and unambiguous. ‌‌‌​‌That is the bar. ‌​​‌​Not impressive prose. ​​‌‌​Clear, scannable, precise writing that the reader can act on.
+
+​‌‌‌​Micro-Exercise (2 min)
+
+Try this right now:
+
+1. ‌​‌​​Think of any technical document you have written or read recently -- a README, a Slack message explaining a bug, a homework assignment, anything.
+‌‌‌​​2. ​​​‌‌Without opening it, can you remember the main point? ​‌​‌​If you opened it right now, could you find that point within 10 seconds?
+‌‌‌​‌3. ‌​‍‌‍If you skimmed just the headings (if there are headings), would you know what the document covers?
+
+If the answer to any of those is "no" -- that is not a failure. That is the gap this module is going to close.
+
+---

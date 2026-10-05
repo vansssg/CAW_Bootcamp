@@ -1,0 +1,13 @@
+{
+  "summary": "Knight Capital 2012: missed one of eight servers, Power Peg via a reused flag, no kill switch, $440M/45min. Applied to this shortener: git push is not a same-version check; /debug/error and /health vs /readyz are reachable old paths; runbooks lack a stop-traffic command for successful-but-wrong 307s.",
+  "evidence": [
+    "Deploy path docs/service-overview.md is git push origin main; CI does not compare replica SHAs. One local container name url-shortener-prod is not eight-server verification.",
+    "Dead/reachable: GET /debug/error still 500s; GET /health 200 without DB; BREAK showed GET /ready 404 while /readyz 503 — old probe path still in clients.",
+    "No runbook for 'service is up and every response is harm'. Closest kill is git revert plus docker stop url-shortener-prod. HighErrorRate misses successful bad redirects."
+  ],
+  "artifacts": [
+    "progress/production-module7-interlude.md",
+    "docs/service-overview.md",
+    "api/app/main.py"
+  ]
+}

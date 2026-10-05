@@ -1,0 +1,13 @@
+{
+  "summary": "POST create IDOR is blocked (B 403 on A's team). GET /teams/{id}/invitations still lists another team's invites: B got 200, saw hidden.user@example.com and the raw token. listInvitations takes principal_id and does not check membership.",
+  "evidence": [
+    "BREAK_POST_CREATE_B_STATUS 403; BREAK_POST_IDOR_BLOCKED True.",
+    "BREAK_GET_LIST_B_STATUS 200; BREAK_GET_LIST_COUNT 1; BREAK_GET_LIST_SAW_HIDDEN_EMAIL True; BREAK_GET_LIST_SAW_TOKEN True.",
+    "BREAK_LIST_HELPER_NO_MEMBERSHIP_CHECK True; BREAK_IDOR_SURFACE GET /teams/{team_id}/invitations.",
+    "ASGI only; no Postgres/Docker claimed."
+  ],
+  "artifacts": [
+    "api/app/scripts/module04_invitation_break_probe.py",
+    "progress/ai-augmented-module4-break.md"
+  ]
+}

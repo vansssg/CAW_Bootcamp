@@ -1,0 +1,19 @@
+{
+  "summary": "FIX pass on T4 plus scan of T2-T6: closed auth silence via standards cite + SLICE1_GUEST_LEARNER; added three deeper assumptions (authorization, input allowlist, Idempotency-Key); completeness checklist all yes.",
+  "evidence": [
+    "T4 now lists 200/201/400/404/409/429/500; strict body allowlist (no notes/HTML); Idempotency-Key table + same-learner safe retry; authz rules for guest vs post-T6 self-only.",
+    "Three unstated assumptions fixed on T4: (1) who can book for whom, (2) input allowlist/sanitization surface, (3) network-retry idempotency.",
+    "T5: public register stated; input length/charset limits; unknown keys 400.",
+    "T6: owner-only authz; revokes SLICE1_GUEST_LEARNER; integration contract with T4 field names.",
+    "artifacts/tickets/module-05/fix-checklist.md — completeness checklist marked yes across T1-T6.",
+    "artifacts/standards/api-cross-cutting.md remains the cross-cutting reference for rate limit, safe 500s, logging."
+  ],
+  "artifacts": [
+    "artifacts/tickets/module-05/t4-post-bookings.md",
+    "artifacts/tickets/module-05/t5-auth-register-provider.md",
+    "artifacts/tickets/module-05/t6-get-my-bookings.md",
+    "artifacts/tickets/module-05/fix-checklist.md",
+    "artifacts/standards/api-cross-cutting.md",
+    "decomposition-module5-fix-proof.json"
+  ]
+}

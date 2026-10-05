@@ -1,0 +1,20 @@
+{
+  "summary": "Implemented hybrid structured logging, Prometheus /metrics (counter, histogram, urls_total gauge), three alert rules with runbooks, and completed the failure-first drill over ASGI without Postgres lifespan.",
+  "evidence": [
+    "emit_log hybrid: development pretty line includes timestamp, INFO, message, service_name=url-shortener, request_id; production JSON required keys timestamp/level/message/service_name/request_id all present (PROD_JSON_REQUIRED_OK True).",
+    "ASGI drill (no lifespan): LIVE_STATUSES ten 200s for mixed /live and /health; HONORED_X_REQUEST_ID req-upstream-abc; DEBUG_ERROR_STATUS 500 with stack_trace RuntimeError: forced observability test error.",
+    "GET /metrics 200: http_requests_total{method=\"GET\",path=\"/live\",status=\"200\"} 9.0; http_requests_total{method=\"GET\",path=\"/debug/error\",status=\"500\"} 1.0; histogram buckets present; urls_total gauge present.",
+    "Alerts written in progress/production-module4-alert-rules.yml: HighErrorRate 5% for 2m critical, HighLatencyP95 >2s for 3m warning, ServiceDown up==0 for 1m critical, each with a runbook file.",
+    "Limitation: SQLAlchemy engine.connect() to localhost:5432 hung and was killed; uvicorn startup still requires Postgres so live process scrape was not claimed."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/requirements.txt",
+    "api/app/scripts/module04_observability_verify.py",
+    "progress/production-module4-build.md",
+    "progress/production-module4-alert-rules.yml",
+    "progress/production-module4-runbook-high-error-rate.md",
+    "progress/production-module4-runbook-high-latency.md",
+    "progress/production-module4-runbook-service-down.md"
+  ]
+}

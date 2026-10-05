@@ -1,0 +1,13 @@
+{
+  "summary": "VERIFY: critical path is Listings→Slots→Booking→Cancel contract→Refund+admin (5 levels, 13d). Doubling slot lock slips booking/pay/cancel, not search. Listings do not depend on auth. Booking path is Auth+Listings→Slots→Booking.",
+  "evidence": [
+    "Longest hard chain: W2 3d + W4 3d + W6 3d + W11 1d + W12 3d = 13d.",
+    "Double W4: W6/W8/W11/W12 delayed; W5 search unaffected.",
+    "Red flag 1 avoided: no Auth→Listings edge. Red flag 2 avoided: W1||W2, W4||W5. Red flag 3 avoided: search/booking/pay edges exist.",
+    "Zero to complete booking: W1+W2 → W4 → W6."
+  ],
+  "artifacts": [
+    "progress/decomposition/module2-verify.md",
+    "artifacts/dag-module-02.md"
+  ]
+}

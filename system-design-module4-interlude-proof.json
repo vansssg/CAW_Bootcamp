@@ -1,0 +1,14 @@
+{
+  "summary": "Cloudflare 2019 WAF regex backtracking is our 'never designed for' case: adversarial URL length, IDOR ids, and redirect floods. Transparency means publishing the leak body and the 404/429 matrix instead of a vague outage note.",
+  "evidence": [
+    "Adversarial input here: (1) B guessing A's short_code — GET_A_AS_B 404 not 200 with URL; (2) create/redirect floods — 429 after 5 creates / 8 redirects; (3) missing owner filter on admin list leaked https://secret.example/a-private until FIX_IDOR_LEAK False. Error-handling analogue of CPU-saturating regex: a hung Postgres connect without timeout (Module 05 /ready hang) — we already mapped that to 503 rather than letting the worker sit at 100% wait.",
+    "Transparency: Cloudflare published the regex and timeline. Our IDOR postmortem is progress/system-design-module4-break.md with BREAK_LIST_B_BODY and the empty FIX_LIST_B_BODY. We also recorded persisted=memory instead of claiming a Postgres write while localhost:5432 is down — hiding that would be the 'brief disruption' version.",
+    "Canary lesson applied: rate limits and owner checks are in-process and proven on ASGI before any global deploy. Remaining: in-memory limiter is not a canary across workers."
+  ],
+  "artifacts": [
+    "progress/system-design-module4-break.md",
+    "progress/system-design-module4-fix.md",
+    "progress/system-design-module4-reflect.md",
+    "api/app/scripts/module04_auth_verify.py"
+  ]
+}

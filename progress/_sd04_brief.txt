@@ -1,0 +1,179 @@
+STEP 3: BUILD
+
+Code generation starts now.
+
+‍​‍​​​​​​​​​Minimum requirements:
+
+- Protect link management endpoints (create/update/delete/list)
+- Keep redirect endpoint public
+- Add a simple auth “identity” concept:
+  - principal_id (who is calling)
+- Add authorization rules:
+  - Link CRUD and analytics must be scoped to principal_id
+  - Decide and record the “not owner” response: 404 (hide existence) vs 403 (explicitly forbidden)
+    - Record as decisions.module_04.not_owner_status = 404 | 403
+- Define a rate-limit matrix and prove it with evidence:
+  - login/auth (if you have it)
+  - create-link
+  - redirect (protect against enumeration)
+  - analytics export endpoints (if you build any)
+
+NestJS Track
+
+If auth_method == JWT:
+
+- Add auth module with:
+  - login endpoint (simple email+password or dev-only static user)
+  - JWT issuance (short TTL)
+  - guard to protect routes
+
+If auth_method == API key:
+
+- Add middleware/guard that checks X-API-Key header.
+​​‌​‌​‌​‌​‌​- Map API key to principal_id.
+
+‌‌‌​‌​‌​​​​​Evidence (What To Run):
+
+- Protected endpoint without auth (expect 401):
+  - bash: curl -i http://localhost:3000/<links-route>
+  - PowerShell: curl.exe -i http://localhost:3000/<links-route>
+- With JWT (expect 2xx):
+  - bash: curl -i -H "Authorization: Bearer <TOKEN>" http://localhost:3000/<links-route>
+  - PowerShell: curl.exe -i -H "Authorization: Bearer <TOKEN>" http://localhost:3000/<links-route>
+- With API key (expect 2xx):
+  - bash: curl -i -H "X-API-Key: <API_KEY_A>" http://localhost:3000/<links-route>
+  - PowerShell: curl.exe -i -H "X-API-Key: <API_KEY_A>" http://localhost:3000/<links-route>
+
+Expected:
+
+- Without auth: 401.
+‌​​​​​‌​‌​​​- With auth: 2xx.
+
+​​‌​‌‌​‌‌​​​Authorization (owner scoping) proof (required):
+
+- Create two principals (two users or two API keys): A and B.
+‌‌‌‌​​​​‌‌​‌- If you chose API keys: use API_KEY_A as principal A and API_KEY_B as principal B.
+‌‌‌​‌‌‌‌​​‌​- As A, create a link and capture the returned id.
+‌​‌​​​​​‌​​​- As B, try to access A’s link by id (and analytics if you have it).
+  ​​‌​‌​‌‌​​​​- Expected: you get your chosen “not owner” behavior (404 or 403) and no data leakage.
+
+‌​‌​‌‌​​‌‌​​Rate limiting proof (required):
+
+- Define a small rate-limit matrix and record it (keep it simple) in decisions.module_04.rate_limits, for example:
+  - login_per_min = 10
+  - create_link_per_min = 30
+  - redirect_per_min = 120
+  - analytics_per_min = 60
+- Prove you get throttling (429 or equivalent) after the limit on at least:
+  - login/auth (if you have it)
+  - create-link
+  - redirect
+  - analytics export/read endpoints (if you build any)
+
+Example loop (only if you have a login route; if you use API keys and have no login route, skip this):
+
+- bash: for i in $(seq 1 20); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:3000/auth/login" -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"wrong"}'; done
+- PowerShell: 1..20 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:3000/auth/login" -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"wrong"}' }
+
+Create-link loop (example, include auth so you hit the real handler):
+
+- bash (JWT): for i in $(seq 1 50); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:3000/<links-route>" -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}'; done
+- bash (API key): for i in $(seq 1 50); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:3000/<links-route>" -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}'; done
+- PowerShell (JWT): 1..50 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:3000/<links-route>" -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}' }
+- PowerShell (API key): 1..50 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:3000/<links-route>" -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}' }
+
+Redirect loop (example, replace <CODE>):
+
+- If you chose /r/<code>:
+  - bash: for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost:3000/r/<CODE>"; done
+  - PowerShell: 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" "http://localhost:3000/r/<CODE>" }
+- If you chose /<code>:
+  - bash: for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost:3000/<CODE>"; done
+  - PowerShell: 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" "http://localhost:3000/<CODE>" }
+
+Analytics loop (required if you built any analytics export/read endpoint; replace <ANALYTICS_URL>):
+
+- Suggested <ANALYTICS_URL> once you build Module 07 (adjust if your route differs):
+  - NestJS: http://localhost:3000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01
+  - Replace <LINK_ID> with a real link id
+
+- bash (JWT): for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" -H "Authorization: Bearer <TOKEN>" "<ANALYTICS_URL>"; done
+- bash (API key): for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" -H "X-API-Key: <API_KEY_A>" "<ANALYTICS_URL>"; done
+- PowerShell (JWT): 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -H "Authorization: Bearer <TOKEN>" "<ANALYTICS_URL>" }
+- PowerShell (API key): 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -H "X-API-Key: <API_KEY_A>" "<ANALYTICS_URL>" }
+
+FastAPI Track
+
+If auth_method == JWT:
+
+- Add /auth/login returning access token.
+‌​‌​‌‌​‌​​‌​- Add dependency to require auth for protected routes.
+
+​‌‌​​‌‌​‌‌‌​If auth_method == API key:
+
+- Require X-API-Key header.
+‌‌​​‌​​​‌‌​​- Dependency validates key and sets principal.
+
+‌‌‌​‌​‌​​‌‌‌Evidence (What To Run):
+
+- Protected endpoint without auth (expect 401):
+  - bash: curl -i http://localhost:8000/<links-route>
+  - PowerShell: curl.exe -i http://localhost:8000/<links-route>
+- With JWT (expect 2xx):
+  - bash: curl -i -H "Authorization: Bearer <TOKEN>" http://localhost:8000/<links-route>
+  - PowerShell: curl.exe -i -H "Authorization: Bearer <TOKEN>" http://localhost:8000/<links-route>
+- With API key (expect 2xx):
+  - bash: curl -i -H "X-API-Key: <API_KEY_A>" http://localhost:8000/<links-route>
+  - PowerShell: curl.exe -i -H "X-API-Key: <API_KEY_A>" http://localhost:8000/<links-route>
+
+Expected:
+
+- Without auth: 401.
+​​​​​‌‌​‌​‌​- With auth: 2xx.
+
+‌‌‌​‌‌​‍‌‍Rate limiting proof (required):
+
+- Define a small rate-limit matrix and record it (keep it simple) in decisions.module_04.rate_limits, for example:
+  - login_per_min = 10
+  - create_link_per_min = 30
+  - redirect_per_min = 120
+  - analytics_per_min = 60
+- Prove you get throttling (429 or equivalent) after the limit on at least:
+  - login/auth (if you have it)
+  - create-link
+  - redirect
+  - analytics export/read endpoints (if you build any)
+
+Example loop (only if you have a login route; if you use API keys and have no login route, skip this):
+
+- bash: for i in $(seq 1 20); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:8000/auth/login" -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"wrong"}'; done
+- PowerShell: 1..20 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:8000/auth/login" -H "Content-Type: application/json" -d '{"email":"test@example.com","password":"wrong"}' }
+
+Create-link loop (example, include auth so you hit the real handler):
+
+- bash (JWT): for i in $(seq 1 50); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:8000/<links-route>" -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}'; done
+- bash (API key): for i in $(seq 1 50); do curl -s -o /dev/null -w "%{http_code}\\n" -X POST "http://localhost:8000/<links-route>" -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}'; done
+- PowerShell (JWT): 1..50 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:8000/<links-route>" -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}' }
+- PowerShell (API key): 1..50 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -X POST "http://localhost:8000/<links-route>" -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"https://example.com"}' }
+
+Redirect loop (example, replace <CODE>):
+
+- If you chose /r/<code>:
+  - bash: for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost:8000/r/<CODE>"; done
+  - PowerShell: 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" "http://localhost:8000/r/<CODE>" }
+- If you chose /<code>:
+  - bash: for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" "http://localhost:8000/<CODE>"; done
+  - PowerShell: 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" "http://localhost:8000/<CODE>" }
+
+Analytics loop (required if you built any analytics export/read endpoint; replace <ANALYTICS_URL>):
+
+- Suggested <ANALYTICS_URL> once you build Module 07 (adjust if your route differs):
+  - FastAPI: http://localhost:8000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01
+  - Replace <LINK_ID> with a real link id
+
+- bash (JWT): for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" -H "Authorization: Bearer <TOKEN>" "<ANALYTICS_URL>"; done
+- bash (API key): for i in $(seq 1 200); do curl -s -o /dev/null -w "%{http_code}\\n" -H "X-API-Key: <API_KEY_A>" "<ANALYTICS_URL>"; done
+- PowerShell (JWT): 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -H "Authorization: Bearer <TOKEN>" "<ANALYTICS_URL>" }
+- PowerShell (API key): 1..200 | ForEach-Object { curl.exe -s -o NUL -w "%{http_code}\n" -H "X-API-Key: <API_KEY_A>" "<ANALYTICS_URL>" }
+
+PAUSE: Ask the student to describe the threat model.

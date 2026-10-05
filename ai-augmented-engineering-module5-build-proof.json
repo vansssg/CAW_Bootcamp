@@ -1,0 +1,17 @@
+{
+  "summary": "Built a service-layer team activity bus and WebSocket route, refining twice instead of restarting. Team isolation, invitation.created/accepted without email in payload, and replay_since are measured. Not Postgres NOTIFY; 5432 still down. No httpx so WS bytes were not live-crawled.",
+  "evidence": [
+    "Iteration log: initial structural 4 (pub/sub, team channels, X-API-Key); refine 1 added Queue push + invite publish; refine 2 added replay/ping. No restart.",
+    "ITER_BUS_TEAM1_COUNT 1; ITER_ISOLATION_TEAM2_NOT_IN_TEAM1 True; ITER_REPLAY_SINCE_EMPTY True.",
+    "ITER_INVITE_HTTP 200; ITER_INVITE_CREATED_EVENT True; ITER_NO_EMAIL_IN_PAYLOAD True; ITER_ACCEPT_HTTP 200; ITER_ACCEPT_EVENT True.",
+    "Route /ws/teams/{team_id}/activity uses require_team_member; close 4401/4403 on auth/membership failure. HEARTBEAT_INTERVAL_S=30 constants present; no live 30s timer in the ASGI probe.",
+    "localhost:5432 not used. No Docker. module09 suite still exits 0."
+  ],
+  "artifacts": [
+    "api/app/activity.py",
+    "api/app/invitations.py",
+    "api/app/main.py",
+    "api/app/scripts/module05_activity_probe.py",
+    "progress/ai-augmented-module5-build.md"
+  ]
+}

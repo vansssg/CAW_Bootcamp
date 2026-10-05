@@ -1,0 +1,13 @@
+{
+  "summary": "Cache key is redir:{code} (Redis) or the same short_code in the process TTL map. Invalidation belongs on PATCH and DELETE. TTL is 60s. Restored invalidate_redirect_target on PATCH; STALE_AVOIDED True.",
+  "evidence": [
+    "Keys: redis redir:{code} via setex/get/delete; memory _local[code]=(url, expires). TTL_S=60.",
+    "Invalidation: PATCH /links/{code} and DELETE /links/{code} call invalidate_redirect_target(code).",
+    "Regression module06_cache_verify.py: POST_PATCH_REDIRECT LOCATION https://example.org/new STALE_AVOIDED True LOG_CACHE_INVALIDATE True (was BREAK_STALE True with old Location when invalidate was skipped)."
+  ],
+  "artifacts": [
+    "api/app/cache.py",
+    "api/app/main.py",
+    "api/app/scripts/module06_cache_verify.py"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "step": {
+    "id": "interlude",
+    "label": "INTERLUDE"
+  },
+  "pack": {
+    "id": "spk_technical_communication_launchpad",
+    "slug": "launchpad",
+    "name": "Launchpad",
+    "order": 1,
+    "access_state": "unlocked"
+  },
+  "module": {
+    "number": 2,
+    "label": "MODULE 02"
+  },
+  "content": "Interlude: The Mars Climate Orbiter \u2014 $327M Lost in Translation\n\nDelivered between Module 2 (Technical Writing Fundamentals) and Module 3 (Design Documents & RFCs)\n\n---\n\nSeptember 23, 1999. \u200d\u200bA Thursday.\n\n\u200d\u200bAt the Jet Propulsion Laboratory in Pasadena, California, a room full of engineers stared at their screens and waited. \u200b\u200bNine and a half months of waiting was almost over. \u200b\u200bThe Mars Climate Orbiter \u2014 a spacecraft roughly the size of a small car, carrying instruments designed to study the Martian atmosphere \u2014 was about to execute the most critical maneuver of its mission: Mars Orbit Insertion.\n\n\u200b\u200bThe plan was precise. \u200b\u200bThe spacecraft would fire its main engine for sixteen minutes, slow down, and slip into orbit around Mars. \u200b\u200bIt would pass behind the planet, out of radio contact for about twenty minutes, and then re-emerge on the other side, captured by Martian gravity. \u200c\u200bGround controllers had rehearsed the sequence dozens of times. \u200c\u200bThey had sent the commands. \u200c\u200bEverything was nominal.\n\n\u200c\u200bThe spacecraft passed behind Mars at 09:04 UTC. \u200c\u200bContact was lost, as expected.\n\n\u200c\u200cTwenty minutes passed. \u200c\u200bThen thirty. \u200c\u200bThen an hour.\n\n\u200c\u200bIt never came back.\n\n\u200b\u200b---\n\nWhat Went Wrong\n\nThe investigation took weeks. \u200b\u200bHundreds of engineers from NASA and Lockheed Martin \u2014 the contractor that built the spacecraft \u2014 pored over telemetry data, software logs, and mission records. \u200c\u200bWhen they found the answer, it was so simple that several people initially refused to believe it.\n\n\u200b\u200bThe spacecraft's thruster software, written by Lockheed Martin, calculated impulse in pound-force seconds \u2014 an imperial unit. \u200b\u200bNASA's navigation team at JPL, who used the thruster data to plan trajectory corrections, expected the data in newton-seconds \u2014 the metric equivalent. \u200c\u200bOne pound-force second equals approximately 4.45 newton-seconds. \u200c\u200bThe software interface specification said \"total impulse.\" \u200b\u200bIt did not specify which unit system.\n\n\u200b\u200bBoth teams were competent. \u200c\u200bBoth teams were experienced. \u200c\u200cBoth teams assumed the other was using their standard. \u200b\u200cNeither team checked. \u200c\u200bNeither team asked.\n\n\u200b\u200bThe error was tiny on any single maneuver \u2014 a small percentage off. \u200c\u200cBut the Mars Climate Orbiter performed dozens of trajectory correction maneuvers over its nine-month journey. \u200c\u200cEach one was slightly wrong in the same direction. \u200b\u200bThe errors accumulated silently, invisibly, for 416 million miles.\n\n\u200b\u200bBy the time the spacecraft reached Mars, it was 170 kilometers lower than planned. \u200c\u200cInstead of passing safely above the atmosphere at 226 kilometers altitude, it entered at roughly 57 kilometers. \u200b\u200cAt that altitude, the atmosphere is thick enough to matter. \u200c\u200cThe spacecraft either burned up from friction or skipped off the atmosphere and tumbled into solar orbit, forever lost.\n\n\u200c\u200b$327 million. \u200c\u200cNine and a half months. \u200c\u200cThousands of hours of engineering work. \u200b\u200bDestroyed by an ambiguity in a specification document.\n\n\u200c\u200b---\n\nThe Specification\n\nHere is the haunting part. \u200c\u200bThe interface specification existed. \u200c\u200bThere was a document that described the data format exchanged between Lockheed Martin's thruster software and JPL's navigation system. \u200b\u200bThe document listed the data fields. \u200b\u200bIt described the calculation. \u200c\u200bIt said \"total impulse.\"\n\n\u200b\u200bIt did not say \"in newton-seconds\" or \"in pound-force seconds.\"\n\n\u200b\u200bSomeone writing the spec thought the unit was obvious. \u200c\u200bMaybe they assumed everyone used metric. \u200c\u200bMaybe they assumed the SI unit was implied. \u200c\u200cMaybe they were in a hurry and skipped what felt like a trivial detail. \u200b\u200bWe will never know who wrote that line, or what they were thinking when they left the unit off.\n\n\u200b\u200bWhat we know is this: the information needed to prevent the disaster was a four-word addition to a document. \u200c\u200b\"Total impulse (newton-seconds).\" \u200c\u200bFour words. \u200c\u200cThat is all it would have taken.\n\n\u200b\u200b---\n\nThe Human Factor\n\nAfter the failure, journalists and commentators mocked the error. \u200c\u200c\"NASA can't do unit conversion!\" \u200b\u200bThe jokes wrote themselves. \u200c\u200bBut the real story is more uncomfortable than a simple math mistake.\n\n\u200c\u200bLockheed Martin's engineers used imperial units because that was their institutional standard for propulsion systems. \u200c\u200cJPL used metric because that was NASA's institutional standard for navigation. \u200b\u200cBoth standards were well-documented within each organization. \u200b\u200bThe gap was not inside either team \u2014 it was at the interface between them.\n\n\u200c\u200bThis is a pattern that shows up everywhere in engineering, not just at NASA. \u200b\u200cTwo competent teams, each following their own conventions, connect their systems at a boundary \u2014 and the boundary specification is where ambiguity hides. \u200c\u200bNot because anyone is careless, but because the things that are \"obvious\" inside your team are invisible to the team on the other side of the interface.\n\n\u200b\u200cThe post-failure review board made several recommendations. \u200c\u200bThe most important one was not about unit conversion. \u200c\u200cIt was about verification: every interface specification must be independently validated by both the producing and consuming teams, confirming that they interpret the document the same way. \u200c\u200bNot \"did you read the spec?\" \u200c\u200cbut \"show me what you think the spec means, and I will show you what I think it means, and we will compare.\"\n\n\u200b\u200b---\n\nThe Cost of Clarity\n\nThere is a temptation to dismiss specification precision as pedantry. \u200c\u200b\"Everyone knows we use metric.\" \u200b\u200b\"It is obvious what the units are.\" \u200c\u200c\"Adding explicit units to every field would make the document twice as long.\"\n\n\u200b\u200bThe Mars Climate Orbiter is the answer to all of those objections. \u200c\u200cThe cost of being explicit was trivial \u2014 a few extra words in a document. \u200c\u200bThe cost of being ambiguous was $327 million and a decade of scientific data that was never collected.\n\n\u200c\u200bPrecision in documentation is not about being thorough for the sake of it. \u200c\u200bIt is about recognizing that the person reading your document is not you. \u200b\u200cThey do not share your assumptions. \u200c\u200cThey do not know your conventions. \u200b\u200bThey might be in a different building, a different company, a different country, working on a different schedule, with a different set of \"obvious\" defaults.\n\n\u200b\u200bWrite for them. \u200b\u200cNot for yourself.\n\n\u200c\u200b---\n\nReflection\n\nThink about the technical explanation you wrote in Module 2. \u200c\u200bNow think about this:\n\n1. \u200c\u200bHow many implicit assumptions are in your document? \u200c\u200cThings you know but did not write down because they seemed obvious. \u200c\u200bWhat if the reader does not share your \"obvious\"? \u200c\u200cGo back and count them. \u200b\u200dEvery assumption you can name is one you can make explicit.\n\n\u200c\u200d2. Lockheed and NASA were both competent, experienced teams. The failure was not stupidity \u2014 it was ambiguity in a specification. What specifications or interfaces in your own work have you assumed are clear but never explicitly verified? Have you ever asked the reader \"what do you think this means?\" and compared their answer to what you intended?\n\n3. The fix was trivially easy \u2014 add units to the spec. The cost of not fixing it was $327 million. How do you decide which \"trivial\" clarifications are worth making in your own documentation? Is there a clarification you have been putting off because it felt unnecessary?\n\n---\n\nFour words could have saved a spacecraft. What four words are missing from your document?",
+  "data_keys": [
+    "status",
+    "message",
+    "progress_percent",
+    "strong_streak",
+    "elapsed_seconds",
+    "module_names",
+    "journey_map",
+    "decisions",
+    "modules_in_pack",
+    "other_active_sessions",
+    "profile_created",
+    "profile_confirmed",
+    "profile_ready",
+    "public_profile_ready",
+    "profile_url",
+    "missing_profile_fields",
+    "missing_public_profile_fields",
+    "access_changes",
+    "student_memory",
+    "agent_context",
+    "workspace_route",
+    "report_available",
+    "latest_report_module",
+    "latest_report_score_out_of_10",
+    "progress_milestone",
+    "pack_progress",
+    "skill_completed"
+  ],
+  "summary": null,
+  "next_pack": null,
+  "other_skills": null,
+  "access_changes": {
+    "has_any_change": false,
+    "skills": []
+  },
+  "rank": null,
+  "module_recap": null
+}

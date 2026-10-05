@@ -1,0 +1,15 @@
+{
+  "summary": "CONTEXT: deploy is not done until /readyz and a real request are proven, not /live. This host has no pager and no public URL. /live 200 with DB down is already measured.",
+  "evidence": [
+    "GET /live returns {ok:true} with no DB. Measured LIVE 200 0.052s while Postgres down. GET /health is the same lie. GET /readyz is SELECT 1 behind breaker: 503 4.049s service_unavailable postgres_connect_or_query_timeout.",
+    "Startup verify_database_connection catches HTTPException and still serves, so a bad DATABASE_URL matches the semicolon incident: process up, liveness green, writes 503.",
+    "HighErrorRate exists in progress/production-module4-alert-rules.yml (5xx>5% for 2m) but no Prometheus scraper runs here — nobody is notified. First two minutes if paged: docs/runbooks/high-error-rate.md, one /readyz, no loop.",
+    "Knight: git push is not same-version verification. Docker Desktop down; no Railway. No public URL claimed."
+  ],
+  "artifacts": [
+    "progress/production-module8-context.md",
+    "api/app/main.py",
+    "docs/runbooks/high-error-rate.md",
+    "progress/production-module4-alert-rules.yml"
+  ]
+}

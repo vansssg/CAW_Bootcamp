@@ -1,0 +1,133 @@
+STEP 3: BUILD
+
+Code generation starts now.
+
+‍​‍​​​​​​​Minimum analytics behavior:
+
+- On redirect, record a click event with:
+  - link id
+  - timestamp
+  - user agent + referrer (if present)
+  - ip hash (privacy)
+  - (Decision) retention window: record as decisions.module_07.retention_days = <int> (example: 30)
+- Add a protected analytics read endpoint (owner-scoped), minimum:
+  - click count for one link over a time window
+  - optional: last clicked timestamp
+  - Recommended endpoint shape (adjust only if you have a strong reason):
+    - GET /<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01
+
+If async_queue:
+
+- enqueue a job on redirect
+- worker processes job and writes click event
+- configure retries
+- ensure job is idempotent (duplicate jobs don’t double-count)
+- add a purge mechanism for retention (repeatable job / scheduled task / admin-only command)
+
+NestJS Track
+
+If async_queue:
+
+- Use BullMQ.
+​​​​‌​‌​‌​- Add:
+  - queue module
+  - producer in redirect path
+  - worker processor
+  - a separate way to run the worker locally (example: an npm run worker script)
+
+If sync:
+
+- Write click event directly in redirect handler/service.
+
+‌​‌​‌‌‌​‌​Evidence (What To Run):
+
+- Ensure Redis is running and REDIS_URL points at the local Redis instance already configured for your workspace.
+‌​​​​​‌​​​- Trigger redirect twice and confirm click events exist:
+  - If you chose /r/<code>:
+    - bash (NestJS): curl -i "http://localhost:3000/r/<CODE>"
+    - PowerShell (NestJS): curl.exe -i "http://localhost:3000/r/<CODE>"
+  - If you chose /<code>:
+    - bash (NestJS): curl -i "http://localhost:3000/<CODE>"
+    - PowerShell (NestJS): curl.exe -i "http://localhost:3000/<CODE>"
+- Read analytics (protected) and confirm the count changes after redirects:
+  - Pick the link id: <LINK_ID> (from create-link response)
+  - Use the auth header that matches what you chose in Module 04:
+    - bash (JWT): curl -i -H "Authorization: Bearer <TOKEN>" "http://localhost:3000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - bash (API key): curl -i -H "X-API-Key: <API_KEY_A>" "http://localhost:3000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - PowerShell (JWT): curl.exe -i -H "Authorization: Bearer <TOKEN>" "http://localhost:3000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - PowerShell (API key): curl.exe -i -H "X-API-Key: <API_KEY_A>" "http://localhost:3000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+- If async:
+  - start the worker in a second terminal:
+    - bash: cd API_ROOT && npm run worker
+    - PowerShell: cd API_ROOT; npm run worker
+  - confirm worker logs show processing (and retries if you force a failure).
+​​‌​‌​​​​​- Idempotency proof: replay the same job payload twice and show it does not create duplicates.
+‌​‌‌​‌‌​​​- Privacy proof: confirm you store ip_hash (or truncated IP) and do not store raw IP.
+‌‌‌‌​​​​‌‌- Queue-down drill (async only):
+  - stop Redis (example if your local container is named bootcamp-redis): docker stop bootcamp-redis
+  - prove redirect still works (analytics may be delayed/dropped, but no hanging)
+  - restart Redis (same example container): docker start bootcamp-redis
+- Retention proof (required):
+  - set retention_days = 0 (dev-only) or otherwise create a click older than the cutoff
+  - run the purge mechanism once
+  - prove old click records are deleted or no longer returned
+
+Expected:
+
+- Two redirects result in two click events counted (sync) or queued+processed (async).
+​‌‌‌‌​‌‌‌‌- Replaying the same job payload does not double-count.
+
+​​‌​‌​‌​​​FastAPI Track
+
+If async_queue:
+
+- Use Celery (with Redis as broker).
+​​‌​​​​​‌​- Add:
+  - Celery app config
+  - task for writing click event
+  - enqueue task on redirect
+  - a separate way to run the worker locally (example: celery ... ‌​‌‌​​​​‌​worker)
+
+If sync:
+
+- Write click event directly.
+
+‌​‌‌​​‌‌​​Evidence (What To Run):
+
+- Ensure Redis is running and REDIS_URL points at the local Redis instance already configured for your workspace.
+‌​‌​‌‌​‌​​- Trigger redirect twice and confirm click events exist:
+  - If you chose /r/<code>:
+    - bash (FastAPI): curl -i "http://localhost:8000/r/<CODE>"
+    - PowerShell (FastAPI): curl.exe -i "http://localhost:8000/r/<CODE>"
+  - If you chose /<code>:
+    - bash (FastAPI): curl -i "http://localhost:8000/<CODE>"
+    - PowerShell (FastAPI): curl.exe -i "http://localhost:8000/<CODE>"
+- Read analytics (protected) and confirm the count changes after redirects:
+  - Pick the link id: <LINK_ID> (from create-link response)
+  - Use the auth header that matches what you chose in Module 04:
+    - bash (JWT): curl -i -H "Authorization: Bearer <TOKEN>" "http://localhost:8000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - bash (API key): curl -i -H "X-API-Key: <API_KEY_A>" "http://localhost:8000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - PowerShell (JWT): curl.exe -i -H "Authorization: Bearer <TOKEN>" "http://localhost:8000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+    - PowerShell (API key): curl.exe -i -H "X-API-Key: <API_KEY_A>" "http://localhost:8000/<links-route>/<LINK_ID>/analytics?from=2000-01-01&to=2100-01-01"
+- If async:
+  - start the worker in a second terminal:
+    - bash: cd API_ROOT && source .venv/bin/activate && celery -A app.worker worker --loglevel=INFO
+    - PowerShell (Windows-friendly): cd API_ROOT; Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; .\\.venv\\Scripts\\Activate.ps1; celery -A app.worker worker --loglevel=INFO --pool=solo
+  - confirm worker logs show processing (and retries if you force a failure).
+‌​​‌‌​​‌‌​- Idempotency proof: replay the same job payload twice and show it does not create duplicates.
+‌‌‌​‌‌​​‌​- Privacy proof: confirm you store ip_hash (or truncated IP) and do not store raw IP.
+​​‌‌​​‌‌‌​- Queue-down drill (async only):
+  - stop Redis (example if your local container is named bootcamp-redis): docker stop bootcamp-redis
+  - prove redirect still works (analytics may be delayed/dropped, but no hanging)
+  - restart Redis (same example container): docker start bootcamp-redis
+- Retention proof (required):
+  - set retention_days = 0 (dev-only) or otherwise create a click older than the cutoff
+  - run the purge mechanism once
+  - prove old click records are deleted or no longer returned
+
+Expected:
+
+- Two redirects result in two click events counted (sync) or queued+processed (async).
+‌​‌​​‌‌‌​​- Replaying the same job payload does not double-count.
+
+​​​‌‌​‌​‌​PAUSE: Explain idempotency and why retries require it.‌‌‌​‌‌​‍‌‍

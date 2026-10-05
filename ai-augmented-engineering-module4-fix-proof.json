@@ -1,0 +1,15 @@
+{
+  "summary": "Specific fix prompt applied. Admin create 200 pending; non-admin create 403. GET list IDOR closed: outsider 403 and hidden email not returned. require_team_admin/require_team_member read memberships, not a placeholder isAdmin=True.",
+  "evidence": [
+    "FIX_ADMIN_CREATE_STATUS 200; FIX_ADMIN_CREATE_PENDING True. Lesson asked 201; this service returns 200 like POST /links.",
+    "FIX_NON_ADMIN_CREATE_STATUS 403; FIX_BOTH_REQUIRED_TESTS_OK True.",
+    "FIX_OUTSIDER_LIST_STATUS 403; FIX_OUTSIDER_SAW_HIDDEN_EMAIL False; FIX_LIST_IDOR_CLOSED True; FIX_MEMBER_LIST_OWN_TEAM_STATUS 200.",
+    "BREAK re-run: BREAK_GET_LIST_B_STATUS 403; BREAK_GET_LIST_SAW_HIDDEN_EMAIL False; BREAK_POST_IDOR_BLOCKED True."
+  ],
+  "artifacts": [
+    "api/app/invitations.py",
+    "progress/ai-augmented-module4-fix-prompt.md",
+    "api/app/scripts/module04_invitation_fix_probe.py",
+    "progress/ai-augmented-module4-fix.md"
+  ]
+}

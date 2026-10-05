@@ -1,0 +1,14 @@
+{
+  "summary": "VERIFY: PM note answers get/give-up/next-action; walked Slice-3 cut without breaking T4 path; Booking API MAJOR justified; preserved work not restart/crunch.",
+  "evidence": [
+    "artifacts/adaptation/module-07-verify.md",
+    "adaptation-note: Meridian bridge ships; org invoice waits; ask = IT intro",
+    "Cut provider self-service: seed covers demo; T4 path intact",
+    "MAJOR = booked_for validation+response+contract; confidence high API / medium UI"
+  ],
+  "artifacts": [
+    "artifacts/adaptation/module-07-verify.md",
+    "artifacts/adaptation/module-07-adaptation-note.md",
+    "artifacts/adaptation/module-07-blast-radius.md"
+  ]
+}

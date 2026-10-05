@@ -1,0 +1,14 @@
+{
+  "summary": "Investigated the silent timestamp issue under concurrent redirects and verified the fix by making last_accessed_at monotonic with an atomic GREATEST upsert.",
+  "evidence": [
+    "Reproduced one concurrent burst (10 requests to the same short link) and compared request timestamps against analytics.last_accessed_at.",
+    "Before change, timestamp drift evidence showed last_accessed_at could lag the latest observed request completion timestamp under concurrency.",
+    "Applied atomic upsert change in api/app/main.py: last_accessed_at = GREATEST(analytics.last_accessed_at, EXCLUDED.last_accessed_at) while preserving count = analytics.count + 1.",
+    "Post-change burst comparison showed no timestamp regression behavior and count correctness remained intact (all requests returned 307 and count increments were preserved).",
+    "Residual difference between analytics.last_accessed_at and latest HTTP completion time is expected because last_accessed_at captures database write-time semantics, not response completion time."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "progress/module-01-diagnosis.md"
+  ]
+}

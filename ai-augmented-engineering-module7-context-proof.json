@@ -1,0 +1,13 @@
+{
+  "summary": "Mapped five system-review categories the AI cannot judge onto this shortener: invite role vs B_IDOR_CREATE, GET list IDOR, FastAPI/principal patterns vs UUID/NOTIFY, WS second-event drop, and no-email audit payloads. No code this step. Postgres still down.",
+  "evidence": [
+    "Business: first-pass B_IDOR_CREATE True against owner/admin-only spec; require_team_admin later 403.",
+    "Call chain: BREAK_GET_LIST_SAW_HIDDEN_EMAIL True while POST used require_team_admin.",
+    "Architecture: integer ids, X-API-Key principals, activity {type, team_id, ts, payload} — not User UUIDs or NOTIFY on 5432.",
+    "Integrity: BREAK_SECOND_EVENT_MISSING True on WS; accept has no compare-and-swap on pending.",
+    "Compliance: MERGE_MENTION_NO_EMAIL True; AGENT3_AUDIT_EMAIL_LEAK False; emit_log [REDACTED_EMAIL]."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-context.md"
+  ]
+}

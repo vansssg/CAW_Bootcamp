@@ -1,0 +1,13 @@
+{
+  "summary": "Injected hard-path IDOR: GET /api/admin/links authenticates principal-b but returns principal-a's short_code and original_url. Reproduced over ASGI without fabricating a DB row.",
+  "evidence": [
+    "BREAK_CREATE_A_STATUS 200 CODE c549dcfa url=https://secret.example/a-private owner principal-a",
+    "BREAK_LIST_B_STATUS 200 BREAK_LIST_B_BODY items include short_code c549dcfa original_url https://secret.example/a-private owner principal-a",
+    "BREAK_IDOR_LEAK True BREAK_CLASS IDOR admin list missing owner filter. Command: api/.venv/Scripts/python.exe app/scripts/module04_auth_break.py"
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/scripts/module04_auth_break.py",
+    "progress/system-design-module4-break.md"
+  ]
+}

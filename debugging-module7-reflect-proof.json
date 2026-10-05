@@ -1,0 +1,15 @@
+{
+  "summary": "REFLECT: B broad kept remediations as scripts/CODEOWNERS not 'improve testing.' Mini VERIFY: postmortem has no person-subject; ci.yml still has no recreate/auth jobs. Report submitted before next.",
+  "evidence": [
+    "DECIDE B: untested-contract class; cap five remediations for pipeline owners.",
+    "Inversion: CI missing contract tests is the class; shared engine and REDIS_DOWN local-pass are the same lesson as tiny-data migration tests.",
+    "Blame grep of postmortem: only 'No item is be more careful.' ci.yml grep: no module06_break_recreate, module04_auth_verify, CODEOWNERS.",
+    "Fictional rewrite: pipeline staging dry-run + CODEOWNERS on migrations; zero John as subject. progress/state.json module_07 complete skill_complete true."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-reflect.md",
+    "progress/debugging-module7-postmortem.md",
+    "debugging-module7-evaluation-report.json",
+    "progress/state.json"
+  ]
+}

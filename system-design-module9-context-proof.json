@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: one test is create then GET /r 307 then DELETE then GET /r 404. Fastest real-DB hit is DATABASE_URL from .env or module-02-seed-query hardcoded localhost:5432. Isolation: in-memory ASGI, no SEARCH_USE_POSTGRES in CI.",
+  "evidence": [
+    "Highest-risk list: redirect, auth, analytics. Public GET /r has no API key; stale cache already 307'd after DELETE until SoT guard.",
+    "module-02-seed-query.py create_engine to localhost:5432/upsk_sdf. Settings loads .env DATABASE_URL.",
+    "test_query_columns.py asserts WHERE short_code = :code in the seed file — no connection. JOB_PERSIST_DB and SEARCH_USE_POSTGRES default unset."
+  ],
+  "artifacts": [
+    "progress/system-design-module9-context.md",
+    "api/app/scripts/module-02-seed-query.py",
+    "api/app/scripts/test_query_columns.py"
+  ]
+}

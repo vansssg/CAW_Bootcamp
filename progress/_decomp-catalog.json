@@ -1,0 +1,57 @@
+{
+  "id": "sk_6c2a9da0684cd5b58330",
+  "slug": "decomposition-execution-planning",
+  "name": "Decomposition & Execution Planning",
+  "description": "Break big requirements into buildable chunks, order by dependency and risk, and execute with parallel AI workstreams",
+  "modules_count": 8,
+  "estimated_hours": "",
+  "packs": [
+    {
+      "slug": "launchpad",
+      "name": "Launchpad",
+      "description": "",
+      "order": 1,
+      "module_numbers": [
+        1,
+        2,
+        3
+      ],
+      "access_state": "unlocked",
+      "source": null
+    },
+    {
+      "slug": "practitioner",
+      "name": "Practitioner",
+      "description": "",
+      "order": 2,
+      "module_numbers": [
+        4,
+        5,
+        6
+      ],
+      "access_state": "locked",
+      "source": null
+    },
+    {
+      "slug": "operator",
+      "name": "Operator",
+      "description": "",
+      "order": 3,
+      "module_numbers": [
+        7,
+        8
+      ],
+      "access_state": "locked",
+      "source": null
+    }
+  ],
+  "has_active_session": true,
+  "session_progress": {
+    "current_module": 1,
+    "current_step": "pretest",
+    "modules_completed": 0,
+    "progress_percent": 0,
+    "last_active": "2026-08-15T18:11:49.731Z"
+  },
+  "completed_sessions": 0
+}

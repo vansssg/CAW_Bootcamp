@@ -1,0 +1,13 @@
+{
+  "summary": "Completed Technical Communication Operator pack: stakeholder decks (M05) and OrderFlow on-call runbook with stale-doc BREAK/FIX (M06).",
+  "evidence": [
+    "Operator pack completed (modules 5–6 of 2)",
+    "artifacts/stakeholder/module-05-subscription-delay-deck.md",
+    "artifacts/docs/module-06-orderflow-runbook.md",
+    "Module 06 report score 9.2/10"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-orderflow-runbook.md",
+    "artifacts/stakeholder/module-05-subscription-delay-deck.md"
+  ]
+}

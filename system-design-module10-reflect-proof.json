@@ -1,0 +1,14 @@
+{
+  "summary": "REFLECT: single_container so one SHA rolls back API+worker. Lesson: /live liveness vs /ready 503. BREAK would-kill True; FIX /live probe 200. docker info exit 1. Report before next.",
+  "evidence": [
+    "DECIDE A single_container. docker info exit 1. No Railway.",
+    "CI pull_request + module09_test_suite.py. Bind 0.0.0.0 and PORT. migrate.sh not in CMD.",
+    "BREAK HEALTHCHECK /ready LIVE 200 READY 503 PLATFORM_WOULD_KILL True. FIX /live PROBE 200 KILL False READY still 503.",
+    "progress/state.json module_10 complete bootcamp_complete true."
+  ],
+  "artifacts": [
+    "progress/system-design-module10-reflect.md",
+    "system-design-module10-evaluation-report.json",
+    "progress/state.json"
+  ]
+}

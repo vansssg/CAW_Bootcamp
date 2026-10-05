@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Run lint checks
+        run: ruff check app --select E9,F63,F7,F82
+
+  test:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: development
+      PORT: "3000"
+      DATABASE_URL: postgresql+psycopg://ci:ci@127.0.0.1:5432/ci
+      REDIS_URL: redis://127.0.0.1:6379/0
+      LOG_LEVEL: info
+      JWT_SECRET: ci-jwt-secret-value-at-least-32c
+      CORS_ORIGIN: http://localhost:3000
+      API_KEY_A: ci-test-api-key-a-at-least-32chx
+      API_KEY_B: ci-test-api-key-b-at-least-32chy
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python app/scripts/test_query_columns.py
+          python app/scripts/module09_test_suite.py
+          python -m app.scripts.module08_team_suite
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build image tagged with git SHA
+        run: docker build -t url-shortener:${{ github.sha }} ./api
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main' && vars.DEPLOY_BASE_URL != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Wait for readiness on public URL
+        env:
+          DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL }}
+        run: |
+          set -euo pipefail
+          echo "Waiting for $DEPLOY_BASE_URL/ready (SHA ${{ github.sha }})"
+          for i in $(seq 1 30); do
+            STATUS=$(curl -sS -o /tmp/ready-body -w "%{http_code}" -m 8 "$DEPLOY_BASE_URL/ready" || true)
+            echo "attempt $i status $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "readiness passed"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "readiness failed after 30 attempts"
+          exit 1
+
+      - name: Smoke live, ready, metrics
+        env:
+          DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL }}
+        run: |
+          set -euo pipefail
+          LIVE=$(curl -sS -m 5 -o /tmp/live -w "%{http_code}" "$DEPLOY_BASE_URL/live")
+          READY=$(curl -sS -m 8 -o /tmp/ready -w "%{http_code}" "$DEPLOY_BASE_URL/ready")
+          METRICS=$(curl -sS -m 5 -o /tmp/metrics -w "%{http_code}" "$DEPLOY_BASE_URL/metrics")
+          echo "live=$LIVE ready=$READY metrics=$METRICS"
+          test "$LIVE" = "200"
+          test "$READY" = "200"
+          test "$METRICS" = "200"
+          grep -q "http_requests_total" /tmp/metrics
+
+      - name: Rollback placeholder (no platform token)
+        if: failure()
+        run: |
+          echo "Verification failed. This repo has no Railway/Fly/Render token."
+          echo "Local rollback: IMAGE_TAG=<previous_sha> docker compose -f infra/docker-compose.yml up -d app"
+          exit 1

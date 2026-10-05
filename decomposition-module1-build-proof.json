@@ -1,0 +1,15 @@
+{
+  "summary": "BUILD: quick-pass plus a 25-row stakeholder x type matrix for SkillSwap. Verb/qualifier/silence passes. Eight PM questions including hold-vs-capture and 15% commission scope. Spec paragraphs were not inlined; sources tagged P1-P3 from the BUILD pass lists.",
+  "evidence": [
+    "artifacts/requirements/module-01-quick-pass.md: 5 explicit reqs, 2 ambiguities (instant SLA, 15% vary), 1 PM question on capture vs hold.",
+    "artifacts/requirements/module-01-requirements.md: 25 rows (USER/PROVIDER/PLATFORM x F/C/Q). Target was 15+.",
+    "Each row has type, stakeholder, source (Pn E/I), confidence high/medium/low.",
+    "Silences listed: auth, mobile, payout rail, city/TZ, structured cancel, two-way ratings.",
+    "Honest bound: full three-paragraph prose was not in the CLI payload; extraction used BUILD's named verbs and qualifiers."
+  ],
+  "artifacts": [
+    "artifacts/requirements/module-01-quick-pass.md",
+    "artifacts/requirements/module-01-requirements.md",
+    "progress/decomposition/module1-decide.md"
+  ]
+}

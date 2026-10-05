@@ -1,0 +1,13 @@
+{
+  "summary": "REFLECT: unit_heavy ASGI suite, not mocks and not DATABASE_URL. Rule: setUp must clear links/jobs/cache/rates. Shared-state flake closed; three OK reruns. Report accepted overall 4.",
+  "evidence": [
+    "DECIDE A unit_heavy. Six tests: create 200, GET /r 307, 401, IDOR 404, retention, javascript: 400.",
+    "BREAK full suite 4!=0 vs solo OK. FIX links.clear(); runs 0.690s 0.849s 1.461s OK.",
+    "upsk report accepted: report_submitted events_inserted 1 latest_report_module 9 score 8.0 overall 4."
+  ],
+  "artifacts": [
+    "progress/system-design-module9-reflect.md",
+    "system-design-module9-evaluation-report.json",
+    "api/app/scripts/module09_test_suite.py"
+  ]
+}

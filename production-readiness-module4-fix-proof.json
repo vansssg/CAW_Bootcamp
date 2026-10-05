@@ -1,0 +1,15 @@
+{
+  "summary": "Fixed metric cardinality (route template or /unmatched), bound request_id via contextvar for inner logs, and re-verified 500s emit error logs with stack traces plus status=500 counters. Alert math shown as 1/14 > 5%; Prometheus for:2m not claimed.",
+  "evidence": [
+    "Cardinality: 12 GET /ghost/N now collapse to http_requests_total path=/unmatched status=404 count 12; FIX_GHOST_RAW_PATH_SERIES [].",
+    "Request ID: emit_log('link created') after REQUEST_ID_CTX.set('req-fix-inner') printed request_id=req-fix-inner (FIX_INNER_LOG_INHERITS_REQUEST_ID True).",
+    "Error pillars: GET /debug/error -> 500, X-Request-ID req-fix-500, ERROR log with RuntimeError stack, metric ('/debug/error','500',1.0).",
+    "Alert math: FIX_ERROR_RATE 0.0714 > 0.05 so HighErrorRate expr would match; for: 2m live firing not claimed (no Prometheus scrape).",
+    "Still blocked: /ready engine.connect hang; not treated as a completed silent 500."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "progress/production-module4-fix.md",
+    "api/app/scripts/module04_observability_fix.py"
+  ]
+}

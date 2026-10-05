@@ -1,0 +1,11 @@
+{
+  "summary": "Hard/medium inject: process_job skipped the job_id seen-set. Replaying the same payload wrote two events (BREAK_COUNT 2).",
+  "evidence": [
+    "BREAK_FIRST written BREAK_SECOND written BREAK_COUNT 2 BREAK_DOUBLE True for job_id=same",
+    "This is the overnight double-count: retries without idempotency look like growth.",
+    "Redirect still 307; the bug is in the worker, not the hot path."
+  ],
+  "artifacts": [
+    "api/app/jobs.py"
+  ]
+}

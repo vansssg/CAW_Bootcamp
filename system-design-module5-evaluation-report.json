@@ -1,0 +1,101 @@
+{
+  "events": [
+    {
+      "module": 5,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student chose fail-fast errors with a stable envelope (code, message, request_id), proved 400/422/401/500 over ASGI, and kept stacks in logs only. BREAK injected PII into the 401 log line; FIX removed the header concat and kept secret/email redaction. They did not claim a live DB 500 from a wrong DATABASE_URL restart — /debug/error was the unexpected 500, and Postgres remains down.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "tradeoff_reasoning",
+            "score": 4,
+            "observation": "Chose fail-fast for the client contract so a failed lookup is 404/503, not a guessed redirect, while analytics stays a logged side path.",
+            "evidence": "DECIDE A: never a guessed Location; 500 body is internal_error plus request_id, not a partial JSON resource."
+          },
+          {
+            "key": "debugging_methodology",
+            "score": 4,
+            "observation": "Reproduced the PII log leak with a 401 plus an email header, then used the same request as the regression.",
+            "evidence": "Before: error_detail included pii=<email>. After: FIX_PII_IN_LOGS False and error_detail=Invalid API key only."
+          },
+          {
+            "key": "security_awareness",
+            "score": 4,
+            "observation": "Client bodies have no stack; logs redact API keys, a sentinel, and email-shaped strings; 401 does not echo the presented key.",
+            "evidence": "SERVER_HAS_TRACE False; SENTINEL_IN_LOGS False for DO_NOT_LOG_ME_123; envelope message remains Invalid API key."
+          },
+          {
+            "key": "production_thinking",
+            "score": 4,
+            "observation": "Logs already include request_id, route, status, duration_ms; 500s stay joinable via X-Request-ID without a DB restart.",
+            "evidence": "GET /debug/error returns request_id in JSON and header; logs contain the same request_id and stack_trace."
+          },
+          {
+            "key": "communication_clarity",
+            "score": 4,
+            "observation": "Named the error flow (raise -> handler -> envelope vs log) instead of only saying it was fixed.",
+            "evidence": "progress/system-design-module5-fix.md traces require_api_key HTTPException through http_exception_handler to error_payload."
+          }
+        ],
+        "strengths": [
+          "Consistent envelope across 400, 422, 401, and 500 with request_id in body and header.",
+          "Closed a PII-in-logs bug with a same-request regression instead of only removing the line."
+        ],
+        "growth_areas": [
+          "Add GET /ready to the error-envelope script so 503 service_unavailable is proven in the same harness (skipped here to avoid a 4s connect timeout)."
+        ],
+        "recommendation": "When Postgres is up, assert a DB-backed 503 envelope on /ready and confirm driver exceptions still cannot put a password into either the body or the log after redaction.",
+        "public_evidence": [
+          {
+            "artifact": "Safe error envelope",
+            "student_action": "Mapped HTTPException, validation errors, and unhandled exceptions to error.code/message/request_id.",
+            "technical_detail": "api/app/main.py error_payload plus handlers for HTTPException, RequestValidationError, and Exception; middleware 500 path uses the same shape.",
+            "proof": "module05_error_verify.py: 400 validation_error, 422 validation_error, 500 internal_error with no Traceback in the body.",
+            "ability": "Designs client-safe failure contracts that still join to logs.",
+            "reviewer_value": "Shows the student can keep 2am debugging without turning a 500 into a disclosure.",
+            "confidence": "demonstrated"
+          },
+          {
+            "artifact": "Log redaction and PII regression",
+            "student_action": "Stopped copying request headers into error_detail and redacted secrets/sentinels/email-shaped strings in emit_log.",
+            "technical_detail": "http_exception_handler logs only the stable message; redact_secrets runs on every emit_log string field.",
+            "proof": "401 with a sentinel API key: SENTINEL_IN_LOGS False. After FIX, the 401 log is error_detail=Invalid API key with no pii= field.",
+            "ability": "Treats logs as a production surface that can leak PII.",
+            "reviewer_value": "Incident logs that contain emails or keys become a second breach; this work prevents that class.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Fail-fast error contract",
+              "evidence": "DECIDE A; 500/4xx return a generic envelope rather than partial resources."
+            },
+            {
+              "concept": "Request ID as join key",
+              "evidence": "X-Request-ID header matches error.request_id and the request_id log field on GET /debug/error."
+            },
+            {
+              "concept": "PII in logs",
+              "evidence": "401 handler briefly logged an email header; FIX removed it and verified the address was gone."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "safe 500 vs debug stack",
+              "approach": "example",
+              "detail": "Compared GET /debug/error JSON body to the log stack_trace on the same request_id.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["evidence_first", "structured_reasoning"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

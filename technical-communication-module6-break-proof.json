@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: found fake helm upgrade-to-latest 'rollback', wrong DB_CONNECTION_STRING vs DATABASE_URL, and jq/secret/worker gaps. FIX: real helm rollback + correct env + worker path.",
+  "evidence": [
+    "artifacts/docs/module-06-break-stale-runbook.md",
+    "artifacts/docs/module-06-fix-runbook-corrections.md",
+    "Our runbook already avoids the three failures"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-break-stale-runbook.md",
+    "artifacts/docs/module-06-fix-runbook-corrections.md",
+    "artifacts/docs/module-06-orderflow-runbook.md"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "summary": "Submitted Module 06 evaluation for OrderFlow runbook work (minimal_plus_links, BREAK stale patterns, FIX patches).",
+  "evidence": [
+    "upsk report accepted: latest_report_module 6, score 9.2/10",
+    "artifacts/docs/module-06-orderflow-runbook.md",
+    "artifacts/docs/module-06-break-stale-runbook.md",
+    "artifacts/docs/module-06-fix-runbook-corrections.md",
+    "technical-communication-module6-evaluation-report.json"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-orderflow-runbook.md",
+    "technical-communication-module6-evaluation-report.json"
+  ]
+}

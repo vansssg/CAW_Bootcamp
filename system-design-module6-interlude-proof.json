@@ -1,0 +1,12 @@
+{
+  "summary": "Untested backups are hopes. This app has no restore drill: Postgres is down and the owner-scoped store is in-process. A tired rm -rf analogue here is dropping the memory dict or pointing REDIS_URL at production.",
+  "evidence": [
+    "GitLab had dumps, snapshots, and a replica that was the thing being wiped. We will not say 'we have backups.' Verified restore would be: take a pg_dump, restore into a throwaway DB, run SELECT on a known short_code, time it. That drill has not been run because localhost:5432 is not serving — same class of honesty as GitLab publishing that dumps had been failing.",
+    "The in-process links dict and TTL cache die on process restart with no snapshot. That is worse than GitLab's 6-hour Azure lag: we would lose all Module 04–06 links. Mitigation when DB is up: persist created_by + long_url, and never use a replica as the only backup.",
+    "Tired-operator control: destructive ops need a second check (wrong-server rm). Our analogue is not running docker stop / DROP TABLE without an explicit user request; cache invalidate is a key delete, not a flushall."
+  ],
+  "artifacts": [
+    "progress/system-design-module6-reflect.md",
+    "api/app/cache.py"
+  ]
+}

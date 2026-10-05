@@ -1,0 +1,12 @@
+{
+  "summary": "VERIFY: opening is business delay ask with no engineering jargon; token-replay explained via coat-check; clear We-need ask on slide 5; no condescending 'for non-technical people' framing.",
+  "evidence": [
+    "Slide 1 first line: delay subscription launch 3 weeks — parent-test pass",
+    "Jargon scan: tokenization avoided in open; replay explained as photocopied payment ticket stub",
+    "Ask: approve date shift, update announcements, book Thursday 30m",
+    "Tone: equals with different expertise"
+  ],
+  "artifacts": [
+    "artifacts/stakeholder/module-05-subscription-delay-deck.md"
+  ]
+}

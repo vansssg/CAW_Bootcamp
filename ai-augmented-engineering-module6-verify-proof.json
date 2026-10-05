@@ -1,0 +1,13 @@
+{
+  "summary": "Three-level verify passed functionally: comment CRUD, mention event, audit on create/delete/mention. Combined module09 + parallel probe both exit 0. Naming conflict remains: non-author comment 403 still says team invitation.",
+  "evidence": [
+    "L1_CREATE 200; L1_LIST 200 COUNT 1; L1_UPDATE 200; L1_NON_AUTHOR_UPDATE 403; L1_DELETE 200.",
+    "L2_MENTION_EVENT True; L2_COMMENT_CREATED_EVENT True; L2_COMMENT_DELETED_EVENT True; L2_AUDIT_COMMENT_CREATED True; L2_AUDIT_COMMENT_DELETED True; L2_AUDIT_MENTION True.",
+    "L3_MODULE09_EXIT 0; L3_MODULE09_OK True; L3_PARALLEL_PROBE_EXIT 0; L3_NO_POSTGRES_MIGRATION_RUN True.",
+    "L1_NON_AUTHOR_UPDATE DETAIL still 'You are not allowed to perform this action on this team invitation.' — copy-paste from invitations into comments.py."
+  ],
+  "artifacts": [
+    "api/app/scripts/module06_verify.py",
+    "progress/ai-augmented-module6-verify.md"
+  ]
+}

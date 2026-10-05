@@ -1,0 +1,16 @@
+{
+  "summary": "FIX: Step 2 /ready 404 was path drift to /readyz. Updated runbooks and overview. Re-walked postgres-unreachable top to bottom: live 200, readyz 503 4.049, route 395 /readyz, docker pipe missing, TCP TimeoutError, compose not started, live 200. /readyz 200 not claimed.",
+  "evidence": [
+    "Divergence: STEP2_READY 404 0.008 {\"detail\":\"Not Found\"} vs expected 503~4s or 200.",
+    "Route table after fix: 395 @app.get(\"/readyz\"). Commands now asgi_request('/readyz'). Step 2b prints @app.get(\"/ready lines.",
+    "Re-test: live 200; readyz 503 secs 4.049 service_unavailable postgres_connect_or_query_timeout; docker Desktop pipe missing; TimeoutError timed out; verify live 200.",
+    "3 AM: stale path is invisible until the probe 404s with no branch. Update after every incident and after health-route deploys."
+  ],
+  "artifacts": [
+    "progress/production-module7-fix.md",
+    "docs/runbooks/postgres-unreachable.md",
+    "docs/runbooks/high-error-rate.md",
+    "docs/runbooks/high-latency.md",
+    "docs/service-overview.md"
+  ]
+}

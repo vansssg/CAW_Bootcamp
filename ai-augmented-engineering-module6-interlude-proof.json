@@ -1,0 +1,11 @@
+{
+  "summary": "Boeing interlude: human has last word via probes, not vibes. Single point of failure is one reviewer plus a contract that omits who consumes events; path-prefix audit would be a single bad sensor.",
+  "evidence": [
+    "Did not accept compile-looking code: GET list IDOR, emit-without-subscriber, close-after-first WS were all measured before merge.",
+    "Second sensor: sequential ASGI probes (outsider 403, audit comment count, two-event WS).",
+    "Last word stays with the reviewer; AI does not override a failing probe."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module6-interlude.md"
+  ]
+}

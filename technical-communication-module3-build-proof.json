@@ -1,0 +1,11 @@
+{
+  "summary": "Wrote lightweight RFC for public API rate limiting: gateway + Redis token bucket, two real alternatives, risks including do-nothing, and open questions for infra/product.",
+  "evidence": [
+    "artifacts/design-docs/module-03-rate-limiting-rfc.md — five required sections; problem not solution-led",
+    "Alternatives: app middleware, fixed-window Redis, cloud WAF — each with genuine pros/cons",
+    "DECIDE A lightweight format applied (~1 page)"
+  ],
+  "artifacts": [
+    "artifacts/design-docs/module-03-rate-limiting-rfc.md"
+  ]
+}

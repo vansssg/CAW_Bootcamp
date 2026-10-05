@@ -1,0 +1,11 @@
+{
+  "summary": "FIX guidance: add Alternatives, demote DB capacity to Open Questions, rewrite lag/Kafka-down mitigations to actionable runbooks; checklist aligned with our rate-limit RFC.",
+  "evidence": [
+    "artifacts/design-docs/module-03-fix-jamie.md",
+    "Our RFC already passes prevention checklist items"
+  ],
+  "artifacts": [
+    "artifacts/design-docs/module-03-fix-jamie.md",
+    "artifacts/design-docs/module-03-rate-limiting-rfc.md"
+  ]
+}

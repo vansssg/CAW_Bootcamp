@@ -1,0 +1,15 @@
+{
+  "summary": "Diagnosed Module 3 BREAK by isolating startup/runtime mismatch, identifying a missing required config validation gap, and confirming production mode can resolve to localhost endpoints under current config sourcing.",
+  "evidence": [
+    "Fastest isolation command confirmed runtime mismatch: `python -c \"import app.main\"` failed with `ModuleNotFoundError: No module named 'fastapi'` (system Python, wrong environment).",
+    "Control check with project runtime succeeded: `./.venv/Scripts/python.exe -c \"import app.main; print('IMPORT_OK_VENV')\"` printed `IMPORT_OK_VENV`.",
+    "Env precedence check in current shell did not support '.env overriding runtime env': `PORT=9999 ./.venv/Scripts/python.exe -c \"from app.config import PORT; print(PORT)\"` returned `9999`.",
+    "Required-config gap found: `JWT_SECRET= ./.venv/Scripts/python.exe -c \"import app.main; print('IMPORT_OK_WITH_MISSING_JWT_SECRET')\"` still started import successfully, so JWT secret is not currently enforced by startup validation.",
+    "Production-risk signal confirmed: `APP_ENV=production ...` check showed both `DATABASE_URL` and `REDIS_URL` resolve to localhost endpoints (`DATABASE_URL_HAS_LOCALHOST=True`, `REDIS_URL_HAS_LOCALHOST=True`), which is unsafe for production runtime assumptions."
+  ],
+  "artifacts": [
+    "api/app/config.py",
+    "api/.env",
+    "production-readiness-module3-verify-proof.json"
+  ]
+}

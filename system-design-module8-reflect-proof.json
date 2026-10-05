@@ -1,0 +1,14 @@
+{
+  "summary": "REFLECT: chose db_native for freshness and ops cost. Security rule: never concatenate sort/q into SQL. Off-by-one closed. Report before next. state.json next module 09.",
+  "evidence": [
+    "DECIDE A db_native. Runtime backend=memory. GIN SQL not applied (5432 down).",
+    "sort=clicks;drop 400. B_LEAKED False. page_size 51 400.",
+    "BREAK empty first page total 3 count 0. FIX first page 3/3 last page 1 page=4 empty.",
+    "progress/state.json system-design-fundamentals module_08 complete next module_09_context."
+  ],
+  "artifacts": [
+    "progress/system-design-module8-reflect.md",
+    "system-design-module8-evaluation-report.json",
+    "progress/state.json"
+  ]
+}

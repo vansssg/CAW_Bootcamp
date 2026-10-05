@@ -1,0 +1,13 @@
+{
+  "summary": "REFLECT: kept vertical for handoff bugs; Bug10 needed who-holds-the-pool. Shared resource: API engine vs worker. Mini proof: recreate DOUBLED False, namespaces disjoint. Did not lower TTL or grow the API pool.",
+  "evidence": [
+    "DECIDE B vertical: DELETE SOT False then cache; seeded stale 404 cache_sot_mismatch.",
+    "Bug10: naive 6 in 0.0s vs dead_letter 3.107s delays 0.1..1.6; /live 200 0.003s.",
+    "BREAK 2→4 clicks; FIX 2 after purge + link:redirect vs analytics:dedup.",
+    "Risk: JOB_PERSIST_DB=1 with down Postgres ~4s/attempt; default persist no-op."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-reflect.md",
+    "debugging-module6-evaluation-report.json"
+  ]
+}

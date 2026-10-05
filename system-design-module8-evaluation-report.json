@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "module": 8,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Module 8 added owner-scoped GET /links/search with a page_size cap of 50 and allowlisted sort. DB-native FTS SQL is parameterized; runtime stayed in-memory because Postgres is down. BREAK used offset=page*page_size so the first page was empty; FIX restored (page-1)*page_size and boundary tests.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "tradeoff_reasoning",
+            "score": 4,
+            "observation": "Chose db_native over Elasticsearch because create-to-search freshness matters and this host cannot run another cluster.",
+            "evidence": "DECIDE A; SEARCH_BACKEND memory; SEARCH_USE_POSTGRES None; Docker/Redis/5432 not serving."
+          },
+          {
+            "key": "debugging_methodology",
+            "score": 4,
+            "observation": "Injected off-by-one, reproduced empty first page, then fixed with the same three-link fixture.",
+            "evidence": "BREAK ALL_TOTAL 3 ALL_COUNT 0; FIX_FIRST_PAGE_FULL True FIX_P1_IS_FIRST True FIX_PAST_END_COUNT 0 TOTAL 3."
+          },
+          {
+            "key": "security_awareness",
+            "score": 4,
+            "observation": "Rejected concatenated sort, bound :q in FTS SQL, scoped results to the API-key principal.",
+            "evidence": "BAD_SORT_STATUS 400; FTS_PARAM_Q True; B_LEAKED False; UNAUTH_STATUS 401."
+          },
+          {
+            "key": "production_thinking",
+            "score": 4,
+            "observation": "Capped page_size at 50 and did not query 5432 on the hot path while TCP times out ~4s.",
+            "evidence": "HUGE_PAGE_STATUS 400 page_size must be <= 50. Admin list also rejects limit>50. MAX_IN_MEMORY_LINKS=10000."
+          },
+          {
+            "key": "communication_clarity",
+            "score": 4,
+            "observation": "Named memory backend and unapplied GIN instead of claiming live Postgres FTS.",
+            "evidence": "link_search backend=memory; sql/links_fts.sql present; SEARCH_USE_POSTGRES unset."
+          }
+        ],
+        "strengths": [
+          "Owner isolation and page_size cap proven with ASGI, not comments.",
+          "Off-by-one reproduced as empty first page (total 3, count 0) then closed with boundary tests."
+        ],
+        "growth_areas": [
+          "GIN index and postgres_fts backend were not executed; localhost:5432 still times out."
+        ],
+        "recommendation": "When 5432 accepts connections, set SEARCH_USE_POSTGRES=1, apply links_fts.sql, and rerun module08_search_verify.py expecting backend=postgres_fts.",
+        "public_evidence": [
+          {
+            "artifact": "GET /links/search with pagination metadata",
+            "student_action": "Added owner-scoped search before /links/{code}, capped page_size at 50, allowlisted sort, and parameterized FTS SQL.",
+            "technical_detail": "api/app/main.py GET /links/search; api/app/search.py search_memory/search_postgres; api/app/sql/links_fts.sql GIN.",
+            "proof": "q=example total 3 principal-a only; tag=docs 2; page_size=51 400; sort injection 400; after FIX first page 3/3.",
+            "ability": "Ships safe bounded discovery instead of unbounded LIKE queries.",
+            "reviewer_value": "Prevents the 'just add search' full-table-scan outage and owner leaks.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Parameterized full-text search",
+              "evidence": "plainto_tsquery('english', :q) in FTS_SELECT_SQL; sort not concatenated."
+            },
+            {
+              "concept": "1-based pagination vs 0-based OFFSET",
+              "evidence": "offset=(page-1)*page_size; page=4 empty with total 3."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "pagination off-by-one",
+              "approach": "example",
+              "detail": "Injected offset=page*page_size so page=1 returned zero rows, then restored the formula.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["evidence_first", "structured_reasoning"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}

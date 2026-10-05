@@ -1,0 +1,13 @@
+{
+  "summary": "Ship checklist with measured ASGI suite. Auth map updated for PUT and require_commenter. Docs match three live calls. CI file includes module08_team_suite but GitHub Actions was not run. Team name has no max length. Rollback is memory restart, no team migration.",
+  "evidence": [
+    "MODULE08_TEAM_SUITE_OK True; I_MODULE09_EXIT 0; P_VIEWER_CANNOT_COMMENT 403; X_CROSS_ALL_DENIED True.",
+    "Doc spot-check: E_TEAMS_EMPTY_NAME 400; P_INVITE_OWNER_ROLE 400; P_VIEWER_CAN_VIEW_LIST 200 with no tokens.",
+    "API keys from env in config.py. GitHub Actions not executed this session. Docker/Postgres/Redis not claimed."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module8-verify.md",
+    "api/docs/team-collaboration.md",
+    ".github/workflows/ci.yml"
+  ]
+}

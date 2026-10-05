@@ -1,0 +1,11 @@
+{
+  "summary": "A 500 body should be a stable generic message plus a request id the client can quote; it must never include stack traces, secrets, or PII. The request id is the join key to logs.",
+  "evidence": [
+    "GET /debug/error ASGI: DEBUG_ERROR_STATUS 500 DEBUG_ERROR_BODY {\"detail\":\"internal server error\"} DEBUG_ERROR_X_REQUEST_ID req-624f08cc HAS_TRACEBACK_IN_BODY False",
+    "Same request logs ERROR unhandled exception request_id=req-624f08cc stack_trace=Traceback ... RuntimeError: forced observability test error. Engineers get the stack; the client does not.",
+    "Customer report join key: X-Request-ID header (also logged as request_id). Without it you cannot grep one request out of unstructured 2am noise. Never put JWT_SECRET, DATABASE_URL, or the exception message that might contain a connection string in the JSON body."
+  ],
+  "artifacts": [
+    "api/app/main.py"
+  ]
+}

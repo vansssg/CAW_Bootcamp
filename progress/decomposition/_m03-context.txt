@@ -1,0 +1,65 @@
+STEP 1: CONTEXT
+
+No artifact creation yet.
+
+‍​‍Why We Build Scary Things First (5 Minutes)
+
+Here is the single most expensive mistake in software planning: building the easy, comfortable parts first and saving the scary unknowns for later.
+
+​​​Think about it this way. ​​​You are building SkillSwap — our two-sided marketplace. ​​​You have a list of things to build: user profiles, search, booking, payment processing, provider dashboards, reviews, notifications. ​​‌Some of those items are familiar territory. ​‌​You have built CRUD forms before. ‌​‌You have built login pages. ​‌​Those feel safe.
+
+‌‌‌But payment processing? ​‌​That means integrating with a third-party API like Stripe. ‌​​You have never done it. ​​​The documentation looks dense. ‌​​There are webhooks, idempotency keys, test modes, and edge cases around refunds. ​​​That feels scary.
+
+‌​‌The natural instinct is to start with the comfortable stuff. ​​​Knock out the profile page, build the search UI, get some quick wins. ​​‌You will feel productive. ​‌‌You will have something to show.
+
+​‌‌But here is the problem: if payment processing does not work, you do not have a product. ​​​SkillSwap without payments is a browsing website. ‌‌‌If the profile page has a CSS bug, you still ship. ‌​​If payments fail, nothing else matters.
+
+​​‌The longer you delay discovering that something does not work, the more you have built on top of a broken assumption. ‌​‌Every day you spend building features that depend on payments working is a day you might have to throw away.
+
+‌‌‌The Oil Well Analogy
+
+Think of it like drilling for oil. ​‌‌You have a piece of land and a plan to build a pipeline, a refinery, and a distribution network. ‌‌​That is a lot of infrastructure. ​‌​But before you build any of it, you do one thing first: you drill a test well. ‌​‌You need to know if there is actually oil down there.
+
+​​​If the test well comes up dry, you have lost the cost of one test well. ​​‌That hurts, but it is manageable.
+
+​​​If you build the pipeline first and THEN discover there is no oil, you have lost everything.
+
+​​‌Building the scariest thing first is drilling the test well. ​‌​You are testing your most critical assumption before you invest in everything that depends on it.
+
+‌‌​A Real-World Cautionary Tale
+
+A startup — real company, name withheld — spent three months building a polished frontend for their product. ​​​Beautiful UI. ‌​‌Responsive design. ​‌‌Animations. ​​‌The works. ‌​​Their core feature depended on pulling data from a third-party API.
+
+‌​‌Three months in, they finally got around to integrating that API. ​‌‌They discovered the API had a rate limit of 100 requests per hour. ​‌​Their product needed roughly 10,000 requests per hour to function. ​‌​The core feature was impossible as designed.
+
+​‌‌Three months of UI work. ​​‌All of it built on the assumption that the API would cooperate. ‌​‌They had to redesign the entire product architecture, and most of that beautiful frontend went into the trash.
+
+‌‌​If they had spent one afternoon testing the API's limits first — drilling that test well — they would have discovered the problem on day one, not day ninety.
+
+‌‌​Micro-Exercise: Rank These Three Tasks (2 Minutes)
+
+You have three tasks for SkillSwap. ​‌​Rank them from most risky to least risky, and explain your ranking:
+
+1. ​​‌Design a new database schema for storing provider profiles (fields, types, indexes)
+2. ‌​​Integrate a third-party payment API (Stripe) to process bookings
+3. ‌‌‌Build a CRUD form for users to edit their own profiles
+
+Think about this: which one has the most unknowns? ​‌​Which one depends on something outside your control? ‌​​Which one have you done before?
+
+‌‌‌Expected ranking: Payment API (highest risk — external dependency, unfamiliar territory), database schema (medium — you control it but the design choices have lasting consequences), CRUD form (lowest — well-understood pattern, easily changed).
+
+​​​The key insight: the CRUD form might take more time than the payment API call, but it is not risky. ​​‌You know exactly how to build it. ‌​‌There is nothing that could surprise you and invalidate your plan. ​‌​Risk is not about difficulty — it is about unknowns.
+
+‌‌‌What Is a Spike?
+
+​‌‌Before we go further, let me introduce a term you will use for the rest of your career: a spike.
+
+​‍‌A spike is a scouting mission. ‍Before you move the whole army across a bridge, you send one person ahead to check if the bridge can hold the weight. That scout is not building anything permanent. They are gathering information.
+
+In software, a spike is a short, time-boxed experiment — usually a few hours — where you build a throwaway proof-of-concept to answer a specific question. "Can we actually connect to Stripe's API and process a test payment?" You do not build the production payment system. You do not write tests. You do not handle edge cases. You write the minimum code necessary to answer the question.
+
+If the answer is yes, you throw away the spike code and build it properly. If the answer is no, you have saved yourself days or weeks of wasted effort.
+
+A spike is not wasted time. It is the cheapest way to buy information.
+
+---

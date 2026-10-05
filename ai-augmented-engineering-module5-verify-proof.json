@@ -1,0 +1,15 @@
+{
+  "summary": "Iteration trajectory held structural 4 and raised surface 3 to 4. ASGI WebSocket: accept, live invitation.created push, subscriber cleanup on disconnect, reconnect replay of missed id 2, unauth close 4401. No httpx; no Postgres NOTIFY.",
+  "evidence": [
+    "Log: R1 4/3, R2 4/4, R3 4/4, R4 4/4. Highest quality is the last round. No restart. Refine-first matched a sound first architecture.",
+    "VERIFY_WS_ACCEPT True; VERIFY_WS_GOT_INVITE_EVENT True; VERIFY_WS_EVENT_TYPES ['invitation.created'].",
+    "VERIFY_SUBSCRIBER_CLEANUP True after disconnect.",
+    "VERIFY_RECONNECT_REPLAY_COUNT 1; VERIFY_RECONNECT_IDS [2]; VERIFY_RECONNECT_GOT_MISSED True.",
+    "VERIFY_WS_UNAUTH_CLOSE True (code 4401). No Docker/Postgres claimed."
+  ],
+  "artifacts": [
+    "api/app/scripts/module05_activity_verify.py",
+    "progress/ai-augmented-module5-verify.md",
+    "progress/ai-augmented-module5-build.md"
+  ]
+}

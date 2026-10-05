@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: localhost bind is unreachable from Railway's proxy; hardcoded 3000 misses injected PORT. Dockerfile already uses 0.0.0.0 and ${PORT:-3000}. /live is not readiness.",
+  "evidence": [
+    "CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-3000} in api/Dockerfile.",
+    "HEALTHCHECK hits 127.0.0.1:$PORT/live inside the container, not the platform proxy.",
+    "config.py requires PORT 1-65535 from env. /ready still 503 when 5432 times out; Docker engine down — no live Railway claim."
+  ],
+  "artifacts": [
+    "progress/system-design-module10-context.md",
+    "api/Dockerfile",
+    "api/app/config.py"
+  ]
+}

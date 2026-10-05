@@ -1,0 +1,14 @@
+{
+  "summary": "VERIFY: most confident are 15% commission, book+pay, 5 cities/6 months. Least confident are 'feel instant', cancellation money flow, and vetting/analytics depth. 25 rows; browse/profile/ratings split. Added PM questions 9-10 for vetting and analytics scope. Did not invent a 200ms SLA.",
+  "evidence": [
+    "Three high: O-C1 15%, U-F4/U-F5 book and pay, O-C3 5 cities in 6 months.",
+    "Three low: U-Q1 no milliseconds; U-F8 refund initiator/fees; O-F1/O-Q1 named with zero depth.",
+    "Red flag test: 25>=12; U-F1 browse, U-F2 profiles, U-F3 ratings are separate.",
+    "Probing: instant and cancellation money already listed; Q9 vetting, Q10 analytics everything added after VERIFY.",
+    "Honesty: 200ms cited as industry heuristic in VERIFY notes, not written as a given requirement."
+  ],
+  "artifacts": [
+    "progress/decomposition/module1-verify.md",
+    "artifacts/requirements/module-01-requirements.md"
+  ]
+}

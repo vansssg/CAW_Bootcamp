@@ -1,0 +1,13 @@
+{
+  "summary": "VERIFY: concatenation is injection (sort=clicks;drop 400, FTS uses :q). page_size uncapped is a full-map dump (51→400, cap 50). Search engine costs another cluster we cannot run; backend stayed memory.",
+  "evidence": [
+    "BAD_SORT_STATUS 400. FTS_SELECT_SQL uses plainto_tsquery('english', :q) not string concat.",
+    "HUGE_PAGE_STATUS 400 page_size must be <= 50. Admin list now also rejects limit>50.",
+    "DECIDE A db_native. SEARCH_BACKEND memory. SEARCH_USE_POSTGRES None. Docker/Redis/Postgres still not serving."
+  ],
+  "artifacts": [
+    "progress/system-design-module8-verify.md",
+    "api/app/search.py",
+    "api/app/scripts/module08_search_verify.py"
+  ]
+}

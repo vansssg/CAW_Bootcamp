@@ -1,0 +1,11 @@
+{
+  "summary": "Medium inject: PATCH updated the store but skipped cache invalidation. Next GET /r/{code} was a cache_hit to the old Location.",
+  "evidence": [
+    "BREAK_BEFORE_PATCH https://example.com/old; PATCH 200; BREAK_AFTER_PATCH https://example.com/old BREAK_STALE True",
+    "Log after PATCH redirect: cache_hit backend=memory — the in-process TTL entry was not dropped.",
+    "Class: cache not invalidated on update. Redis was already down; this is a local-cache stale read, not a fabricated Redis HIT."
+  ],
+  "artifacts": [
+    "api/app/main.py"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "summary": "VERIFY: suite protects IDOR, unauth search, javascript: URLs, stale analytics, and wrong redirects. Flakes would be leftover links/rate limits or Redis timeout. Tests must not use DATABASE_URL from .env.",
+  "evidence": [
+    "Ran 6 tests OK: create 200, GET /r 307, search 401, B GET/PATCH/DELETE 404, purge clicks=1, javascript:alert(1) 400.",
+    "setUp clears links, jobs, cache, rate limits. Redirect paid ~0.5s Redis TimeoutError, not a DB write.",
+    "module-02-seed-query.py hardcodes localhost:5432. This suite never create_engine on DATABASE_URL."
+  ],
+  "artifacts": [
+    "progress/system-design-module9-verify.md",
+    "api/app/scripts/module09_test_suite.py"
+  ]
+}

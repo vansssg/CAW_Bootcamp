@@ -1,0 +1,12 @@
+{
+  "summary": "Local module08_team_suite exit 0. CI-shaped Settings() with no env raises ValidationError. Workflow does not set API_KEY_*. Local .env exists. Missing record is the config principal, not a Postgres team row.",
+  "evidence": [
+    "BREAK_LOCAL_SUITE_EXIT 0; BREAK_LOCAL_SUITE_OK True.",
+    "BREAK_DOTENV_PROBE ENVFILE_EXISTS True; BREAK_CI_IMPORT ValidationError; BREAK_CI_MISSING_ENV True.",
+    "ci.yml test job has no APP_ENV/API_KEY_A/API_KEY_B. Postgres not used; team store is memory."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module8-break.md",
+    "api/app/scripts/module08_break_probe.py"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "summary": "Wrote OrderFlow 3AM runbook (Option B): canonical values table, health decision tree, copy-paste kubectl/helm/redis/psql steps, worker/DB/5xx/rollback paths, escalation matrix; minimal+links strategy.",
+  "evidence": [
+    "artifacts/docs/module-06-orderflow-runbook.md",
+    "Numbered steps + If X go to §Y decision points",
+    "Helm rollback and PagerDuty OrderFlow Primary escalation",
+    "DECIDE B minimal+links — runbook in-repo"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-orderflow-runbook.md"
+  ]
+}

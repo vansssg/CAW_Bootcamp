@@ -1,0 +1,14 @@
+{
+  "summary": "AuthN is proving who you are (X-API-Key -> 401 without/wrong key). AuthZ is what that principal may see (principal-b GET of A's link is 404, not 200 with A's URL). Redirect stays public so humans and crawlers can follow short links without a key.",
+  "evidence": [
+    "Authentication: NO_AUTH_CREATE_STATUS 401 API key required; BAD_KEY_CREATE_STATUS 401 Invalid API key; CREATE_A_STATUS 200 with X-API-Key A. Authorization: GET_A_AS_A 200; GET_A_AS_B 404 Link not found (no long_url leak); DELETE_A_AS_B 404; A_STILL_OWNS 200.",
+    "Revoke on leak: keys live in API_KEYS map; remove/rotate the leaked value (or JWT_SECRET if that alias was used) and the next request is 401 Invalid API key. No expiry on API keys — revoke is rotation, which is why we chose API key over JWT for this internal admin surface.",
+    "Redirect remains public: GET /r/55c6dbbb with no X-API-Key returned 307 Location https://example.com/a. Short links are the product; requiring a key would break every shared URL. Abuse is handled by redirect_per_min=8 (429 after 8 hits), not by hiding the redirect behind auth."
+  ],
+  "artifacts": [
+    "api/app/auth.py",
+    "api/app/scripts/module04_auth_verify.py",
+    "progress/system-design-module4-build.md",
+    "system-design-module4-build-proof.json"
+  ]
+}

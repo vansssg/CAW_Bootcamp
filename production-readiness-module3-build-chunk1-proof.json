@@ -1,0 +1,16 @@
+{
+  "summary": "Completed Module 3 BUILD Chunk 1 by adding fail-fast APP_ENV/config validation and proving missing/invalid configuration crashes clearly while valid configuration imports successfully.",
+  "evidence": [
+    "APP_ENV validation added in `api/app/config.py` with allowed values: development, staging, production.",
+    "Required variable validation enforced for PORT, DATABASE_URL, REDIS_URL, and LOG_LEVEL with explicit startup errors for missing/invalid values.",
+    "Failure-first proof (missing required variable): running `DATABASE_URL= ./.venv/Scripts/python.exe -c \"import app.config\"` failed with `ValueError: Missing required environment variable: DATABASE_URL`.",
+    "Failure-first proof (invalid enum value): running `APP_ENV=banana ./.venv/Scripts/python.exe -c \"import app.config\"` failed with `ValueError: Invalid APP_ENV 'banana'. Allowed values: development, staging, production`.",
+    "Valid config proof: `./.venv/Scripts/python.exe -c \"import app.main; print('APP_MODULE_IMPORT_OK')\"` succeeded and printed `APP_MODULE_IMPORT_OK`.",
+    "Configuration remains environment-driven: values are loaded from environment/.env at startup, and no hardcoded secrets were added."
+  ],
+  "artifacts": [
+    "api/app/config.py",
+    "api/.env",
+    "api/.env.example"
+  ]
+}

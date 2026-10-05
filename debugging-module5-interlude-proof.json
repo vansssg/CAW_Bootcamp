@@ -1,0 +1,12 @@
+{
+  "summary": "Dead monitoring looks like green /live. Our canary is /ready (and request-log heartbeat), not a liveness screenshot. Silent freeze is worse than a crash; we already saw /live 200 while /ready hung with no 5xx.",
+  "evidence": [
+    "Canary: GET /live stays 200 with no DB. GET /ready does SELECT 1. Production M05: /live 200 in 0.159s while /ready hung then 503 in 4.271s. Trusting only /live is FirstEnergy's frozen XA/21 display. Also X-Request-ID in logs — if traffic exists but no request_id lines, logging is dead.",
+    "Heartbeat: emit_log on every request plus Prometheus http_requests_total. Silence on both while synthetic /live probes still 200 means the request path is a photograph. A crash of the alarm thread would be a missing increment of that counter, not a red screen.",
+    "Human signal: neighboring utilities analogue was the connect timeout / circuit_open_fallback logs, not the health JSON. We did not tell anyone 'everything is fine' from /live alone. Debugging M05 admin DELETE SEV1 also came from request evidence (200 on DELETE) not a green dashboard."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "progress/production-module5-fix.md"
+  ]
+}

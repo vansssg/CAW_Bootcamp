@@ -1,0 +1,12 @@
+{
+  "summary": "BUILD: six unittest cases against ASGI in-memory app, never DATABASE_URL. create 200, GET /r 307, search 401, IDOR B 404 on get/patch/delete, purge keeps 1 of 2 events, javascript: 400. Ran 6 tests OK.",
+  "evidence": [
+    "Ran 6 tests in 0.605s OK.",
+    "test_redirect_prefix_r 307. test_auth_protected_401 401. test_idor GET/PATCH/DELETE 404 not_owner. test_retention clicks=1 after purge. test_url_validation javascript:alert(1) 400 store empty.",
+    "setUp clears links, jobs, cache, rate limits. persisted=memory. No SEARCH_USE_POSTGRES. Redis ping ~0.5s on redirect, not a live test DB."
+  ],
+  "artifacts": [
+    "api/app/scripts/module09_test_suite.py",
+    "progress/system-design-module9-build.md"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "summary": "Completed Module 2 FIX by converting Task 1 VERIFY findings into a stricter prompt/process standard (Task 1 Prompt v2) that reduces ambiguity and improves output consistency for AI-assisted planning.",
+  "evidence": [
+    "FIX artifact created at `progress/module-02-task1-fix.md`.",
+    "Identified underspecified areas from VERIFY and recorded them explicitly: role taxonomy, identity-binding rule, revoked-state applicability, duplicate-invite behavior contract, error model contract, evidence-reference boundaries, expiry defaults/boundary rule, and non-registered recipient policy.",
+    "Introduced Task 1 Prompt v2 with fixed policy decisions for roles, invitation states, recipient identity matching, active-invite uniqueness, duplicate behavior (`409`), error model (`401/403/404/409/410` + `{ \"detail\": \"<message>\" }`), expiry defaults (7 days + `now >= expires_at`), and non-registered recipient handling.",
+    "Added process improvements around execution quality: pre-run policy lock, source-of-truth evidence boundary check (no `progress/` references), determinism re-run check, and underspecification gate when fixed policies are still treated as assumptions.",
+    "Documented why quality improves: fewer implicit decisions for the agent, lower run-to-run drift, stronger reproducibility, easier review against deterministic criteria, and clearer separation between known facts and assumptions.",
+    "No application implementation files were modified during FIX; output is documentation-only under `progress/`."
+  ],
+  "artifacts": [
+    "progress/module-02-task1-fix.md"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "summary": "Accepted fixed SkillSwap scenario for Decomposition. Two-sided marketplace: providers, learners, bookings, payments, admin vetting. Constraints: instant search, no double-booking, testable cancellation, consistent commission/payout, multi-city without rebuild.",
+  "evidence": [
+    "bootcamp.product_scenario = skillswap recorded in progress/decomposition/state.json.",
+    "Do not switch mid-bootcamp. Domain objects stay: provider, service, slot, booking, payment, dispute.",
+    "Artifact chain named: requirements -> DAG -> risk plan -> slices -> tickets -> parallel plan -> adaptation -> integration.",
+    "Hard constraints listed: search latency, slot uniqueness, cancellation contract, commission consistency, city expansion."
+  ],
+  "artifacts": [
+    "progress/decomposition/state.json"
+  ]
+}

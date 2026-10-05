@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: ShopStream memo is factually right and unreadable. Decision appears in paragraph 4 after ~220 words. Catalogued 22+ problems: buried lede, no headings, 12+ passives with hidden actors, undefined REST/GraphQL/BFF/FE/SDK/SRE, wordiness, and ownerless 'risks will be monitored closely'.",
+  "evidence": [
+    "Buried lede: 'the team has decided to migrate from REST to GraphQL' is paragraph 4. Opening is 'evaluating several potential approaches'.",
+    "Structure: zero headings, zero bullets, no Monday next step for Priya. Knight-style wall of prose.",
+    "Passives include 'a decision has been reached', 'it has been observed', 'Three engineers have been allocated', 'These risks will be monitored closely'.",
+    "Jargon: BFF, FE, SDK, SRE, aggregation endpoints, GraphQL never defined for a new hire.",
+    "Ambiguity: 'monitored closely' and 'timeline is subject to adjustment' have no owner, metric, or done-when."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-break.md",
+    "progress/technical-communication/technical-explanation.md"
+  ]
+}

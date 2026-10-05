@@ -1,0 +1,15 @@
+{
+  "summary": "VERIFY: pointed ID/error/datetime specs in module-06-interface-contracts.md; traced Sarah→Mike browse→slots→book; confirmed S2 status=available diverged from contract open/booked at CP1; race covered by T4 409 slot_unavailable.",
+  "evidence": [
+    "ID type UUID v4, error {error.code,message}, datetime ISO-8601 Z — artifacts/contracts/module-06-interface-contracts.md Shared types + C3.",
+    "Extra fields: T2 bio/category/city for UI only; slots agent does not consume — documented in artifacts/parallel/module-06-verify.md.",
+    "Sarah trace: S1 GET /api/providers → S2 GET .../slots → T4 POST /api/bookings with slot_id; pre-fix available breaks open filter.",
+    "Race: T4 conditional update + unique slot_id → 409 slot_unavailable.",
+    "Side-by-side: contract status open|booked vs bundle S2 status available — not identical; merge blocked."
+  ],
+  "artifacts": [
+    "artifacts/parallel/module-06-verify.md",
+    "artifacts/contracts/module-06-interface-contracts.md",
+    "artifacts/parallel/module-06-agent-output-bundle.md"
+  ]
+}

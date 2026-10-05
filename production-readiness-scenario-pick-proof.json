@@ -1,0 +1,10 @@
+{
+  "summary": "Selected Scenario B for Production Readiness Module 1.",
+  "evidence": [
+    "Manual scenario choice recorded: B (Image Processing Pipeline / imgpipe).",
+    "This selects the async, resource-bounded production context for upcoming containerization and reliability exercises."
+  ],
+  "artifacts": [
+    "Scenario selection in session chat"
+  ]
+}

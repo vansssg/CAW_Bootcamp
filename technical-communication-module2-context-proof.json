@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: Knight Capital lost ~$440M in 45 minutes because the rollback runbook was unscannable prose. Technical writing is LEGO instructions. Micro-exercise: code-review.md main point is findable in 10s via Required Changes [blocker].",
+  "evidence": [
+    "Knight Capital Aug 2012: old trading code reactivated; runbook had the rollback but no headings/bullets; $440M / near-bankruptcy / rescue in 48h.",
+    "Runbook = emergency instruction manual. Bar = LEGO instructions: step-by-step, unambiguous, not fancy prose.",
+    "Micro-exercise on progress/technical-communication/code-review.md: main point is ZeroDivisionError must-fix; heading Required Changes (Bugs) + [blocker] is the 10-second find; heading skim maps the doc.",
+    "Gap this module closes: buried lede and walls of paragraphs."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-context.md",
+    "progress/technical-communication/code-review.md"
+  ]
+}

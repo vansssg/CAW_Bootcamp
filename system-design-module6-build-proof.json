@@ -1,0 +1,13 @@
+{
+  "summary": "Cache-aside with TTL: miss fills from the in-process store, hit logs cache_hit. Redis ping failed (REDIS_DOWN True) so redirect still 307 via memory fallback. PATCH invalidates; post-patch Location is the new URL. Abuse twist: 8x307 then 429.",
+  "evidence": [
+    "REDIS_DOWN True LOG_REDIS_DOWN_FALLBACK True. First GET /r/{code} 307 https://example.com/cached (cache_miss+cache_set); second 307 same Location (cache_hit).",
+    "PATCH 200 long_url https://example.org/new; POST_PATCH_REDIRECT 307 LOCATION https://example.org/new STALE_AVOIDED True LOG_CACHE_INVALIDATE True. Did not docker-stop Redis — it was already down.",
+    "ABUSE_REDIRECT_COUNTS {307: 8, 429: 2} implements constraints_twist abuse_spike. Caching is not free: invalidation, TTL, and Redis-down fallback are extra failure modes. Command: module06_cache_verify.py"
+  ],
+  "artifacts": [
+    "api/app/cache.py",
+    "api/app/main.py",
+    "api/app/scripts/module06_cache_verify.py"
+  ]
+}

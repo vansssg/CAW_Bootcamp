@@ -1,0 +1,11 @@
+{
+  "summary": "Module 06 CONTEXT: docs must survive the future; stale runbooks worse than none (GitLab 2017 pg_dump vs LVM). Constraints twist from M05: stakeholder clarity on ops docs.",
+  "evidence": [
+    "Q1: Most READMEs fail vacation test without Slack.",
+    "Q2: Verification of README steps is rare — staleness is the default failure.",
+    "Wrong docs waste incident minutes with false confidence."
+  ],
+  "artifacts": [
+    "technical-communication-module6-context-proof.json"
+  ]
+}

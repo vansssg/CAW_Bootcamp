@@ -1,0 +1,10 @@
+{
+  "summary": "FIX documented: replace upgrade-latest with helm rollback; DATABASE_URL; remove jq requirement; add worker recovery — aligned with our OrderFlow runbook.",
+  "evidence": [
+    "module-06-fix-runbook-corrections.md",
+    "module-06-orderflow-runbook.md §3 and §5"
+  ],
+  "artifacts": [
+    "artifacts/docs/module-06-fix-runbook-corrections.md"
+  ]
+}

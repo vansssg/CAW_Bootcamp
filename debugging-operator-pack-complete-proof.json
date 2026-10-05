@@ -1,0 +1,14 @@
+{
+  "summary": "Debugging Operator pack complete. Module 07 blameless postmortem on untested contracts; report accepted overall 4 / 7.3. Five remediations remain Open in CI.",
+  "evidence": [
+    "upsk report accepted: report_submitted events_inserted 1 latest_report_module 7 score 7.3 overall 4.",
+    "Postmortem: 12 links/8 accounts; 08:03:46Z-08:09:39Z; recreate 2 then 4 then 2; PITR 2024-03-15 14:20 UTC; restore not run.",
+    "Fictional rewrite: migration pipeline + CODEOWNERS, not John. Our remediations: Redis-required recreate CI, auth 401 matrix, worker/cache alerts, JOB_PERSIST_DB unset, CODEOWNERS on auth/cache/jobs/db.",
+    "ci.yml still ruff + test_query_columns.py only. Pack completed Operator 2 of 2. next_pack null."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-postmortem.md",
+    "debugging-module7-evaluation-report.json",
+    "progress/state.json"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK: ops clarification imposes a global full-refund-within-24h-of-booking rule that contradicts provider-owned cancellation policies in original P1/P2. Clocks may also differ (booking time vs appointment time). Spec now contains two cancellation systems; neither was formally revoked.",
+  "evidence": [
+    "Original: 'cancel bookings with the provider's cancellation policy applied' = P-F4/U-F8.",
+    "Update: 'all cancellations made within 24 hours of booking receive a full refund, regardless of the reason. Cancellations after 24 hours are non-refundable.'",
+    "Conflict example: cancel 2 days after booking and 10 hours before session — platform non-refundable vs provider session-relative 50%/full.",
+    "Open: override vs default vs more-generous; possible mis-edit of booking vs appointment clock.",
+    "Did not invent a winner in BREAK."
+  ],
+  "artifacts": [
+    "progress/decomposition/module1-break.md",
+    "artifacts/requirements/module-01-requirements.md"
+  ]
+}

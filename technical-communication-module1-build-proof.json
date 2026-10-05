@@ -1,0 +1,14 @@
+{
+  "summary": "BUILD: authored progress/technical-communication/code-review.md as an inline review of generate_user_summary. Two blockers (ZeroDivisionError on cnt==0; average sums all ages then divides by active only), readability nits, dict-vs-dataclass marked preference, and a no-side-effects strength. Request changes.",
+  "evidence": [
+    "Required headings present: Decision, Strengths, Required Changes (Bugs), Suggestions (Readability / Style), Final Verdict.",
+    "DECIDE A applied: comments pin total_age / cnt and the dual-branch total_age increment; opening theme sentence plus five comments max.",
+    "Every criticism has a suggestion or question. Strength named: no side effects, docstring, health as a business concept.",
+    "Urgency split: ZeroDivisionError and mixed-average are blockers; names/nest are should-fix; dict vs dataclass is nit/preference.",
+    "Read-aloud: no 'why would you' / 'obviously crash' / 'nesting is a mess'; Lands-table phrasing used."
+  ],
+  "artifacts": [
+    "progress/technical-communication/code-review.md",
+    "progress/technical-communication/module1-decide.md"
+  ]
+}

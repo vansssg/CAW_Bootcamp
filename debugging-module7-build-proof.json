@@ -1,0 +1,13 @@
+{
+  "summary": "BUILD: blameless broad postmortem. Auth lab 12 links/8 accounts; 2026-08-17 DELETE GET /r 404; recreate 2 then 4 then 2; retries 3.107s DLQ; /live 200 0.003s. Five remediations, pipeline/SRE owners, no person as subject.",
+  "evidence": [
+    "Summary names 12 links, 8 accounts, 2\to4 clicks, delays [0.1,0.2,0.4,0.8,1.6], unknown auth-bypass age, pool fill not observed.",
+    "Timeline uses 08:03:46Z-08:09:39Z from probe logs and 2024-03-15 14:20 UTC PITR from Module 05 fix notes.",
+    "Contributing factors: CI only ruff+test_query_columns.py; /live vs /ready; shared key map; no DELETE-GET /r gate; one engine.",
+    "Remediations 1-5: CI recreate script, CI auth verify, worker-pool alert, JOB_PERSIST_DB default off, PR checkbox. No 'be careful'."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-postmortem.md",
+    "progress/debugging-module7-build.md"
+  ]
+}

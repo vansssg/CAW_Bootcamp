@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: most project failures are requirements bugs. SkillSwap sentence 'Users can book time slots and pay through the platform' hides user identity, slot timezone, double-book lock, hold-vs-capture, commission, city/FX, payment-fail release, confirm policy, idempotency, and cancellation.",
+  "evidence": [
+    "Story: four engineers, six weeks, spec 'cancel bookings'; support exploded on 5-minute full refunds; rebuild of capture vs hold, slot release, emails. Cancel button was three days; wrong payment model was the rest.",
+    "Four hidden cancel questions: when, financial consequence, who owns policy, slot after cancel.",
+    "Own assumption list (10) plus hint list (duration, hold vs pay, race, methods, guest, provider confirm).",
+    "Tied to SkillSwap constraints already recorded: no double-booking, commission consistency, multi-city, testable cancellation."
+  ],
+  "artifacts": [
+    "progress/decomposition/module1-context.md",
+    "progress/decomposition/state.json"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "events": [
+    {
+      "module": 5,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose a live deck for VP/Marketing Q&A on delaying subscription launch 3 weeks for a payment security fix. Translated token-replay via coat-check and unlocked-back-door analogies, opened with the date change, and ended with a concrete ask. Critiqued Marcus’s gateway email (~45 jargon hits, buried memory/scale risk) and rewrote it business-first.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "review_quality",
+            "score": 5,
+            "observation": "Found the buried +42.5GB autoscaling risk and counted stakeholder-illegible jargon systematically.",
+            "evidence": "module-05-break-marcus-email.md Parts 1–2."
+          },
+          {
+            "key": "writing_clarity",
+            "score": 4,
+            "observation": "Six one-idea slides; parent-test opening; FAQ table for pushback.",
+            "evidence": "module-05-subscription-delay-deck.md Slide 1 and 6."
+          },
+          {
+            "key": "audience_awareness",
+            "score": 5,
+            "observation": "Wrote for Product/Marketing concerns (launch date, board/customer messaging), not eng implementation.",
+            "evidence": "Slide 5 ask + Slide 2 brand/trust framing."
+          },
+          {
+            "key": "structure_quality",
+            "score": 4,
+            "observation": "Impact → risk → plan → tradeoff → ask → FAQ; Marcus rewrite mirrors same arc.",
+            "evidence": "Deck order; module-05-fix-marcus-rewrite.md."
+          },
+          {
+            "key": "actionability",
+            "score": 4,
+            "observation": "Clear decisions: approve +3 weeks, update announcements, book Thursday sync; Marcus rewrite has go/no-go capacity proof.",
+            "evidence": "Slide 5 bullets; Marcus Ask 1–3."
+          }
+        ],
+        "strengths": [
+          "Translated without simplifying away the 3-week cost.",
+          "Unburied capacity risk that Product would otherwise miss."
+        ],
+        "growth_areas": [],
+        "recommendation": "Module 6: practice runbooks/escalation docs that stay actionable under incident pressure.",
+        "public_evidence": [
+          {
+            "artifact": "Subscription delay stakeholder deck",
+            "student_action": "Created 6-slide presentation delaying launch for payment security fix.",
+            "technical_detail": "artifacts/stakeholder/module-05-subscription-delay-deck.md",
+            "proof": "Business-first open; coat-check analogy; explicit Thursday ask",
+            "ability": "Communicates engineering tradeoffs to non-engineering leaders",
+            "reviewer_value": "Gets calendar and messaging decisions without jargon fog",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Translate vs simplify",
+              "evidence": "Kept 3-week cost and exploit risk in plain words."
+            },
+            {
+              "concept": "Stakeholder ask",
+              "evidence": "Approve date + Thursday meeting, not 'thoughts?'"
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "stakeholder-management",
+              "approach": "example",
+              "detail": "Write deck then rewrite peer disaster email",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["artifact-first"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

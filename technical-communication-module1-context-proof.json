@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: a code review is a conversation, not an audit. Worst feedback is vague and personal; useful feedback is specific, names an alternative, and separates style from bugs.",
+  "evidence": [
+    "Google 2018 surveys: #1 developer dissatisfaction was how reviews felt, not tooling. Guidelines: be specific, suggest alternatives, acknowledge what works, never make it personal. Technical bar did not drop.",
+    "Worst-feedback example: 'Why would you do this?' on require_api_key when 401 for missing X-API-Key already exists — no line, no alternative, reads as a character judgment.",
+    "Stuck-with-me example: 'Return 401/400 at the top of require_api_key so the rest is the success path. Not a blocker.' Names function, status codes, and severity.",
+    "PR is a packaged change asking teammates to look before merge. Reviewer is an editor, not a grader."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module1-context.md",
+    "api/app/auth.py"
+  ]
+}

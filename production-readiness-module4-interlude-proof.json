@@ -1,0 +1,12 @@
+{
+  "summary": "Interlude reflection on Facebook 2021 BGP outage applied to this URL shortener: in-process observability is not independent, and routine config/startup operations have full-service blast radius.",
+  "evidence": [
+    "Independence: logs, /metrics, and /debug/error all run inside api/app/main.py. If the process hangs on engine.connect() during startup or /ready, scrapes and error logs stop together. The only independent signal in the alert set is Prometheus up==0, which requires a scraper that is NOT this FastAPI process. We do not have that scraper running locally.",
+    "Routine blast radius: APP_ENV/DATABASE_URL edits, JWT_SECRET rotation, and the startup verify_database_connection() SELECT 1 + CREATE TABLE run on every boot. A bad DATABASE_URL (already proven: connect hang, uvicorn never serves /live or /metrics) takes down health, writes, redirects, and observability in one change — the same class as a routine BGP withdraw.",
+    "Connection to Module 04 evidence: GET /ready was skipped after a hung SQLAlchemy connect; ASGI /live still worked only because we bypassed lifespan. Monitoring that lives in the same process cannot observe that hang."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "progress/production-module4-break.md"
+  ]
+}

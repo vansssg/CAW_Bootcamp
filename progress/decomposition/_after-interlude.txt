@@ -1,0 +1,37 @@
+STEP 1: CONTEXT
+
+No artifact creation yet.
+
+‍​‍Why We Build Scary Things First (5 Minutes)
+
+Here is the single most expensive mistake in software planning: building the easy, comfortable parts first and saving the scary unknowns for later.
+
+​​​Think about it this way. ​​​You are building SkillSwap — our two-sided marketplace. ​​​You have a list of things to build: user profiles, search, booking, payment processing, provider dashboards, reviews, notifications. ​​‌Some of those items are familiar territory. ​‌​You have built CRUD forms before. ‌​‌You have built login pages. ​‌​Those feel safe.
+
+‌‌‌But payment processing? ​‌​That means integrating with a third-party API like Stripe. ‌​​You have never done it. ​​​The documentation looks dense. ‌​​There are webhooks, idempotency keys, test modes, and edge cases around refunds. ​​​That feels scary.
+
+‌​‌The natural instinct is to start with the comfortable stuff. ​​​Knock out the profile page, build the search UI, get some quick wins. ​​‌You will feel productive. ​‌‌You will have something to show.
+
+​‌‌But here is the problem: if payment processing does not work, you do not have a product. ​​​SkillSwap without payments is a browsing website. ‌‌‌If the profile page has a CSS bug, you still ship. ‌​​If payments fail, nothing else matters.
+
+​​‌The longer you delay discovering that something does not work, the more you have built on top of a broken assumption. ‌​‌Every day you spend building features that depend on payments working is a day you might have to throw away.
+
+‌‌‌The Oil Well Analogy
+
+Think of it like drilling for oil. ​‌‌You have a piece of land and a plan to build a pipeline, a refinery, and a distribution network. ‌‌​That is a lot of infrastructure. ​‌​But before you build any of it, you do one thing first: you drill a test well. ‌​‌You need to know if there is actually oil down there.
+
+​​​If the test well comes up dry, you have lost the cost of one test well. ​​‌That hurts, but it is manageable.
+
+​​​If you build the pipeline first and THEN discover there is no oil, you have lost everything.
+
+​​‌Building the scariest thing first is drilling the test well. ​‌​You are testing your most critical assumption before you invest in everything that depends on it.
+
+‌‌​A Real-World Cautionary Tale
+
+A startup — real company, name withheld — spent three months building a polished frontend for their product. ​​​Beautiful UI. ‌​‌Responsive design. ​‌‌Animations. ​​‌The works. ‌​​Their core feature depended on pulling data from a third-party API.
+
+‌​‌Three months in, they finally got around to integrating that API. ​‌‌They discovered the API had a rate limit of 100 requests per hour. ​‌​Their product needed roughly 10,000 requests per hour to function. ​‌​The core feature was impossible as designed.
+
+​‌‌Three months of UI work. ​​‌All of it built on the assumption that the API would cooperate. ‌​‌They had to redesign the entire product architecture, and most of that beautiful frontend went into the trash.
+
+‌‌

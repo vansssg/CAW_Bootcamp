@@ -1,0 +1,13 @@
+{
+  "summary": "Removed the Round-3 close-after-first from the WebSocket writer. Two invitation.created events now deliver; socket stays open. Did not restart the pub/sub bus.",
+  "evidence": [
+    "FIX_EVENT_CREATED_COUNT 2; FIX_BOTH_EVENTS True; FIX_NO_CLOSE_AFTER_FIRST True.",
+    "VERIFY still: WS accept, live event, subscriber cleanup, reconnect missed id 2, unauth 4401.",
+    "Targeted prompt: stop closing after first send_json; do not change publish/subscribe/replay."
+  ],
+  "artifacts": [
+    "api/app/activity.py",
+    "api/app/scripts/module05_activity_fix.py",
+    "progress/ai-augmented-module5-fix.md"
+  ]
+}

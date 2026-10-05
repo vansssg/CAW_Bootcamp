@@ -1,0 +1,11 @@
+{
+  "summary": "Wrote five-whys postmortem for OrderProcessor silent drops: systemic root cause (swallowed persist errors + HTTP-only health + staging/prod config skew), contributing factors, and six action items with role owners, deadlines, and definitions of done.",
+  "evidence": [
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md — Summary, Five-Whys, Root Cause, Contributing Factors, Action Items",
+    "DECIDE B five-whys; blameless framing; timeline only as appendix",
+    "Actions include fail-closed persist, orders/min alert, payment-order reconciliation, staging config parity, rollback drill"
+  ],
+  "artifacts": [
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md"
+  ]
+}

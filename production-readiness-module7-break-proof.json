@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: followed postgres-unreachable.md after an unannounced change. /live still 200. /ready as written returned 404 in 0.008s {\"detail\":\"Not Found\"} — neither the 503~4s IS-problem row nor the 200 NOT-problem row. Runbook has no branch. Stopped.",
+  "evidence": [
+    "STEP1_LIVE 200 {\"ok\":true} duration_ms=2 — matches runbook Step 1.",
+    "STEP2_READY status 404 secs 0.008 body {\"detail\":\"Not Found\"} path=/ready — not 503 service_unavailable and not 200.",
+    "No docker start attempted. Daemon still cannot open dockerDesktopLinuxEngine.",
+    "Runbook failure mode: diagnosis command is valid syntax against a path that no longer exists on the process that answered /live."
+  ],
+  "artifacts": [
+    "progress/production-module7-break.md",
+    "docs/runbooks/postgres-unreachable.md"
+  ]
+}

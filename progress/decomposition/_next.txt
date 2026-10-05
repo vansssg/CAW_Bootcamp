@@ -1,0 +1,79 @@
+STEP 2: DECIDE
+
+No artifact creation yet.
+
+‍​‍​​You need to make two decisions before you start building your dependency graph for SkillSwap.
+
+​​​​​Decision 1: How to Represent the DAG
+
+decisions.module_02.dag_representation
+
+You have your 15+ requirements from Module 1. ​​​​‌You need to turn them into a dependency graph. ​‌​‌​The question is: what format?
+
+‌​‌​‌Option A: Adjacency list (text-based)
+
+Write dependencies as text arrows:
+
+auth --> booking --> payment
+auth --> provider_profile
+provider_profile --> search
+provider_profile --> reviews
+listings_data_model --> search
+listings_data_model --> booking
+
+This is fast. ‌‌​‌​You can type it in any text editor. ‌​​​​It is easy to update -- just add or remove a line. ​‌​​​You can version-control it. ​​‌​‌You can read it line by line.
+
+​​​​​The downside: it is hard to see the full picture. ‌​‌‌​You cannot easily spot which items have no dependencies (your starting points), which items are bottlenecks (everything depends on them), or where the parallel tracks are. ‌‌​​​You have to mentally reconstruct the shape from the text.
+
+‌‌‌‌​Option B: Visual graph (Mermaid diagram or ASCII art)
+
+Draw the actual graph:
+
+graph TD
+    A[Auth System] --> B[Booking Flow]
+    A --> C[Provider Profile]
+    D[Listings Data Model] --> E[Search]
+    D --> B
+    C --> E
+    B --> F[Payment Processing]
+    C --> G[Reviews]
+
+This takes longer to produce. ​​​‌‌But the moment you look at it, you SEE the structure -- the parallel tracks, the bottlenecks, where the work fans out and where it converges.
+
+​‌‌‌‌Probing question:
+
+Imagine a new developer joins the SkillSwap team mid-sprint. ​‌‌‌‌They need to understand what to work on and what is blocked. ​​‌​‌Which format would you hand them? ​‌​​​Why?
+
+​​‌​​Think about it this way: the adjacency list is like street-by-street directions. ​​​‌​The visual graph is like handing someone a map. ‌​‌‌​Directions are precise but narrow; a map shows the whole territory. ​​​‌​Neither is wrong. ‌​‌‌​Fast-moving solo work might favor the adjacency list. ​‌‌​​A team of three or more almost always benefits from the visual version.
+
+‌​‌​‌Store decision as: decisions.module_02.dag_representation = adjacency_list | visual_graph
+
+---
+
+Decision 2: How to Handle the Critical Path
+
+decisions.module_02.critical_path_strategy
+
+Before we get to the decision, let us make sure the concept is clear.
+
+‌​‌​​The critical path is the longest chain of dependent tasks from start to finish. ‌​​‌‌Think of it like the longest checkout line at the grocery store. ​​‌‌​You can add cashiers to every other lane, but that does not help -- your total time is determined by the slowest line, not the average line.
+
+‌‌‌​‌In project terms: if your critical path is 6 tasks deep and each takes a week, your project is at least 6 weeks long no matter how many developers you add. ‌​​‌​Adding people can speed up the parallel tracks, but the critical path sets the floor.
+
+​​‌‌​Here is the decision:
+
+Option A: Accept the critical path and optimize around it
+
+Identify the critical path and leave it alone. ​‌‌‌​Focus energy on making sure nothing ON the critical path gets delayed. ‌​‌​​Assign your best people to critical path items. ‌‌‌​​Non-critical-path items have slack time, so small delays there do not hurt the overall timeline. ​​​‌‌This is predictable and works well when critical path items are well-understood and low-risk.
+
+​‌​‌​Option B: Actively shorten the critical path
+
+Ask: "Can I break any of these items into smaller pieces so some parts can start earlier?" ‌‌‌​‌For example, if "Payment Processing" depends on "Booking Flow" being complete, maybe you split it into "Payment Interface Definition" (can start early) and "Payment Implementation" (needs Booking). ‌​‍‌‍You have shortened the critical path by letting part of the work start sooner. This is more aggressive -- it takes design effort upfront -- but it can dramatically reduce project duration.
+
+Probing question:
+
+Imagine your critical path is: Auth -> Booking Flow -> Payment Processing -> Commission Calculation. Four items deep. If each takes a sprint, that is four sprints minimum. Can you split any of those items so the chain gets shorter? The tradeoff is real: splitting creates more items to manage and more integration points, but also more parallelism.
+
+Store decision as: decisions.module_02.critical_path_strategy = optimize_around | actively_shorten
+
+---

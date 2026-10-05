@@ -1,0 +1,11 @@
+{
+  "summary": "FIX: mapped blame phrases to systemic rewrites; confirmed our five-whys postmortem already meets blameless + system-action standards.",
+  "evidence": [
+    "artifacts/postmortems/module-04-fix-blameless-rules.md",
+    "Contrast with module-04-orderprocessor-postmortem.md"
+  ],
+  "artifacts": [
+    "artifacts/postmortems/module-04-fix-blameless-rules.md",
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "summary": "VERIFY: root cause is systemic (silent success path), not a person; all action items are system changes with owners/deadlines/DoD; monitoring item specifies metric, threshold, channel; contributing factors and lessons present; no 'be more careful'.",
+  "evidence": [
+    "Root cause names error-handling + monitoring + staging skew — not an individual",
+    "AI#2: orders_created_per_min < 10 for 5 min → #ops-alerts",
+    "No try-harder action items; six DoD-backed system changes",
+    "Lessons learned section added (non-generic)"
+  ],
+  "artifacts": [
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md"
+  ]
+}

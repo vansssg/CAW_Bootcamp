@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "module": 2,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose top-down so Priya gets the REST-to-GraphQL decision in sentence one. BUILD defined REST/GraphQL/BFF and ended with a who/when/done-when table. BREAK tagged 22 problems in a factually correct memo whose decision sat in paragraph 4. FIX rewrote it to 238 words with FE/SRE/SDK/BFF defined and active owners.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "review_quality",
+            "score": 4,
+            "observation": "BREAK catalogued buried lede, missing headings, hidden-actor passives, undefined acronyms, and ownerless monitoring.",
+            "evidence": "module2-break.md: decision in paragraph 4 after ~220 words; 22 tagged problems."
+          },
+          {
+            "key": "writing_clarity",
+            "score": 4,
+            "observation": "FIX cut noise phrases and kept 47/15/40%/8 weeks. BUILD paragraphs stay at 2-3 sentences.",
+            "evidence": "module2-fix-rewrite.md 238 alphanumeric words vs ~350 original."
+          },
+          {
+            "key": "audience_awareness",
+            "score": 4,
+            "observation": "Wrote for Priya: GraphQL buffet analogy, not expected to know GraphQL Monday, ping #shopstream-api.",
+            "evidence": "technical-explanation.md What This Means for Priya and Next Steps table."
+          },
+          {
+            "key": "structure_quality",
+            "score": 4,
+            "observation": "Required headings; FIX skim map Decision/Why/Risks/Next. Lede not buried.",
+            "evidence": "First sentence of both BUILD and FIX states the migration."
+          },
+          {
+            "key": "actionability",
+            "score": 4,
+            "observation": "Named owners and done-when; converted 'risks will be monitored closely' to a daily latency check.",
+            "evidence": "FIX: 'The backend team will track query latency daily for two weeks'; 'Pair on the GraphQL schema with the trio Monday.'"
+          }
+        ],
+        "strengths": [
+          "Headline test passed on both BUILD and FIX.",
+          "BREAK treated buried lede as the primary structural failure of not choosing top-down."
+        ],
+        "growth_areas": [
+          "VERIFY still found schema/resolver undefined until a patch; define every term on first use before the jargon scan, not after."
+        ],
+        "recommendation": "In design docs, keep the top-down lede and add an alternatives table with rejection reasons in one line each.",
+        "public_evidence": [
+          {
+            "artifact": "REST-to-GraphQL explanation for a new hire",
+            "student_action": "Wrote a one-page top-down note for Priya with defined terms and a next-steps table.",
+            "technical_detail": "progress/technical-communication/technical-explanation.md Decision Summary through Next Steps.",
+            "proof": "Opening: migrate REST to GraphQL in eight weeks; ~40% fewer frontend calls; delete 15 aggregation endpoints.",
+            "ability": "Explains an existing technical decision without a follow-up meeting.",
+            "reviewer_value": "New hires can act Monday instead of reverse-engineering Slack.",
+            "confidence": "demonstrated"
+          },
+          {
+            "artifact": "Rewrite of an unscannable migration memo",
+            "student_action": "Cut a 350-word buried-lede memo to 238 words with headings and named owners.",
+            "technical_detail": "progress/technical-communication/module2-fix-rewrite.md vs BREAK source.",
+            "proof": "Decision in sentence one; FE/SRE/SDK/BFF defined; under 245-word cap.",
+            "ability": "Turns correct facts into scannable operational writing.",
+            "reviewer_value": "Same facts as Knight-style prose, readable under time pressure.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Buried lede",
+              "evidence": "BREAK: GraphQL decision in paragraph 4; FIX moved it to sentence one."
+            },
+            {
+              "concept": "Top-down structure",
+              "evidence": "DECIDE A; technical-explanation.md opens with the migration."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Passive vs active action items",
+              "approach": "example",
+              "detail": "Rewrote 'risks will be monitored closely' to a named daily latency check.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["headline_test", "word_count_constraint"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

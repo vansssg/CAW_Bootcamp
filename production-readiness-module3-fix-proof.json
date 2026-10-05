@@ -1,0 +1,18 @@
+{
+  "summary": "Completed Module 3 FIX by hardening config loading/validation with pydantic-settings, adding missing required secret/config validation, enforcing production-safe endpoint rules, and adding startup environment logging without secret leakage.",
+  "evidence": [
+    "Refactored `api/app/config.py` to `pydantic-settings` (`Settings`) so environment variables are canonical and `.env` acts as fallback; environment variables now override `.env` values.",
+    "Added strict required validation for `APP_ENV`, `PORT`, `DATABASE_URL`, `REDIS_URL`, `LOG_LEVEL`, `JWT_SECRET`, and `CORS_ORIGIN`, including `JWT_SECRET` minimum length and `PORT` range checks.",
+    "Fixed missing-validation gap proof: `JWT_SECRET= ./.venv/Scripts/python.exe -c \"import app.main\"` now fails with `Missing required environment variable: JWT_SECRET` instead of importing successfully.",
+    "Added production safety guard: `APP_ENV=production ./.venv/Scripts/python.exe -c \"import app.config\"` now fails when localhost endpoints are used (`Invalid DATABASE_URL for production. Must not point to localhost.`).",
+    "Confirmed env-priority behavior: `PORT=9999 ./.venv/Scripts/python.exe -c \"from app.config import PORT; print('PORT_OVERRIDE=', PORT)\"` prints `PORT_OVERRIDE= 9999`, proving runtime env wins over `.env` defaults.",
+    "Added startup environment log in `api/app/main.py` with non-sensitive fields only (`environment`, `port`, `log_level`), and validated via `./.venv/Scripts/python.exe -c \"import app.main; print('APP_IMPORT_OK')\"` output.",
+    "Missing required variable proof retained: `DATABASE_URL= ./.venv/Scripts/python.exe -c \"import app.main\"` fails with explicit `Missing required environment variable: DATABASE_URL`.",
+    "Local runtime blockers for endpoint and Docker-specific checks remain: uvicorn startup hangs at `Waiting for application startup.` in this dependency state, and Docker daemon is unavailable (`open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified`)."
+  ],
+  "artifacts": [
+    "api/app/config.py",
+    "api/app/main.py",
+    "api/.env.example"
+  ]
+}

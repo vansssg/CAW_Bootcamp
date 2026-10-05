@@ -1,0 +1,12 @@
+{
+  "summary": "BREAK: traced missing dashboard bookings to confirmed vs active status enum contract mismatch. FIX: shared booking_status confirmed|cancelled|completed; dashboard filters confirmed+completed.",
+  "evidence": [
+    "artifacts/checklists/module-08-break.md — create confirmed, dashboard filters active",
+    "artifacts/checklists/module-08-fix.md — shared enum + verify steps",
+    "Same pattern as Module 06 open vs available"
+  ],
+  "artifacts": [
+    "artifacts/checklists/module-08-break.md",
+    "artifacts/checklists/module-08-fix.md"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "summary": "Module 05 CONTEXT: stakeholder comms translate tech into business impact; bakery analogy for migration WHAT/WHY; holiday-sale email lesson — answer cost/benefit not CTE jargon.",
+  "evidence": [
+    "Part1: Migration = moving recipes/orders to a better filing cabinet; during move you cannot look things up (maintenance window).",
+    "Part2 WHY: Old cabinet slow in Saturday rush → customers leave; new cabinet finds recipes in 3s not 30s before holiday peak.",
+    "VP question pattern: what does this mean for the holiday sale / revenue / risk — not how."
+  ],
+  "artifacts": [
+    "technical-communication-module5-context-proof.json"
+  ]
+}

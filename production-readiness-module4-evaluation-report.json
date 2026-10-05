@@ -1,0 +1,111 @@
+{
+  "events": [
+    {
+      "module": 4,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student implemented hybrid structured logging, Prometheus /metrics (counter, histogram, urls_total), and three alert rules with runbooks, then proved them with ASGI drills because uvicorn startup still blocks on Postgres. BREAK used hypothesis tests: silent 500 on /debug/error was disproved, raw path labels created 12 unique /ghost series, and inner emit_log omitted request_id. FIX collapsed unmatched paths to /unmatched, bound request_id with a contextvar, and re-verified 500 logs plus status=500 metrics without claiming a live Prometheus for:2m fire.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "containerization_quality",
+            "score": 3,
+            "observation": "Added prometheus-client to the service requirements used by the container image, without changing Dockerfile layering this module.",
+            "evidence": "api/requirements.txt includes prometheus-client; observability runs inside the existing FastAPI image contract rather than a new image redesign."
+          },
+          {
+            "key": "pipeline_design",
+            "score": 3,
+            "observation": "Treated alert rules as deployable YAML with thresholds, not as CI pipeline stages.",
+            "evidence": "progress/production-module4-alert-rules.yml defines HighErrorRate, HighLatencyP95, and ServiceDown with expr/for/severity; no GitHub Actions job was added this module."
+          },
+          {
+            "key": "observability_coverage",
+            "score": 4,
+            "observation": "Shipped all three pillars and closed two instrumentation bugs found in BREAK.",
+            "evidence": "FIX command showed FIX_UNMATCHED_SERIES [('/unmatched','404',12.0)], FIX_DEBUG_500_METRIC [('/debug/error','500',1.0)], ERROR log with RuntimeError stack and request_id=req-fix-500, and inner log request_id=req-fix-inner."
+          },
+          {
+            "key": "failure_thinking",
+            "score": 4,
+            "observation": "Tested each BREAK scenario with a hypothesis and accepted disproof instead of forcing a silent-handler story.",
+            "evidence": "S1_SILENT_500 False on /debug/error; related hang on engine.connect()/GET /ready documented as no completed 500 and no error metric; S2_CARDINALITY_BOMB_ON_RAW_PATH True; S3_INNER_REQUEST_ID_MISSING True."
+          },
+          {
+            "key": "degradation_design",
+            "score": 3,
+            "observation": "Separated liveness from readiness conceptually and recorded the DB hang, but did not implement query timeouts.",
+            "evidence": "GET /live returns 200 over ASGI without Postgres; GET /ready was skipped after a hung SQLAlchemy connect was killed; timeout/circuit-breaker work was explicitly marked planned, not done."
+          },
+          {
+            "key": "documentation_quality",
+            "score": 4,
+            "observation": "Alert rules include expressions, durations, severities, summaries, and runbook files a pager could open.",
+            "evidence": "YAML contains 3x expr/for/severity/summary/description/runbook; runbooks exist at progress/production-module4-runbook-high-error-rate.md, high-latency.md, and service-down.md."
+          }
+        ],
+        "strengths": [
+          "Evidence-first observability: ASGI drill printed exact counter lines and 500 stack traces instead of claiming a live uvicorn scrape.",
+          "Honest BREAK: disproved silent /debug/error logs and named the real cardinality and request_id bugs with command output.",
+          "FIX matched the diagnosis: route-template labels and contextvar request_id, re-verified with FIX_* flags."
+        ],
+        "growth_areas": [
+          "Still no live Prometheus scrape or for:2m alert evaluation because uvicorn startup blocks on Postgres.",
+          "Dependency hang on /ready remains untimed; that is a degradation gap carried into Module 05/06."
+        ],
+        "recommendation": "In Module 05, add a bounded timeout around engine.connect() on /ready and enumerate what the shortener should do when Postgres is down (fail closed on writes, keep /live 200, log error with request_id).",
+        "public_evidence": [
+          {
+            "artifact": "Prometheus metrics and structured request logs",
+            "student_action": "Instrumented FastAPI with hybrid emit_log, request-id middleware, /metrics, and three Prometheus alert rules, then fixed path-label cardinality and missing inner request_id.",
+            "technical_detail": "api/app/main.py adds HTTP_REQUESTS_TOTAL, HTTP_REQUEST_DURATION_SECONDS, urls_total, metric_path() route templates, REQUEST_ID_CTX, GET /metrics, GET /debug/error.",
+            "proof": "module04_observability_fix.py: unmatched 404 series count 12; /debug/error 500 with request_id req-fix-500 and RuntimeError stack; inner link-created log request_id=req-fix-inner.",
+            "ability": "Builds pull-based service metrics and joinable request logs, then repairs high-cardinality labels.",
+            "reviewer_value": "Shows production-minded instrumentation: what to label, what to leave in logs, and how to prove a 500 is visible in both pillars.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Structured logging with request correlation",
+              "evidence": "emit_log always includes timestamp/level/message/service_name/request_id; FIX_INNER_LOG_INHERITS_REQUEST_ID True via contextvar."
+            },
+            {
+              "concept": "Low-cardinality Prometheus labels",
+              "evidence": "12 unique /ghost/N paths collapsed to a single /unmatched 404 series after metric_path()."
+            },
+            {
+              "concept": "Alert threshold vs noise",
+              "evidence": "HighErrorRate uses >5% for 2m; FIX_ERROR_RATE 0.071 noted as expression-true but for:2m scrape not claimed."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "Cardinality bomb",
+              "approach": "example",
+              "detail": "Generated 12 unmatched paths and counted unique http_requests_total path labels before and after the fix.",
+              "effective": true
+            },
+            {
+              "concept": "Hypothesis-first BREAK",
+              "approach": "guided_discovery",
+              "detail": "Tested silent-500 hypothesis on /debug/error and recorded disproof before fixing other gaps.",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": [
+            "evidence_first",
+            "hypothesis_driven",
+            "operational_risk_awareness",
+            "tradeoff_reasoning"
+          ],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

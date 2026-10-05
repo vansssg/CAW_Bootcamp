@@ -1,0 +1,12 @@
+{
+  "summary": "Stack traces in 500 bodies leak file paths and can include connection strings; customers should only get error.code/message/request_id. Debug logs hold stacks; audit logs hold who/what/outcome. Join key is request_id.",
+  "evidence": [
+    "GET /debug/error body is {\"error\":{\"code\":\"internal_error\",\"message\":\"internal server error\",\"request_id\":\"req-dd549a9a\"}} SERVER_HAS_TRACE False. The same request logs stack_trace with api/app/main.py line 314 RuntimeError — that is debug, not the client contract.",
+    "Audit vs debug: 401 for DO_NOT_LOG_ME_123 logs status=401 error_detail=Invalid API key request_id=... and SENTINEL_IN_LOGS False. Debug would be the stack on 500; audit is method/path/status/principal without secrets.",
+    "Incident fields we actually emit: request_id, method, path, status, duration_ms, error_type/stack_trace on 500. Customer quotes X-Request-ID from the envelope and header."
+  ],
+  "artifacts": [
+    "api/app/scripts/module05_error_verify.py",
+    "api/app/main.py"
+  ]
+}

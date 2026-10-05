@@ -1,0 +1,13 @@
+{
+  "summary": "BREAK: fictional March 15 migration postmortem fails every red flag. Counted 16 problems: John as root cause, Friday afternoon timeline, some users for a while, remediations that change people, Friday-deploy myth, no rollback proof.",
+  "evidence": [
+    "Root cause quote: 'John deployed the broken migration on Friday afternoon without testing it first.' Subject is a person.",
+    "Timeline: Friday afternoon/evening/Saturday morning — no year, no UTC. Impact: 'Some users could not log in for a while' — no count, no duration.",
+    "Remediation 1 'Developers should test migrations'; 2 'John will have all future PRs reviewed'; 3 'Try to avoid deploying on Fridays' / Everyone / Ongoing.",
+    "Lessons: 'John needs to be more careful' and 'We should not deploy on Fridays.' Detection was user reports, not a query-latency alert."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-break.md",
+    "progress/debugging-module7-postmortem.md"
+  ]
+}

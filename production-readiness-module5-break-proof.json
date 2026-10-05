@@ -1,0 +1,15 @@
+{
+  "summary": "BREAK: unbounded Postgres connect wait is the highest-risk mode because /live stays 200 while data paths hang with no 5xx. Missed mode: GET /r/{code} writes analytics so read-only DB looks like a partial outage. Sim2 already showed connect_timeout=1 fails in 4.451s; production engine still has no timeout.",
+  "evidence": [
+    "Option B symptom already recorded: ASGI GET /live 200 {ok:true}; GET /ready S1_READY_STATUS TIMEOUT and S1_READY_HANG_NO_500_NO_METRIC_COMPLETION True; HighErrorRate cannot see a hang.",
+    "Root cause in api/app/db.py: create_engine(DATABASE_URL, future=True) with no connect_timeout/pool_timeout. Sim2 cloned engine with connect_timeout=1 returned OperationalError ConnectionTimeout in 4.451s.",
+    "Option C missed in FMEA: GET /r/{code} does SELECT then INSERT analytics; GET /ready is SELECT 1 only. Read-only DB would keep /live and /ready green while creates and redirects fail.",
+    "Highest-risk fix target: unbounded connect/query wait, then decouple redirect from analytics write. No new hang experiment."
+  ],
+  "artifacts": [
+    "progress/production-module5-break.md",
+    "progress/production-module5-fmea.md",
+    "api/app/db.py",
+    "api/app/main.py"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "summary": "REFLECT: top_down vs BREAK buried lede in paragraph 4. Principle: action items name who. First two BUILD sentences let Priya retell the GraphQL decision. Mini-task quotes lede, GraphQL definition, and Monday next step.",
+  "evidence": [
+    "Decision callback: A top_down; BREAK is the opposite (decision in paragraph 4).",
+    "Principle: 'The backend team will track query latency daily' not 'risks will be monitored closely'.",
+    "Acceptance: first two sentences of technical-explanation.md state REST to GraphQL, 8 weeks, 40%, 15 endpoints.",
+    "Mini task: GraphQL defined as query language; next step Monday standup Priya + trio.",
+    "Risk: unbounded nested queries. Mitigation: daily latency by backend team for two weeks."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-reflect.md",
+    "progress/technical-communication/technical-explanation.md",
+    "technical-communication-module2-evaluation-report.json"
+  ]
+}

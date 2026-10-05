@@ -1,0 +1,13 @@
+{
+  "summary": "CI test job now supplies dummy APP_ENV, API keys (32 chars, distinct), and postgresql+psycopg URL so Settings loads without a local dotenv. Team suite still creates its own teams. FIX_SUITE_OK True. GitHub Actions not run from this workspace.",
+  "evidence": [
+    "BREAK: Settings() with no env was ValidationError because ci.yml set no API_KEY_*.",
+    "FIX_CI_SECRET_LEN JWT/API keys 32; FIX_CI_KEYS_DISTINCT True; FIX_JWT_NOT_AN_API_KEY True.",
+    "FIX_SUITE_EXIT 0; FIX_SUITE_OK True under those env vars. Dialect is postgresql+psycopg (not psycopg2). No Alembic."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module8-fix.md",
+    ".github/workflows/ci.yml",
+    "api/app/scripts/module08_fix.py"
+  ]
+}

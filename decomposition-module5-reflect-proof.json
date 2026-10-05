@@ -1,0 +1,13 @@
+{
+  "summary": "Module 05 REFLECT complete: evaluation submitted (overall 4 / 8.3/10). Six tickets + standards doc + VERIFY/BREAK/FIX cycle.",
+  "evidence": [
+    "upsk report accepted: events inserted 1; latest_report_module 5; latest_report_score_out_of_10 8.3",
+    "Artifacts: artifacts/tickets/module-05/* , artifacts/standards/api-cross-cutting.md",
+    "Primary task_clarity 4; adaptation_speed 5"
+  ],
+  "artifacts": [
+    "decomposition-module5-evaluation-report.json",
+    "artifacts/tickets/module-05/ticket-index.md",
+    "artifacts/standards/api-cross-cutting.md"
+  ]
+}

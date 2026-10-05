@@ -1,0 +1,29 @@
+STEP 1: CONTEXT
+
+No code generation yet.
+
+‍​‍​​​​​​​​​​​‌​Analytics is useful but not worth breaking redirect speed.
+
+‌​‌​‌​‌​‌‌‌​‌​‌​Redirect is the hot path. ​​​​‌​​​​​‌​‌​​​Recording a click can be:
+
+- synchronous (simple, slower)
+- asynchronous via queue (fast redirect, more moving parts)
+
+Why This Matters In Production (2 Minutes)
+
+The moment you add retries, you risk double-counting.
+
+​​‌​‌‌​‌‌​​​‌‌‌‌The moment you add a queue, you add operational failure modes (queue down, worker down).
+
+​​​​‌‌​‌‌‌‌​‌‌‌‌This module makes those tradeoffs explicit and verifiable.
+
+​​‌​‌​‌​​​​​‌​​​Real incident (30 seconds):
+
+- A retry misconfiguration doubled analytics counts overnight. ​​‌​‌​‌‌​​​​‌​‌​It looked like “growth” until billing and trust got involved.
+
+‌‌​​‌‌​​‌​‌​‌‌​‌Micro-Exercise (2 Minutes)
+
+Ask the student:
+
+1. ​​‌​​‌‌​​‌‌​‌‌‌​If the queue is down, what should the redirect do?
+‌‌​​‌​​​‌‌​​‌‌‌​2. ‌​‌​​‌‌‌​​​​​‌‌​What is your idempotency key for a click event?‌​‌​‌‌‌​‌‌​‍‌‍

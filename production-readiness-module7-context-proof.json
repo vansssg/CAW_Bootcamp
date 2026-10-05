@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: a runbook is a letter to sleep-deprived 3 AM you. docker rm vs docker restart lost unmapped volume data. Memory list of env vars matched api/.env.example. First three slow-page commands are timed curl /live, /ready, /metrics — never docker rm, never hammer /ready after M06 breaker open.",
+  "evidence": [
+    "2:47 AM story: docker rm myservice-prod vs docker restart; data volume not external; 2 hours of data gone. Five characters.",
+    "Sleep-dep ≈ 0.10% BAC after 24h awake. Recipe card must say 2.5 cups not 'some flour'.",
+    "From-memory env: DATABASE_URL JWT_SECRET APP_ENV PORT API_KEY_A API_KEY_B REDIS_URL LOG_LEVEL CORS_ORIGIN. Confirmed later in api/.env.example.",
+    "Slow-page commands: curl -m 2 /live, curl -m 3 /ready, /metrics. If live 200 and ready ~4s 503, stop probing (M06 half-open). No myservice-prod container in this workspace."
+  ],
+  "artifacts": [
+    "progress/production-module7-context.md",
+    "api/.env.example"
+  ]
+}

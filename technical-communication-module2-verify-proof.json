@@ -1,0 +1,13 @@
+{
+  "summary": "VERIFY: headline states REST-to-GraphQL in 8 weeks and why. Longest paragraphs are 2-3 sentences. No ownerless passives in next steps. Defined schema and resolver after the jargon scan.",
+  "evidence": [
+    "Headline: 'We are migrating ShopStream's public API from REST to GraphQL over eight weeks so web and mobile can ask for exactly the fields they need.'",
+    "Longest paragraphs 2-3 sentences; Next Steps is a who/when/done-when table.",
+    "Passive phrases it was decided / will be completed / should be done / has been implemented: not present. Owners: Priya, migration trio, backend team.",
+    "Jargon gap found and patched: schema (typed menu of fields) and resolver (function that fetches one field) in Risks learning-curve bullet."
+  ],
+  "artifacts": [
+    "progress/technical-communication/module2-verify.md",
+    "progress/technical-communication/technical-explanation.md"
+  ]
+}

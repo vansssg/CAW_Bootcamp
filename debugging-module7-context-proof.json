@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: postmortem is class-of-failure, blameless. Rewrote 'junior pushed untested code' to a missing CI gate for delete-then-GET /r. Pipeline subject, not a person.",
+  "evidence": [
+    "Blame rewrite subject is CI: ruff + test_query_columns.py, not module06_break_recreate.py. That is what allowed a cache/SoT miss to ship.",
+    "Not 'the developer should have'. NTSB/cockpit: change the merge requirement.",
+    "Incident facts already measured: DELETE GET /r 404; recreate 2 then 4 clicks; retry delays 0.1..1.6; /live 200 0.003s; 5432 still down."
+  ],
+  "artifacts": [
+    "progress/debugging-module7-context.md",
+    ".github/workflows/ci.yml",
+    "api/app/scripts/module06_break_recreate.py"
+  ]
+}

@@ -1,0 +1,57 @@
+Interlude: Knight Capital -- $440 Million in 45 Minutes
+
+Delivered between Module 7 (Runbooks & Operational Docs) and Module 8 (Deploy & Verify)
+
+---
+
+August 1, 2012. ‍​A Wednesday.
+
+‍​Knight Capital Group was one of the largest market makers on the New York Stock Exchange. ​​If you bought or sold a stock in the United States, there was a good chance Knight was on the other side of that trade. ​​They handled roughly $21 billion in trades every single day. ​​They were not a startup. ​​They were not experimenting. ​​They were deeply embedded in the financial infrastructure of the country.
+
+‌​On that Wednesday morning, the NYSE was launching a new program called the Retail Liquidity Program. ‌​It was a change to how certain types of retail stock orders would be handled. ‌​Knight had updated their trading software -- called SMARS -- to support the new program. ‌​The update had been tested. ‌​It was ready. ‌‌It needed to be deployed to production.
+
+‌​Here is where the first domino falls.
+
+‌​Knight's deployment process was manual. ‌​Not "automated with a manual approval gate" manual. ​​Actually manual. ​​A technician had to copy the new code to eight production servers, one by one. ‌​On the morning of August 1st, the technician deployed the updated SMARS code to seven of the eight servers.
+
+​​One server was missed.
+
+​​On that eighth server, the old code was still running. ‌​And the old code contained something dangerous: a function called "Power Peg." ‌​Power Peg was dead code. ​​It had been written years earlier for a purpose that no longer existed. ​​It should have been removed. ‌​It was not. ‌‌It sat in the codebase, dormant, like an unexploded bomb in a field that everyone had forgotten was a minefield.
+
+​‌The new version of SMARS repurposed an existing feature flag. ‌​In the new code, this flag activated the Retail Liquidity Program logic. ​​In the old code -- the code still running on that eighth server -- the same flag activated Power Peg.
+
+‌‌When the markets opened at 9:30 AM and the flag was turned on, seven servers began executing the new Retail Liquidity Program logic correctly. ‌‌The eighth server received the same flag and interpreted it as an instruction to activate Power Peg -- an algorithm that had not been reviewed, tested, or even thought about in years.
+
+​​Power Peg began trading.
+
+​​It bought stocks at the market's asking price and sold them at the bidding price. ‌‌If you know anything about markets, you know this is backwards. ​‌You buy at the bid and sell at the ask. ‌‌Power Peg was doing the opposite, on every trade, at enormous volume. ‌​It was like a machine designed to lose money as fast as possible.
+
+‌‌The algorithm was fast. ‌‌It was, after all, a trading system built for speed. ​​Within the first minute, it had already placed thousands of erroneous orders. ‌​Within ten minutes, the volume of Knight's trading had increased by orders of magnitude. ‌​Knight Capital was buying and selling massive blocks of stock in 154 different companies, not based on any market signal or trading strategy, but based on decade-old logic that nobody understood anymore.
+
+‌​People noticed. ​​Of course they noticed. ​​Traders on the floor saw Knight's orders flooding in. ‌​Knight's own engineers saw the volume spikes. ​​But here is the part that turns a bad morning into a catastrophe: there was no kill switch.
+
+​​There was no single button, command, or procedure to stop SMARS from trading. ‌​There was no automated system monitoring for "trade volume has increased 1000x in five minutes." ‌​There was no runbook titled "What to do when the trading system is executing trades it should not be executing." ‌‌There was no playbook for this scenario because nobody had imagined this scenario. ​​The failure mode was not "the system is down." ​​The failure mode was "the system is up and actively destroying the company."
+
+‌​For 45 minutes, Knight's engineers scrambled. ‌​They tried to figure out which server was the problem. ‌‌They tried to understand why the system was behaving this way. ​​They tried to stop the bleeding. ‌‌But without a documented procedure, without a kill switch, without automated safeguards, every second of confusion cost money. ​​Real money. ‌​Millions of dollars per minute.
+
+‌​By the time they stopped it, Knight Capital had accumulated approximately $7 billion in unintended stock positions. ‌‌The net loss: $440 million. ​‌In 45 minutes.
+
+​​To put that in perspective: Knight Capital's total revenue for the previous quarter was $289 million. ‌​They had lost more than an entire quarter's revenue before most people had finished their morning coffee.
+
+​‌The company's stock price dropped 75% that day. ‌​Knight Capital was effectively bankrupt by lunchtime. ​‌Within a week, they were acquired by a competitor, Getco, in what can only be described as a fire sale. ‌​A company that had been one of the pillars of American stock trading was gone. ‌‌Not because of a market crash. ‌​Not because of fraud. ‌‌Because a technician missed one server during a manual deployment, and the code on that server contained a feature flag that reactivated forgotten code that nobody knew was dangerous.
+
+​​The SEC investigation that followed laid out the failures in clinical detail. ‌​No adequate risk controls. ​​No automated safeguards against aberrant trading. ‌‌No kill switch. ​​No process for verifying that deployment was complete across all servers. ‌‌The deployment that destroyed the company was not a complex distributed systems challenge. ‌​It was a checklist that someone did not finish.
+
+‌​---
+
+Reflection
+
+You just finished writing runbooks. ‌​You documented how to detect, diagnose, and fix the failure modes in your service. ​‌Now think about this:
+
+1. ‌‌The deployment was manual and one server was missed. ​​Eight servers. ​​Seven got the new code. ​‌One did not. ‌​Your deployment pipeline from Module 2 -- does it guarantee that ALL instances run the same version? ‌​What happens if one falls behind? ‌​Is there a verification step that confirms every server is running the expected code before traffic is routed? ‌‌Or does your pipeline assume success and move on?
+
+‌​2. ‌‌Dead code that everyone forgot about was reactivated by a feature flag. ​‍Power Peg had been in the codebase for years. ‌‍Nobody removed it. Nobody even remembered it was there. A flag that used to mean one thing was repurposed to mean another, and the old code interpreted it the old way. Is there dead code in your service? Feature flags that nobody remembers the purpose of? Old configuration paths that are still technically reachable? What would happen if old behavior was accidentally restored?
+
+3. There was no kill switch and no runbook. The failure mode was not "the service is down." The service was up. It was running. It was processing requests. It was doing its job -- just the wrong job. The engineers had no procedure for "the service is actively causing damage." You wrote runbooks in Module 7. Do any of them cover this scenario? Not "the service is not responding" -- but "the service is responding, and every response is making things worse"? How do you stop a system that is working perfectly, just not the way you intended?
+
+There is no right answer. But as you move into Module 8 -- your final module, where you deploy for real -- carry Knight Capital with you. Deployment is not just about getting new code onto servers. It is about verifying that the right code is on every server, that old code is truly gone, and that you have a way to stop everything if the thing you deployed starts doing something you did not expect.

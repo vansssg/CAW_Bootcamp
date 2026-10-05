@@ -1,0 +1,12 @@
+{
+  "summary": "Cache is optional acceleration of code->URL. If Redis is down, fall back to the in-process/DB lookup rather than failing every public redirect. Invalidate on update/delete. Twist: public_consumer abuse_spike — implement_now; redirect 429 already proven in Module 04.",
+  "evidence": [
+    "Redis down: fail-open to memory/DB, not 500. Cache is not the source of truth (M05 fail-fast applies to wrong URLs, not to missing cache). Hanging on Redis is the stampede/hang failure this CONTEXT warns about. localhost:6379 is not serving — we will not claim a live Redis hit.",
+    "Must invalidate on DELETE /links/{code} and on any long_url update; otherwise GET /r/{code} can 307 to a retired target. Create can be write-through or cache-aside miss.",
+    "constraints_twist_type=abuse_spike action=implement_now. Module 04 REDIRECT_RATE_STATUSES [307 x8, 429 x2] REDIRECT_PER_MIN 8 already throttles enumeration. Deferring would leave /r/{code} as an unauthenticated hammer during an abuse spike."
+  ],
+  "artifacts": [
+    "api/app/ratelimit.py",
+    "api/app/scripts/module04_auth_verify.py"
+  ]
+}

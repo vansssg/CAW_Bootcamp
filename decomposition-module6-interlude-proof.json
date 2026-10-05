@@ -1,0 +1,12 @@
+{
+  "summary": "Interlude (Mars Climate Orbiter): contract-level testing would catch units mismatch; Module 06 'units' are UUID/ISO-8601/open|booked/error envelope — CP1 enum diff is the early-warning pattern.",
+  "evidence": [
+    "Q1: Contract tests / consumer-driven contract tests / golden fixtures asserting units+types on the wire — not more unit tests inside Lockheed or JPL. SIS must be executable.",
+    "Q2: Our units = UUID strings (not ints), ISO-8601 Z datetimes, slot_status open|booked (not available), error {code,message}. Divergence mode = Module 06 available vs open. Detection = CP1 field-by-field contract diff + CI ALLOWED enum assert before merge."
+  ],
+  "artifacts": [
+    "artifacts/contracts/module-06-interface-contracts.md",
+    "artifacts/parallel/module-06-break.md",
+    "decomposition-module6-interlude-proof.json"
+  ]
+}

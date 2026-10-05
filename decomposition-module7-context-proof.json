@@ -1,0 +1,12 @@
+{
+  "summary": "Module 07 CONTEXT: blast-radius on availability-on-listing change — A untouched, B primary (API+card+query), C partial (detail availability may shrink). Recalculate-from-here, not restart/deny.",
+  "evidence": [
+    "Ticket A (auth DONE): not affected — JWT/signup unrelated to availability display.",
+    "Ticket B (listing IN PROGRESS): bowling-ball epicenter — response shape, card UI, availability query/pagination interaction.",
+    "Ticket C (booking NOT STARTED): partial — some availability UX moves earlier; detail/book flow still needs slot pick but may simplify.",
+    "Rejected restart and silent absorption; adaptation = assess blast radius then replan from current 60% state."
+  ],
+  "artifacts": [
+    "decomposition-module7-context-proof.json"
+  ]
+}

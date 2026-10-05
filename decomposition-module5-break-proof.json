@@ -1,0 +1,14 @@
+{
+  "summary": "BREAK on T4: diagnosed auth, rate limit, 500 stack traces, and missing logs as spec silences. Classified auth exception as ticket-level; rate limit/errors/logging as cross-cutting. Created artifacts/standards/api-cross-cutting.md so tickets can cite instead of staying silent.",
+  "evidence": [
+    "artifacts/tickets/module-05/break-diagnosis-t4.md answers Q1-Q3 for each of the four simulated AI failures.",
+    "Auth: missing explicit Slice1 guest exception → ticket must name SLICE1_GUEST_LEARNER; full auth remains T5/T6.",
+    "Rate limit / safe 500s / logging: cross-cutting → artifacts/standards/api-cross-cutting.md (60 rpm, no stack traces, booking_created log event).",
+    "Rule captured: silence is not a reference; tickets must include or cite standards."
+  ],
+  "artifacts": [
+    "artifacts/tickets/module-05/break-diagnosis-t4.md",
+    "artifacts/standards/api-cross-cutting.md",
+    "decomposition-module5-break-proof.json"
+  ]
+}

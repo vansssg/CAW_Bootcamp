@@ -1,0 +1,114 @@
+STEP 7: REFLECT
+
+Record:
+
+- chosen auth method + why
+- one security practice learned
+- update state.json to advance to Module 05 / context
+
+Decision Callback
+
+In the DECIDE step, students chose between API key authentication and JWT authentication.
+
+‍​‍​​​​If they chose A (API key):
+- The challenge they encountered was a consequence of API keys being long-lived static secrets that are easy to misconfigure or accidentally expose
+- Connect it: "API keys are simple to implement but simple to misuse — a weak secret, a missing header check, or a rate-limit gap (like the one you just fixed) all stem from the fact that a static key carries no built-in expiry or scope enforcement."
+
+​​​​​​​If they chose B (JWT):
+- The challenge they encountered was a consequence of JWT verification depending on secret configuration and token validation logic that can be skipped or misconfigured
+- Connect it: "JWTs add expiry and claims, but the bug you just debugged likely showed that those protections only work if the guard actually validates the signature and checks the right fields — a weak or missing check is just as dangerous as no auth at all."
+
+‌​‌​‌​‌Ship Recap (1 Minute)
+
+- What we shipped: a protected admin surface with a clear identity and a public redirect surface.
+​‌​‌‌‌​- Remaining risk: auth without proper authorization rules and rate limits is still vulnerable to abuse, so we tighten those next.
+
+‌​‌​​​​Checkpoint Demo (2 Minutes)
+
+Goal: prove the “public vs protected” split is real.
+
+​‌​​​​​Demo (pick one protected endpoint you implemented):
+
+- Without auth: show a 401 response.
+‌​‌​​​​- With auth (JWT or API key): show a 2xx response.
+
+​‌​‌‌​‌Say out loud:
+
+- “What the attacker can do without auth”
+- “What changes once identity exists”
+
+Role swap (2 minutes):
+
+- Do a quick QA or Security audit of the current module result.
+
+‌​​​‌‌‌Knowledge Check
+
+Comprehension Questions
+1. ‌​​​​‌‌What core problem does this module solve in authentication & authorization?
+​‌‌‌‌​‌2. ‌‌‌​​‌​Which decision in this module has the biggest impact, and why?
+‌​‌​​​​3. ​‌​​​​​What evidence proves the implementation works end-to-end?
+
+‌​‌​‌‌​Mini Practical Task
+- Complete one STEP 4 verification action for authentication & authorization and capture proof (command + output, test result, or log snippet).
+
+​​​‌​‌​Success Criteria
+- Answers are short, specific, and in plain language.
+‌‌​​‌‌​- The mini task includes reproducible proof tied to the module deliverable.
+​‌​‌​‌‌- You can name one risk and one mitigation from this module.
+
+​‌​​‌​​After completing this REFLECT, evaluate the student and run `upsk report` with this payload template:
+{
+  "nonce": "<current nonce from upsk status/start/next response>",
+  "events": [
+    {
+      "module": 4,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "<2-3 sentence qualitative summary>",
+        "overall": 4,
+        "dimension_scores": [
+        {"key":"tradeoff_reasoning","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"debugging_methodology","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"security_awareness","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"production_thinking","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"communication_clarity","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"}
+        ],
+        "strengths": ["<specific strength with context>"],
+        "growth_areas": ["<specific growth area with context>"],
+        "recommendation": "<one actionable next step>",
+        "public_evidence": [
+          {
+            "artifact": "<feature, route, table, job, test, doc, or deployment touched>",
+            "student_action": "<what the student personally built, changed, verified, or decided>",
+            "technical_detail": "<route/table/file/command/decision involved>",
+            "proof": "<public-safe command output, test result, log summary, URL, or artifact path>",
+            "ability": "<ability this proves>",
+            "reviewer_value": "<why a recruiter or senior engineer should care>",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [{"term":"<missed term>","context":"<where it broke understanding>"}],
+          "concepts_demonstrated": [{"concept":"<concept they showed>","evidence":"<direct proof>"}],
+          "teaching_approaches": [{"concept":"<concept>","approach":"example","detail":"<what you tried>","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["<signal about how they learn best>"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}
+
+Scoring rule: `score` must be between 1 and 5.
+‌‌​​‌‌​Confidence rule: `student_knowledge.confidence_level` must be exactly `"low"`, `"medium"`, or `"high"`.
+‌‌‌​‌‌​When the answer is already strong, set `growth_areas` to `[]` and avoid filler improvement bullets.
+​‌​​​‌‌Public evidence rule: `public_evidence` is for built-work proof only. ​​‌‌‌​‌Do not put private coaching notes, learning style, confidence, terminology gaps, emails, secrets, tokens, or sensitive logs in public evidence.
+
+​‌​​‌‌‌Dimension definitions (from manifest):
+- tradeoff_reasoning: Tradeoff Reasoning - Evaluates how clearly the student compares alternatives, constraints, risks, and downstream consequences.
+​​​​​‌‌- debugging_methodology: Debugging Methodology - Evaluates whether debugging is hypothesis-driven, reproducible, and closed with explicit evidence.
+​‌​‌​‌‌- security_awareness: Security Awareness - Evaluates identification of security risks and use of practical protections in design and code.
+‌​‌‌​‍‌- production_thinking: Production Thinking - Evaluates reliability, observability, operability, and rollout/rollback decisions for real systems.
+‍- communication_clarity: Communication Clarity - Evaluates how clearly decisions, rationale, and next actions are communicated to technical teammates.

@@ -1,0 +1,14 @@
+{
+  "summary": "S3 2017: wrong playbook parameter, green dashboard hosted on S3, four-hour cascade. Here /live and /metrics share the API process so they stay green while /ready 503s. Guardrails are worker_engine, retry cap, key prefixes — not 'be more careful'.",
+  "evidence": [
+    "/live 200 with no DB; /ready 503 ~4s postgres_connect_or_query_timeout. Same process as /metrics. No external Prometheus.",
+    "JOB_PERSIST_DB default off so a typo env cannot stall every click 4s. worker_engine pool_size=2 isolated from API pool_size=5.",
+    "Invalidate only link:redirect:<code>; analytics:dedup:<job_id> survives. Postmortem (M7) must change the system, not retrain the deleter."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-interlude.md",
+    "api/app/main.py",
+    "api/app/db.py",
+    "api/app/cache.py"
+  ]
+}

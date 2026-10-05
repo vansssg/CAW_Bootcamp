@@ -1,0 +1,10 @@
+{
+  "summary": "CONTEXT: found all five AI failure classes in createInvitation (SQLi+IDOR, no email validation, no rollback after email fail, vague names, happy-path mock test). Mapped to this shortener: 404 IDOR, javascript: 400, ready 503 vs live 200, page_size cap, suite isolation flake.",
+  "evidence": [
+    "Sample SQL uses '${teamId}' and '${email}'. No team membership check. catch returns generic 500. Test only expects 201 with one mock for two queries.",
+    "This app: B cannot GET/PATCH/DELETE A's code (404). javascript:alert(1) 400. GET /live 200 GET /ready 503. page_size 51 400. module09 flake 4!=0 without links.clear()."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module4-context.md"
+  ]
+}

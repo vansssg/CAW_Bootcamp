@@ -1,0 +1,15 @@
+{
+  "summary": "BREAK: /ready is SELECT 1 only while POST /links persists=memory and /r 307 from RAM. /debug/error 500. In-memory links grow with no ready cap. Process has no IMAGE_TAG/GITHUB_SHA; compose DATABASE_URL overrides .env.",
+  "evidence": [
+    "READY 503 {\"ok\":false,\"checks\":{\"database\":\"disconnected\",\"cache\":\"disconnected\",\"uptime_seconds\":4}}",
+    "POST_LINKS 200 persisted memory; REDIRECT 307; DEBUG_ERROR 500 internal_error; LIVE 200.",
+    "IN_MEMORY_LINKS 1 URLS_TOTAL 1.0 after one create; no RSS/cap on /ready.",
+    "GIT_SHA_IN_PROCESS UNSET. compose environment.DATABASE_URL is postgres:5432, not the git-tagged image config."
+  ],
+  "artifacts": [
+    "progress/production-module8-break.md",
+    "api/app/scripts/module08_break_probe.py",
+    "api/app/main.py",
+    "infra/docker-compose.yml"
+  ]
+}

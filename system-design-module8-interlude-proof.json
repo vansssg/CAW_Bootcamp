@@ -1,0 +1,13 @@
+{
+  "summary": "Knight Capital was mixed versions plus a reused flag, not a bad binary. This service must key rollout on image_sha / /ready smoke, not /live. Anomaly signal is ready 503 or cache_sot_mismatch, not 45 minutes of empty search pages.",
+  "evidence": [
+    "CI build tags url-shortener:${{ github.sha }}. Deploy job waits on /ready only if vars.DEPLOY_BASE_URL is set. Docker engine is down so a live eight-server roll was not run.",
+    "/ready includes image_sha; /live is ok:true with no DB. Debugging M06: /live 200 in 0.003s during retries — that would not have caught Power Peg.",
+    "Kill-switch analogue: refuse POST /links while keeping GET /r. Do not reuse a flag that old code still listens to (admin list limit was uncapped until M08)."
+  ],
+  "artifacts": [
+    "progress/system-design-module8-interlude.md",
+    ".github/workflows/ci.yml",
+    "api/app/main.py"
+  ]
+}

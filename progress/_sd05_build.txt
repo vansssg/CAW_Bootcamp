@@ -1,0 +1,84 @@
+STEP 3: BUILD
+
+Code generation starts now.
+
+‍​‍​​​​​​​​Define an error envelope:
+
+- error.code (stable string)
+- error.message (human readable)
+- error.request_id (for support)
+
+Rules:
+
+- 4xx: client mistakes (validation/auth/not found)
+- 5xx: server mistakes
+- Never return stack traces in 4xx/5xx responses.
+
+​​​‌​‌​‌​‌​Logging requirements:
+
+- log at least: request_id, route, status_code, latency_ms
+- log errors with context but redact secrets
+
+NestJS Track
+
+- Add a global exception filter or interceptor to:
+  - catch unhandled errors
+  - map known errors to safe envelopes
+  - attach request id
+- Add a request id middleware.
+‌​‌‌‌​‌​‌​​- Replace console.log with a logger abstraction.
+
+​​​‌​​​​​‌​Evidence (What To Run):
+
+- Trigger a validation error (expect 4xx + safe envelope).
+  ‌​​​​​‌​‌‌​Use the auth header that matches what you chose in Module 04 (JWT or API key), otherwise you'll get 401 before validation runs:
+  - bash (JWT): curl -i -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:3000/<links-route>
+  - bash (API key): curl -i -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:3000/<links-route>
+  - PowerShell (JWT): curl.exe -i -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:3000/<links-route>
+  - PowerShell (API key): curl.exe -i -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:3000/<links-route>
+- Trigger a server error (expect safe 500 + logs include request id):
+  - Temporarily misconfigure DB (e.g., wrong DATABASE_URL), restart, then call a DB-backed endpoint.
+  ‌‌​​​‌‌‌‌​​- Evidence: response has no stack trace and logs contain a request_id.
+​​‌‌​‌‌‌‌​‌- Prove secrets/PII are not logged (required):
+  - Pick a sentinel value: DO_NOT_LOG_ME_123
+  - Make a request that includes it in auth headers:
+    - JWT: Authorization: Bearer DO_NOT_LOG_ME_123
+    - API key: X-API-Key: DO_NOT_LOG_ME_123
+  - Search your server logs (terminal output) and confirm the sentinel does not appear.
+
+‌‌‌​​‌​‌​‌​Expected:
+
+- Validation error returns 4xx with a consistent envelope and no stack trace.
+​​​​‌​​​​​‌- Unexpected server error returns a safe 500 response (no stack traces) and logs include a request_id.
+
+​‌​‌‌​​​​‌​FastAPI Track
+
+- Add exception handlers:
+  - HTTPException mapping
+  - validation error mapping
+  - unhandled exception mapping
+- Add request middleware for request_id + timing.
+‌​‌‌​​‌‌​​‌- Add structured logging.
+
+​‌​‌‌​‌​​‌​Evidence (What To Run):
+
+- Trigger a validation error (expect 4xx + safe envelope).
+  ​‌‌​​‌‌​‌‌‌Use the auth header that matches what you chose in Module 04 (JWT or API key), otherwise you'll get 401 before validation runs:
+  - bash (JWT): curl -i -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:8000/<links-route>
+  - bash (API key): curl -i -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:8000/<links-route>
+  - PowerShell (JWT): curl.exe -i -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:8000/<links-route>
+  - PowerShell (API key): curl.exe -i -H "X-API-Key: <API_KEY_A>" -H "Content-Type: application/json" -d '{"long_url":"not-a-url"}' http://localhost:8000/<links-route>
+- Trigger a server error (expect safe 500 + logs include request id):
+  - Temporarily misconfigure DB (e.g., wrong DATABASE_URL), restart, then call a DB-backed endpoint.
+  ​‌‌​​‌​​​‌‌- Evidence: response has no stack trace and logs contain a request_id.
+​​‌‌‌​‌​‌​​- Prove secrets/PII are not logged (required):
+  - Pick a sentinel value: DO_NOT_LOG_ME_123
+  - Make a request that includes it in auth headers:
+    - JWT: Authorization: Bearer DO_NOT_LOG_ME_123
+    - API key: X-API-Key: DO_NOT_LOG_ME_123
+  - Search your server logs (terminal output) and confirm the sentinel does not appear.
+
+‌‌‌​​​​​‌‌​Expected:
+
+- Validation error returns 4xx with a consistent envelope and no stack trace.
+‌​‌​‌‌‌​‌‌​- Unexpected server error returns a safe 500 response (no stack traces) and logs include a request_id.‍‌‍

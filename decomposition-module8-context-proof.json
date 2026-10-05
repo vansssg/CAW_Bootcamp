@@ -1,0 +1,11 @@
+{
+  "summary": "Module 08 CONTEXT: integration bug is created_at type mismatch (ISO-8601 string vs Unix number) across booking→notification seam; individual AC pass ≠ system correctness; traceability = chain of custody for requirements.",
+  "evidence": [
+    "Micro-exercise: Booking Response created_at string; Notification Request created_at number — seam bug only at integrate.",
+    "Healthcare.gov lesson: no owner of cross-boundary journey tests.",
+    "Traceability: every Module 1 req must map to ticket/test or marked CUT with reason (Module 07 cuts)."
+  ],
+  "artifacts": [
+    "decomposition-module8-context-proof.json"
+  ]
+}

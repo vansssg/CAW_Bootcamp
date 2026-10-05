@@ -1,0 +1,14 @@
+{
+  "summary": "Diagnosed three observability gaps: /debug/error is not a silent 500 (error log present); raw path labels created 12 unique /ghost/* series; inner emit_log omits request_id (request_id=-). DB hang on /ready produces no 500 and no completed metric.",
+  "evidence": [
+    "Scenario 1: GET /debug/error -> S1_DEBUG_ERROR_STATUS 500, S1_ERROR_LOG_COUNT 1, S1_SILENT_500 False. Related silent class: GET /ready / engine.connect hang with no completed status or error metric; HTTP call skipped after a previous hung process was killed.",
+    "Scenario 2: 12 ASGI GETs to /ghost/0..11 produced S2_GHOST_UNIQUE_COUNT 12 and S2_CARDINALITY_BOMB_ON_RAW_PATH True because http_requests_total uses request.url.path as a label.",
+    "Scenario 3: emit_log('link created') without request_id printed request_id=- (S3_INNER_REQUEST_ID_MISSING True), so business logs cannot join middleware request logs.",
+    "Command: api/.venv/Scripts/python.exe app/scripts/module04_observability_break.py"
+  ],
+  "artifacts": [
+    "progress/production-module4-break.md",
+    "api/app/scripts/module04_observability_break.py",
+    "api/app/main.py"
+  ]
+}

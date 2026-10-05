@@ -1,0 +1,13 @@
+{
+  "summary": "PUT /teams/:id/members/:uid is 404. Remaining exploit: two pending invites for the same email, viewer accepts the first, GET list leaks the second token, accept overwrites membership to member. BREAK_VIEWER_PROMOTED True.",
+  "evidence": [
+    "BREAK_PUT_MEMBERS_STATUS 404; BREAK_PUT_ENDPOINT_ABSENT True. Lesson PUT path is not mounted.",
+    "BREAK_DUP_VIEWER_INVITE 200; BREAK_DUP_MEMBER_INVITE 200; BREAK_DUP_PENDING_ALLOWED True.",
+    "BREAK_ACCEPT_VIEWER_STATUS 200; BREAK_ROLE_AFTER_VIEWER viewer; BREAK_GET_LIST_STATUS 200; BREAK_GET_LIST_TOKEN_LEAK True; BREAK_PENDING_AFTER_VIEWER 1.",
+    "BREAK_ACCEPT_STOLEN_STATUS 200; BREAK_ROLE_AFTER_SECOND_ACCEPT member; BREAK_VIEWER_PROMOTED True. Surface: duplicate pending invite + GET token leak + accept overwrite. ASGI only."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-break.md",
+    "api/app/scripts/module07_break_probe.py"
+  ]
+}

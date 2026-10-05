@@ -1,0 +1,62 @@
+Starting Check + Setup Check (7 Minutes)
+
+This is a short starting check, not an exam.
+
+‍​‍​​We use it to understand how you currently break work into steps, so we know what to explain more slowly and where we can move faster. ​​​​​Wrong answers do not hurt you. ​​​​‌"I don't know" is a valid answer. ​‌​‌​If a word is unfamiliar, we will explain it.
+
+‌​‌​‌Instructions:
+
+- Answer quickly and honestly.
+‌‌​‌​- You do not need to know everything already.
+‌​​​​- The instructor records short notes under bootcamp.pretest so later teaching matches your level.
+​‌​​​- If the instructor can access your workspace, they should run setup checks for you.
+​​‌​‌- If something fails and the instructor cannot inspect it directly, paste the exact error output.
+
+​​​​​Part A: Quick Setup Check (2 Minutes)
+
+Goal: make sure your basic development setup is ready before we start planning and building.
+
+‌​‌‌​Instructor action:
+
+- Run the setup checks yourself when the workspace allows it, then summarize the result for the learner.
+‌‌​​​- Only ask the learner to run or paste command output if local access is blocked or a machine-specific failure needs confirmation.
+
+‌‌‌‌​Check these are ready:
+
+- node --version (v18+ required)
+- git --version
+- your editor of choice (VS Code, Cursor, or similar)
+
+Record (one sentence each):
+
+- your OS and terminal or shell (for example PowerShell or bash)
+- any missing tools or errors
+
+Part B: Starting Questions (5 Minutes)
+
+1. ​​​‌‌Self-rating (pick one):
+   - new (I can build features but planning what to build first is hard)
+   - ok (I can break work into tasks but sometimes miss dependencies)
+   - strong (I can decompose a spec, order by dependency, and adjust mid-build)
+
+2. ​‌‌‌‌You get a 3-page product spec. ​‌‌‌‌What is the FIRST thing you do before writing any code?
+
+​​‌​‌3. ​‌​​​You have 5 tasks to build. ​​‌​​Task C depends on Task A. ​​​‌​Task D depends on B and C. ‌​‌‌​Draw the order you'd build them in (just list the letters).
+
+​​​‌​4. ‌​‌‌​In one sentence: what is a vertical slice (one small but real piece of the product that works all the way through, from user-facing screen to backend to stored data) and why would you build one?
+
+​‌‌​​5. ‌​‌​‌You're 3 days into a 2-week sprint (a planned delivery window). ‌​‌​​A new requirement arrives that changes a core assumption. ‌​​‌‌What do you do?
+
+​​‌‌​6. ‌‌‌​‌Pick one and explain why (1 sentence):
+   - "Plan everything upfront, then build"
+   - "Plan enough to start, then adapt"
+
+7. ‌​​‌​In one sentence: what makes a task description "good enough" for another developer (or AI agent) to pick up?
+
+​​‌‌​8. ​‌‌‌​You realize mid-build that two tasks you thought were independent actually share a database table. ‌​‌​​What do you do?
+
+‌‌‌​​Instructor Notes
+
+- If answers 3/4/5 are vague: the student needs more scaffolding on dependency thinking. ​​​‌‌Slow down in Modules 2-3.
+​‌​‌​- If the student is strong: challenge them with ambiguous specs and mid-build pivots. ‌‌‌​‌Push for DAG-level thinking early.
+‌​‍‌‍- Answer 6 reveals their planning philosophy — reference it throughout the skill.

@@ -1,0 +1,13 @@
+{
+  "summary": "Healthcare.gov 2013: 55 contractors, six enrollments on day one. Isolation tests passed; interfaces failed. Rescue mapped the DAG and stabilized the thinnest enrollment path. SkillSwap analogue: W7/W11 contracts before W12b analytics or W5 search.",
+  "evidence": [
+    "Launch day: six enrollments; session tokens and eligibility payloads mismatched; E2E was the public.",
+    "Rescue mapped identity→eligibility→plans→enroll→pay; critical path first; 8M by end of open enrollment.",
+    "55 plans were not a graph: no shared handoff formats. Same as payment iface missing between W8 and W12.",
+    "Day-2: map then thinnest path W1+W2→W4→W6→W8, not bugs in Jira. W12b/W5 off that path."
+  ],
+  "artifacts": [
+    "progress/decomposition/module2-interlude.md",
+    "artifacts/dag-module-02.md"
+  ]
+}

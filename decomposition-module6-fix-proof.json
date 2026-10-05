@@ -1,0 +1,14 @@
+{
+  "summary": "FIX Option 1: force S2 to contract enum open|booked (not adopt available). Added serializer constraint + contract test; documented production symptom (empty slots / false outage).",
+  "evidence": [
+    "Decision: fix rogue agent — available is worse vocabulary; Module 05 T4 already expects open.",
+    "artifacts/parallel/module-06-fix.md — ALLOWED set test, corrected JSON status open.",
+    "Production: frontend open-filter yields empty list; symptom looks like inventory bug after Friday merge.",
+    "CP1+CI contract fixture to prevent recurrence under isolated_branches."
+  ],
+  "artifacts": [
+    "artifacts/parallel/module-06-fix.md",
+    "artifacts/parallel/module-06-break.md",
+    "artifacts/contracts/module-06-interface-contracts.md"
+  ]
+}

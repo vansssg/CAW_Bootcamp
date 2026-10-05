@@ -1,0 +1,17 @@
+{
+  "summary": "Completed Production Readiness pretest with setup checks and evidence-backed responses on deployment safety, health checks, monitoring risk, and graceful degradation.",
+  "evidence": [
+    "Setup checks passed: docker 28.4.0, node v24.11.1, git 2.52.0.windows.1, curl 8.17.0 on Windows bash; no missing tools or setup errors.",
+    "Self-rating: strong.",
+    "Q2: Correctly distinguished Dockerfile (build instructions) vs image (immutable built artifact used to run containers).",
+    "Q3: Identified production-only risks despite local passing tests: environment/config differences and concurrency/performance race behaviors.",
+    "Q4: Correctly differentiated liveness vs readiness and explained why traffic gating needs readiness, not just process up-state.",
+    "Q5: Chose metric-driven incident response with fast rollback when regression is confirmed.",
+    "Q6: Chose prevention-first shipping posture: invest in testing/monitoring/safe deploy practices to reduce user impact and avoidable failure cost.",
+    "Q7: Identified no-monitoring risk: lack of visibility delays detection of outages, degradation, and silent corruption.",
+    "Q8: Defined graceful degradation as preserving core functionality by reducing non-critical features during partial failure."
+  ],
+  "artifacts": [
+    "production-readiness pretest answers in session chat"
+  ]
+}

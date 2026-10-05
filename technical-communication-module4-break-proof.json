@@ -1,0 +1,10 @@
+{
+  "summary": "BREAK: catalogued 24 blame instances in the John/Maria/Kevin postmortem; missed systemic silent-failure root cause; only ~1–2 real system AIs; chill effect on near-miss reporting; does not protect the next engineer.",
+  "evidence": [
+    "artifacts/postmortems/module-04-break-blame-catalog.md — 24 numbered instances",
+    "Q1–Q4 answered: silent success + monitoring/staging skew; try-harder AIs; hide near-misses; no systemic prevention"
+  ],
+  "artifacts": [
+    "artifacts/postmortems/module-04-break-blame-catalog.md"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "summary": "CONTEXT: a requirements list is not an order. DAG = directed acyclic graph. Micro-exercise: A DB then B register and C profile in parallel, then D booking. Critical path A-B-D (or A-C-D). If A slips, B/C/D slip. Search-without-listing-model is the failure this map prevents.",
+  "evidence": [
+    "House: roof after framing; electrical || plumbing. Serialize vs build-on-missing-foundation.",
+    "Startup story: two weeks of search UI against a listing model that did not exist; fields mismatched.",
+    "DAG: A→B, A→C, B→D, C→D. Parallel: B and C. Critical path length 3. A delay hits everything.",
+    "Tied to SkillSwap: BLOCKED U-F8 sits on the booking node D."
+  ],
+  "artifacts": [
+    "progress/decomposition/module2-context.md",
+    "artifacts/requirements/module-01-requirements.md"
+  ]
+}

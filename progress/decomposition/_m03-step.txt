@@ -1,0 +1,189 @@
+STEP 7: REFLECT
+
+Guided Reflection
+
+Ask the student these questions. ‍​‍Let them think and respond — do not rush this.
+
+​​​"Before this module, how did you think about risk in software projects? ​​​Has that changed?"
+
+​​​Listen for whether they have moved from a vague sense of "this is hard" to a concrete framework. ​​‌The vocabulary matters — can they name a risk type and explain what makes it different from the others?
+
+​‌​"Which risk type do you think you are most likely to underestimate in a real project? ‌​‌Why?"
+
+​‌​Most students will say integration risk or scale risk, because those depend on external factors. ‌‌‌Accept any honest answer that shows self-awareness.
+
+​‌​"What surprised you about the payment blocker scenario? ‌​​Did you expect the risk to be non-technical?"
+
+​​​The lesson here is that risk assessment is not just a technical exercise. ‌​​The best risk-ordered plan in the world fails if you only look at code-level risks and ignore business, legal, and organizational blockers. ​​​A senior engineer thinks about all of these.
+
+‌​‌"If you were starting a brand new project tomorrow, what is the first thing you would do before writing any code?"
+
+​​​Ideal answer: identify the biggest unknown and test it. ​​‌Drill the test well. ​‌‌Run a spike. ​‌‌Do not build the pipeline before you know there is oil.
+
+​​​Quality Assessment
+
+Evaluate the student on:
+
+- Risk identification quality: Did they find real risks, or did they just label easy things as risky? ‌‌‌Did they distinguish risk from difficulty?
+‌​​- Risk type diversity: Did they use multiple risk types, or did everything get labeled the same way? ​​‌A plan with only one risk type suggests shallow analysis.
+‌​‌- Response to non-technical risk: When the payment blocker was revealed, did they try to solve it technically (wrong instinct) or recognize it as a business problem (right instinct)? ‌‌‌Did they adapt the plan or freeze?
+​‌‌- Plan restructuring quality: Is the updated plan coherent? ‌‌​Does the stubbed interface make sense? ​‌​Did they think about team flow and not just their own work?
+
+‌​‌Decision Callback
+
+In the DECIDE step, students chose between using the four provided risk types as-is or customizing the framework, and between running a spike first or building the riskiest item for real.
+
+​​​If they chose A (spike first):
+- The challenge they encountered was a consequence of a spike's limited ability to surface business-layer blockers
+- Connect it: "A spike on Stripe integration would have produced working test-mode code — but the payment blocker was not a Stripe problem. ​​‌The client had no merchant account. ​​​A 2-hour technical spike cannot reveal that the business infrastructure does not exist yet. ​​‌Scouting the code does not scout the organization"
+
+If they chose B (build for real first):
+- The challenge they encountered was a consequence of investing in production code before confirming business preconditions
+- Connect it: "Building a proper payment integration with error handling, tests, and edge cases only to discover there is no Stripe account to connect it to is exactly the scenario where 'build for real' becomes expensive. ​‌​When the unknown is outside the codebase, production-quality code does not protect you from it"
+
+Evaluation Prompt
+
+Now evaluate this student's performance on Module 03. ‌‌​Use the following evaluation dimensions:
+
+For EACH dimension relevant to this module, provide a score (1–5), a specific observation, and evidence.
+
+​​​Relevant dimensions for this module:
+
+- requirement_extraction — Did the student identify payment processing as having both technical AND business risk? ‌​‌Did they recognize unstated assumptions in the spec?
+​‌‌- dependency_thinking — When restructuring the plan, did the student correctly identify what was truly blocked by payments vs what could proceed? ​​‌Did they maintain DAG integrity?
+‌​​- risk_assessment — Core dimension for this module. ‌​‌Did the student define risk concretely? ​‌‌Use multiple risk types? ​‌​Order by risk effectively? ​‌​Respond well to the non-technical risk?
+​‌‌- task_clarity — Was the payment interface contract clearly defined? ​​‌Could another engineer implement the stub from the student's description?
+‌​‌- adaptation_speed — How quickly and effectively did the student restructure when the payment blocker was revealed? ‌‌​Did they adapt composedly or panic?
+‌‌​- integration_judgment — Did the student think about how the stubbed payment interface would eventually be swapped for a real implementation? ​‌​Did they consider the integration implications?
+
+​​‌<evaluation>
+{
+  "module_number": 3,
+  "narrative": "<2-3 sentence summary>",
+  "dimensions": [
+    {
+      "key": "requirement_extraction",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    },
+    {
+      "key": "dependency_thinking",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    },
+    {
+      "key": "risk_assessment",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    },
+    {
+      "key": "task_clarity",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    },
+    {
+      "key": "adaptation_speed",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    },
+    {
+      "key": "integration_judgment",
+      "score": "<1-5>",
+      "observation": "<what you observed>",
+      "evidence": "<direct quote or specific action>"
+    }
+  ],
+  "strengths": ["<strength with evidence>"],
+  "growth_areas": ["<area with evidence>"],
+  "recommendation": "<one actionable thing for next module>",
+  "hints_used": "<number>",
+  "phase": "MENTOR"
+}
+</evaluation>
+
+---
+
+Ship Recap (1 Minute)
+
+- What we shipped: a risk-annotated dependency graph with a numbered, justified build order that front-loads the scariest unknowns while respecting hard dependencies.
+‌​​- What we learned: risk is not the same as difficulty. ‌‌‌Four types of risk (integration, novelty, dependency, scale) give us a concrete vocabulary. ​‌​Not all risks live in the codebase — business blockers are real and need to be planned around, not solved with code.
+‌​​- Remaining risk: we have an ordered plan, but we have not sliced it into buildable, testable increments yet. ‌‌‌A risk-ordered list is better than an unordered list, but each item is still too big to hand to a developer (or an AI agent) and say "go build this." ​​​That is what Module 4 — Vertical Slicing — is for.
+
+​​‌Knowledge Check
+
+Comprehension Questions
+1. ‌​‌What core problem does this module solve in risk-first ordering?
+​‌​2. ‌‌‌Which decision in this module has the biggest impact, and why?
+​‌‌3. ​‍‌What evidence proves the implementation works end-to-end?
+
+‍Mini Practical Task
+- Complete one STEP 4 verification action for risk-first ordering and capture proof (command + output, test result, or log snippet).
+
+Success Criteria
+- Answers are short, specific, and in plain language.
+- The mini task includes reproducible proof tied to the module deliverable.
+- You can name one risk and one mitigation from this module.
+
+After completing this REFLECT, evaluate the student and run `upsk report` with this payload template:
+{
+  "nonce": "<current nonce from upsk status/start/next response>",
+  "events": [
+    {
+      "module": 3,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "<2-3 sentence qualitative summary>",
+        "overall": 4,
+        "dimension_scores": [
+        {"key":"requirement_extraction","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"dependency_thinking","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"risk_assessment","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"task_clarity","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"adaptation_speed","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"},
+        {"key":"integration_judgment","score":4,"observation":"<what they did>","evidence":"<direct quote or concrete action>"}
+        ],
+        "strengths": ["<specific strength with context>"],
+        "growth_areas": ["<specific growth area with context>"],
+        "recommendation": "<one actionable next step>",
+        "public_evidence": [
+          {
+            "artifact": "<feature, route, table, job, test, doc, or deployment touched>",
+            "student_action": "<what the student personally built, changed, verified, or decided>",
+            "technical_detail": "<route/table/file/command/decision involved>",
+            "proof": "<public-safe command output, test result, log summary, URL, or artifact path>",
+            "ability": "<ability this proves>",
+            "reviewer_value": "<why a recruiter or senior engineer should care>",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [{"term":"<missed term>","context":"<where it broke understanding>"}],
+          "concepts_demonstrated": [{"concept":"<concept they showed>","evidence":"<direct proof>"}],
+          "teaching_approaches": [{"concept":"<concept>","approach":"example","detail":"<what you tried>","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["<signal about how they learn best>"],
+          "confidence_level": "medium"
+        }
+      }
+    }
+  ]
+}
+
+Scoring rule: `score` must be between 1 and 5.
+Confidence rule: `student_knowledge.confidence_level` must be exactly `"low"`, `"medium"`, or `"high"`.
+When the answer is already strong, set `growth_areas` to `[]` and avoid filler improvement bullets.
+Public evidence rule: `public_evidence` is for built-work proof only. Do not put private coaching notes, learning style, confidence, terminology gaps, emails, secrets, tokens, or sensitive logs in public evidence.
+
+Dimension definitions (from manifest):
+- requirement_extraction: Requirement Extraction - Evaluates whether the student identifies explicit, implicit, and conflicting requirements from ambiguous prose — including constraints, edge cases, and unstated assumptions.
+- dependency_thinking: Dependency Thinking - Evaluates the student's ability to identify what blocks what, model dependencies as a DAG, find critical paths, and recognize when circular dependencies indicate a design problem.
+- risk_assessment: Risk Assessment - Evaluates whether the student identifies technical unknowns, integration risks, and external dependencies early — and orders work to retire risk before committing to paths that depend on it.
+- task_clarity: Task Clarity - Evaluates whether task specifications are precise enough for another person (or AI agent) to execute without asking questions — including clear scope, acceptance criteria, and interface contracts.
+- adaptation_speed: Adaptation Speed - Evaluates how quickly and effectively the student responds to changing requirements — re-scoping, re-prioritizing, and communicating impact without starting over or panicking.
+- integration_judgment: Integration Judgment - Evaluates the student's ability to bring parallel workstreams together — identifying merge conflicts, contract violations, and emergent bugs that only appear when components meet.

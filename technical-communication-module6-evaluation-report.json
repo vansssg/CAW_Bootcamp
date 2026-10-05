@@ -1,0 +1,99 @@
+{
+  "events": [
+    {
+      "module": 6,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose minimal_plus_links for OrderFlow so 3AM on-call has one entry-point runbook with copyable commands, and deep links for architecture/dashboards. Built a verify→diagnose→mitigate→escalate runbook, then broke a “clean” peer doc on fake helm rollback, wrong DB secret name, and missing worker/jq gaps, and patched those in place.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "review_quality",
+            "score": 5,
+            "observation": "Named three deadly stale patterns with harm ranking; fake rollback called out as actively extending outage.",
+            "evidence": "artifacts/docs/module-06-break-stale-runbook.md Failures 1–3."
+          },
+          {
+            "key": "writing_clarity",
+            "score": 4,
+            "observation": "Timeboxed sections, copy-paste commands, expected healthy output, decision tree from symptoms.",
+            "evidence": "artifacts/docs/module-06-orderflow-runbook.md §§0–1."
+          },
+          {
+            "key": "audience_awareness",
+            "score": 5,
+            "observation": "Wrote for panicking on-call: customer-impact first, no wiki tour, escalate paths named.",
+            "evidence": "Runbook §0 Slack ack + §6 escalate; DECIDE minimal_plus_links."
+          },
+          {
+            "key": "structure_quality",
+            "score": 4,
+            "observation": "Canonical table → health gate → failure-mode sections → rollback → escalate; FIX patches in place not rewrite.",
+            "evidence": "Runbook outline; artifacts/docs/module-06-fix-runbook-corrections.md."
+          },
+          {
+            "key": "actionability",
+            "score": 5,
+            "observation": "Exact kubectl/helm/curl/psql commands, owners (#orderflow-oncall, PD policy), DATABASE_URL and helm rollback corrections.",
+            "evidence": "Runbook §2–5; fix doc verified commands."
+          }
+        ],
+        "strengths": [
+          "BREAK treated fake helm upgrade-as-rollback as primary 3AM failure.",
+          "Strategy matches one-doc-first under incident pressure."
+        ],
+        "growth_areas": [],
+        "recommendation": "Next: keep runbooks owned with freshness metadata and treat secret names as contract tests against prod env.",
+        "public_evidence": [
+          {
+            "artifact": "OrderFlow 3AM on-call runbook",
+            "student_action": "Wrote a minimal in-repo runbook with health gate, failure-mode playbooks, rollback, and escalation.",
+            "technical_detail": "artifacts/docs/module-06-orderflow-runbook.md — curl health, kubectl logs, helm rollback, Celery worker path",
+            "proof": "Sections 0–6 with copy-paste commands and expected healthy output",
+            "ability": "Produces operational docs usable under incident pressure",
+            "reviewer_value": "Shows on-call can recover without inventing commands",
+            "confidence": "demonstrated"
+          },
+          {
+            "artifact": "Stale runbook critique and patch",
+            "student_action": "Found three deadly stale patterns and corrected rollback, DATABASE_URL, and worker gaps.",
+            "technical_detail": "artifacts/docs/module-06-break-stale-runbook.md; module-06-fix-runbook-corrections.md",
+            "proof": "Failure 1: helm upgrade … latest vs helm rollback; Failure 2: DB_CONNECTION_STRING vs DATABASE_URL",
+            "ability": "Reviews docs for accuracy, not just completeness",
+            "reviewer_value": "Prevents “looks fine” runbooks that extend outages",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Documentation that gets used",
+              "evidence": "Accuracy of commands over coverage; one entry point at 3AM."
+            },
+            {
+              "concept": "Minimal plus links",
+              "evidence": "In-repo runbook + linked architecture/dashboards; maintenance on living doc."
+            },
+            {
+              "concept": "Stale-doc failure modes",
+              "evidence": "Fake rollback, wrong secret name, missing worker path."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "runbooks",
+              "approach": "example",
+              "detail": "Build OrderFlow runbook then break/fix a clean-looking peer doc",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["artifact-first"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

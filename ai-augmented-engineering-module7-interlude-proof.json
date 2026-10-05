@@ -1,0 +1,11 @@
+{
+  "summary": "SolarWinds: GET list with require_team_member looked correct and still leaked tokens that composed with accept overwrite. Implicit trust was 'auth function present.' Verified ASGI probes only; did not claim Docker/Postgres/Redis.",
+  "evidence": [
+    "Flaws that look right: BREAK_GET_LIST_TOKEN_LEAK True with list 200 and membership check present; BREAK_VIEWER_PROMOTED True via sequence not a suspicious function.",
+    "Scanner marked POST invite OK until role=owner; SCAN_PRIVILEGE_ESCALATION True then False after allowlist.",
+    "Trusted checkpoints: module09 exit 0 and V_CROSS_ALL_DENIED True. Unverified: model training data, provider handling, live build pipeline. Postgres/Redis/Docker not serving."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-interlude.md"
+  ]
+}

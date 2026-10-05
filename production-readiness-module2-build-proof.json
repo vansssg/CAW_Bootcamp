@@ -1,0 +1,14 @@
+{
+  "summary": "Completed Module 2 BUILD Chunk 1 by implementing parallel lint/test CI workflow logic and validating fail-fast behavior using local CI command parity.",
+  "evidence": [
+    "Created workflow file `.github/workflows/ci.yml` with push trigger on `main` and two independent parallel jobs: `lint` and `test`.",
+    "Remote CI execution was unavailable because this workspace had no git metadata/remote (`fatal: not a git repository`), so fail-fast behavior was verified locally using the same CI commands configured in the workflow.",
+    "Intentional controlled failure: changed assertion in `api/app/scripts/test_query_columns.py` from `WHERE short_code = :code` to `WHERE code = :code`, then ran `python app/scripts/test_query_columns.py` and captured `AssertionError`.",
+    "Verified downstream stage did not execute: ran `set -e; python app/scripts/test_query_columns.py; echo \"DOWNSTREAM_BUILD_STAGE_RAN\"` and confirmed sentinel output never printed after test failure.",
+    "Reverted intentional failure in `api/app/scripts/test_query_columns.py` and re-verified green baseline: `ruff check app --select E9,F63,F7,F82` returned `All checks passed!`, and `python app/scripts/test_query_columns.py` returned `PASS: query uses short_code.`"
+  ],
+  "artifacts": [
+    ".github/workflows/ci.yml",
+    "api/app/scripts/test_query_columns.py"
+  ]
+}

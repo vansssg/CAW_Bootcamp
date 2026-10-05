@@ -1,0 +1,12 @@
+{
+  "summary": "Fail-fast error envelope is error.code + error.message + error.request_id. 4xx validation/auth, 5xx internal_error with no stack in the body. Logs keep request_id and stack; DO_NOT_LOG_ME_123 never appears.",
+  "evidence": [
+    "VALIDATION_STATUS 400 envelope code=validation_error message=Only http and https URLs are allowed request_id=req-90e54aa3 VALIDATION_HAS_TRACE False",
+    "SCHEMA_STATUS 422 code=validation_error message=invalid request (no raw body dump). SERVER_STATUS 500 body internal_error/internal server error SERVER_HAS_TRACE False SERVER_X_REQUEST_ID req-dd549a9a; logs contain stack_trace and request_id",
+    "SENTINEL_STATUS 401 unauthenticated; SENTINEL_IN_LOGS False for X-API-Key DO_NOT_LOG_ME_123. Command: api/.venv/Scripts/python.exe app/scripts/module05_error_verify.py"
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "api/app/scripts/module05_error_verify.py"
+  ]
+}

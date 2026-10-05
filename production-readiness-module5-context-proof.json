@@ -1,0 +1,13 @@
+{
+  "summary": "Mapped URL-shortener failure modes from real Module 04 evidence: Postgres down vs slow, Redis unused on the request path, and in-process observability collapsing with the API.",
+  "evidence": [
+    "Dependencies: Postgres via SQLAlchemy engine (startup verify_database_connection, GET /ready, POST /links, GET /r/{code}, admin list/delete). Redis is required in config (REDIS_URL) but no request handler imports or calls Redis. Prometheus is pull-based; no local scraper process is running.",
+    "If Postgres disappears 60s: proven hang — engine.connect() was killed after ~30s with no SELECT 1; uvicorn startup never passes Waiting for application startup; GET /ready blocked the BREAK script. /live still 200 only when lifespan is skipped (ASGI). Clients of /links and /r/{code} would hang, not get a fast 5xx.",
+    "If Postgres is 100x slow: more dangerous than down. Down at least fails eventually; slow holds workers/threads (sync endpoints in threadpool) so /metrics and /live can stall behind the same pool. Module 04 wait_for on GET /ready never recovered. Slow drains capacity; refused connections would at least surface errors and HighErrorRate.",
+    "Observability dependency: logs and /metrics live in the same process. If the process hangs, ServiceDown (up==0) only helps if an external Prometheus still runs — it does not in this environment."
+  ],
+  "artifacts": [
+    "api/app/main.py",
+    "progress/production-module4-break.md"
+  ]
+}

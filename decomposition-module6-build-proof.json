@@ -1,0 +1,14 @@
+{
+  "summary": "Module 06 BUILD (standalone_simulated): selected T2||T3||T5 on isolated branches, wrote interface contracts, execution plan with CP1/CP2 checkpoint syncs, and simulated agent bundle with seeded slots.status=available vs contract open/booked violation.",
+  "evidence": [
+    "artifacts/parallel/module-06-execution-plan.md — mode standalone_simulated; strategy isolated_branches; sync checkpoint_syncs; streams S1=T2, S2=T3, S3=T5.",
+    "artifacts/contracts/module-06-interface-contracts.md — C1 providers↔slots, C2 auth↔booking UUID rule, shared types + error envelope.",
+    "artifacts/parallel/module-06-agent-output-bundle.md — three stream payloads; seeded violation status=available; CP1 fail + corrected open.",
+    "Serial tickets excluded: T4/T6 (hard deps)."
+  ],
+  "artifacts": [
+    "artifacts/parallel/module-06-execution-plan.md",
+    "artifacts/contracts/module-06-interface-contracts.md",
+    "artifacts/parallel/module-06-agent-output-bundle.md"
+  ]
+}

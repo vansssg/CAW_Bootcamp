@@ -1,0 +1,12 @@
+{
+  "summary": "Mapped public vs protected surfaces on this URL shortener: redirects and liveness stay public; writes and admin must be authenticated because unauthenticated POST /links and admin deletes are abuse/IDOR paths we already saw.",
+  "evidence": [
+    "Public: GET /r/{code} must stay public — that is the product (307 redirect). GET /live and GET /metrics stay public so load balancers and scrapers work without a JWT (Module 04 observability + Module 05 /live 200 with DB down).",
+    "Protected 1: POST /links — without auth anyone can fill the links table and exhaust storage/DB (write hammer). The handler still has no require_admin_auth.",
+    "Protected 2: GET/DELETE /api/admin/links — Debugging Module 05 already showed unauthenticated DELETE as SEV1; require_admin_auth + Bearer token now returns 401 for empty/malformed/wrong tokens.",
+    "IDOR lesson: admin list/delete without owner-scope plus a missing token is the same class as a missing owner check — data leak or mass delete."
+  ],
+  "artifacts": [
+    "api/app/main.py"
+  ]
+}

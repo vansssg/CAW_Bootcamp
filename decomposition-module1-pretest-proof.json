@@ -1,0 +1,14 @@
+{
+  "summary": "Decomposition pretest: setup is node v24.11.1 + git 2.52 on Windows Git Bash. Self-rating ok. First action on a spec is goal/constraints/acceptance. Order A,B,C,D with C after A and D last. Vertical slice is POST /links to GET /r/{code} 307. Adapt when assumptions change. Tasks need done-when.",
+  "evidence": [
+    "Setup: uname MINGW64_NT-10.0-26200; SHELL=/usr/bin/bash; node v24.11.1; git 2.52.0.windows.1; editor Cursor. Postgres:5432 and Redis:6379 still not serving.",
+    "Q1 ok: missed Redis as a job-broker dependency in System Design M07 and used an in-process Queue instead.",
+    "Q3: C depends on A, D depends on B and C → A, B, C, D (B parallel with A; D last).",
+    "Q4: vertical slice = user-visible path through API and store; evidence GET /r/{code} 307 from the URL shortener.",
+    "Q6: plan enough then adapt — same Redis-down honesty. Q7: goal, constraints, deps, done-when command. Q8: promote shared table to a first schema task."
+  ],
+  "artifacts": [
+    "progress/decomposition/pretest.md",
+    "api/app/main.py"
+  ]
+}

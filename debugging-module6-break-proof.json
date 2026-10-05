@@ -1,0 +1,12 @@
+{
+  "summary": "BREAK: delete+recreate same short_code doubled analytics 2→4. Cache invalidation made DELETE real for GET /r so the code can be reused; _events were not purged. Not a shared Redis key with the worker.",
+  "evidence": [
+    "BEFORE_DELETE_CLICKS 2 DELETE_STATUS 200 AFTER_DELETE_EVENTS 2 AFTER_RECREATE_CLICKS 4 DOUBLED True",
+    "Hypothesis: events keyed by short_code outlive SoT. Worker uses job_id; cache uses redir:{code}. Invalidation did not call the queue; leftover events did.",
+    "After DELETE, GET /r is 404 until recreate; then new 307s append on top of old _events."
+  ],
+  "artifacts": [
+    "progress/debugging-module6-break.md",
+    "api/app/scripts/module06_break_recreate.py"
+  ]
+}

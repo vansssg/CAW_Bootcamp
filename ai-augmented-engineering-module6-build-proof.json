@@ -1,0 +1,19 @@
+{
+  "summary": "Locked three interface contracts then sequentially merged comments, mentions, and audit onto the existing membership and activity bus. Outsider comment 403, mention.notified without email, audit sees comment and mention. No Postgres NOTIFY.",
+  "evidence": [
+    "Contracts in progress/ai-augmented-module6-contracts.md: integer ids, principal-a/b, require_team_member, event payload without email.",
+    "AGENT1_CREATE_STATUS 200; AGENT1_OUTSIDER_CREATE_STATUS 403; AGENT1_EMPTY_BODY_STATUS 400; AGENT1_UNAUTH_STATUS 401.",
+    "AGENT2_PARSE_COUNT 2; AGENT2_RESOLVED_B True; MERGE_MENTION_NOTIFIED True; MERGE_MENTION_NO_EMAIL True.",
+    "AGENT3_AUDIT_HTTP 200; AGENT3_AUDIT_HAS_COMMENT True; AGENT3_AUDIT_HAS_MENTION True; AGENT3_AUDIT_EMAIL_LEAK False; AGENT3_AUDIT_COUNT 3.",
+    "Sequential glue: comments.create_comment calls mentions.notify; audit listens via activity.add_global_listener. localhost:5432 not used."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module6-contracts.md",
+    "api/app/comments.py",
+    "api/app/mentions.py",
+    "api/app/audit.py",
+    "api/app/activity.py",
+    "api/app/scripts/module06_parallel_probe.py",
+    "progress/ai-augmented-module6-build.md"
+  ]
+}

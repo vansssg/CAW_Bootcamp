@@ -1,0 +1,15 @@
+{
+  "summary": "VERIFY: hardcoded PORT misses Railway inject; /live is process-only 200; /ready 503 on down DB; SIGTERM plus 30s graceful; DB connect 1s; rollback is previous SHA plus snapshot not alembic downgrade; runtime env vs build SHA.",
+  "evidence": [
+    "DOCKER_PORT_FROM_ENV True. LIVE_STATUS 200 READY_STATUS 503.",
+    "HEALTHCHECK and railway healthcheckPath /live. on_shutdown disposes engine and worker_engine.",
+    "timeout-keep-alive 5 timeout-graceful-shutdown 30. DB_CONNECT_TIMEOUT_S 1 DB_STATEMENT_TIMEOUT_MS 1000.",
+    "migrate.sh one-off; CMD has no alembic. Compose DATABASE_URL uses @postgres:5432 not localhost."
+  ],
+  "artifacts": [
+    "progress/system-design-module10-verify.md",
+    "api/Dockerfile",
+    "railway.toml",
+    "api/app/scripts/module10_deploy_verify.py"
+  ]
+}

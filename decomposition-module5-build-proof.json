@@ -1,0 +1,19 @@
+{
+  "summary": "Decomposed Slice 1 (Browse and Book) and Slice 2 (Identity Ownership) into 6 prescriptive tickets with full 7-section specs, Given/When/Then acceptance criteria, and AI-ready interface contracts under artifacts/tickets/module-05/.",
+  "evidence": [
+    "artifacts/tickets/module-05/ticket-index.md lists T1-T6 with slice mapping, dependency order, and AI-ready flags (all 6 marked AI-ready).",
+    "T1-T4 cover Slice 1: seed providers/services/slots, GET /api/providers, GET /api/providers/:id/slots, POST /api/bookings with exact JSON shapes, status codes, and anti-scope.",
+    "T5-T6 cover Slice 2: POST /api/auth/register with provider_profiles, GET /api/bookings/me ownership (404 not 403 for cross-user), auth-bound POST /api/bookings.",
+    "Prescriptive decision applied: fixed UUIDs, file paths, function signatures, error envelope {error.code,message}, Postgres-only constraints.",
+    "Acceptance criteria use Given/When/Then throughout (testable via curl/SQL)."
+  ],
+  "artifacts": [
+    "artifacts/tickets/module-05/ticket-index.md",
+    "artifacts/tickets/module-05/t1-seed-providers.md",
+    "artifacts/tickets/module-05/t2-get-providers.md",
+    "artifacts/tickets/module-05/t3-get-provider-slots.md",
+    "artifacts/tickets/module-05/t4-post-bookings.md",
+    "artifacts/tickets/module-05/t5-auth-register-provider.md",
+    "artifacts/tickets/module-05/t6-get-my-bookings.md"
+  ]
+}

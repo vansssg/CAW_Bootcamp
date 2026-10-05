@@ -1,0 +1,14 @@
+{
+  "summary": "Hybrid scan plus human critical path. POST invite has require_team_admin so a scanner marks OK; inviting role=owner then B accept makes principal-b owner (SCAN_PRIVILEGE_ESCALATION True). superadmin stored. No new deps. Critical: allowlist invite roles.",
+  "evidence": [
+    "Auth map in progress/ai-augmented-module7-findings.md. Scanner prompt: progress/ai-augmented-module7-scan-prompts.md.",
+    "SCAN_B_INVITE_OWNER_STATUS 403; SCAN_A_INVITE_OWNER_STATUS 200; SCAN_A_INVITE_ROLE owner; SCAN_B_ACCEPT_OWNER_STATUS 200; SCAN_B_ROLE_AFTER_ACCEPT owner; SCAN_PRIVILEGE_ESCALATION True.",
+    "SCAN_ROLE_SUPERADMIN_STATUS 200; SCAN_ROLE_SUPERADMIN_STORED superadmin.",
+    "No httpx/new feature deps. persist_invitation_sql uses :team_id/:invited_email. Postgres not queried."
+  ],
+  "artifacts": [
+    "progress/ai-augmented-module7-findings.md",
+    "progress/ai-augmented-module7-scan-prompts.md",
+    "api/app/scripts/module07_security_scan.py"
+  ]
+}

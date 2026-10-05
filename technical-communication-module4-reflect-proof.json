@@ -1,0 +1,11 @@
+{
+  "summary": "Module 04 REFLECT complete: five-whys blameless postmortem + blame catalog + rewrite; evaluation submitted.",
+  "evidence": [
+    "upsk report accepted for module 4",
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md"
+  ],
+  "artifacts": [
+    "technical-communication-module4-evaluation-report.json",
+    "artifacts/postmortems/module-04-orderprocessor-postmortem.md"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "events": [
+    {
+      "module": 3,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "Chose lightweight RFC and wrote a one-page rate-limiting design (gateway + Redis token bucket) with real alternatives, do-nothing risk, and open questions. Critiqued Jamie’s Kafka doc for missing alternatives, an unvalidated 10k writes/s claim, and vague mitigations.",
+        "overall": 4,
+        "dimension_scores": [
+          {
+            "key": "review_quality",
+            "score": 5,
+            "observation": "Named three dangerous gaps in the flawed Kafka doc with concrete failure modes if approved.",
+            "evidence": "module-03-break-jamie-gaps.md: missing Alternatives; DB headroom as fact; non-actionable lag mitigations."
+          },
+          {
+            "key": "writing_clarity",
+            "score": 4,
+            "observation": "Short sections, tables for alternatives/risks, ASCII gateway diagram; problem before solution.",
+            "evidence": "module-03-rate-limiting-rfc.md Problem vs Proposed Approach separation."
+          },
+          {
+            "key": "audience_awareness",
+            "score": 4,
+            "observation": "Wrote for senior eng on another team; defined rate limiter/token bucket; asked infra ownership explicitly.",
+            "evidence": "RFC Audience line + Open Questions on gateway plugins and fail-closed."
+          },
+          {
+            "key": "structure_quality",
+            "score": 4,
+            "observation": "Lightweight five-section structure complete including Open Questions.",
+            "evidence": "Required sections 1–5 present in rate-limiting RFC."
+          },
+          {
+            "key": "actionability",
+            "score": 4,
+            "observation": "Mitigations include measurable rollback (p99 +5ms/10m) and explicit 429 contract; FIX for Jamie demands alert thresholds and producer failure policy.",
+            "evidence": "RFC latency mitigation row; module-03-fix-jamie.md runbook rewrites."
+          }
+        ],
+        "strengths": [
+          "Caught missing Alternatives and fake capacity claims in peer review.",
+          "Own RFC includes do-nothing risk and non-strawman alternatives."
+        ],
+        "growth_areas": [],
+        "recommendation": "Next design: attach one measured number (load test cite) before any capacity claim leaves Open Questions.",
+        "public_evidence": [
+          {
+            "artifact": "Public API rate limiting RFC",
+            "student_action": "Authored lightweight design doc proposing gateway token-bucket limiting.",
+            "technical_detail": "artifacts/design-docs/module-03-rate-limiting-rfc.md",
+            "proof": "Sections: problem, proposal, alternatives, risks, open questions",
+            "ability": "Writes reviewable design proposals before build",
+            "reviewer_value": "Prevents multi-week wasted implementation on unreviewed approaches",
+            "confidence": "demonstrated"
+          },
+          {
+            "artifact": "Design-doc critique",
+            "student_action": "Identified three approval-blocking gaps in a Kafka pipeline proposal.",
+            "technical_detail": "Missing alternatives; unvalidated DB capacity; vague mitigations",
+            "proof": "artifacts/design-docs/module-03-break-jamie-gaps.md",
+            "ability": "Reviews design docs for dangerous omissions",
+            "reviewer_value": "Stops rubber-stamp architecture decisions",
+            "confidence": "verified"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [
+            {
+              "concept": "Design doc vs spec",
+              "evidence": "CONTEXT answers; RFC invites comments before build."
+            },
+            {
+              "concept": "Lightweight RFC",
+              "evidence": "DECIDE A; one-page rate limit RFC."
+            },
+            {
+              "concept": "Non-strawman alternatives",
+              "evidence": "App middleware / fixed window / WAF each with pros."
+            }
+          ],
+          "teaching_approaches": [
+            {
+              "concept": "design-docs",
+              "approach": "example",
+              "detail": "Write own RFC then critique flawed peer doc",
+              "effective": true
+            }
+          ],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["artifact-first"],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "summary": "Verified the Dockerized service end-to-end with successful build, healthy runtime, non-root execution, and passing live/readiness checks; identified remaining optimization gap on image size target.",
+  "evidence": [
+    "Build check: docker build -t myservice . completed successfully.",
+    "Runtime check: docker run launched container with required env vars; endpoint validation returned LIVE 200 and READY 200 on mapped host port 3301.",
+    "Non-root check: docker exec myservice-test whoami returned appuser.",
+    "Image size check: docker images myservice --format '{{.Size}}' returned 269MB (above 200MB target).",
+    "Cleanup completed: docker stop myservice-test && docker rm myservice-test.",
+    "Conceptual validation: Docker layer caching is sensitive to instruction order; placing COPY . before dependency install invalidates downstream cache on every source change.",
+    "Conceptual validation: each Dockerfile instruction creates a cached filesystem layer snapshot; multi-stage reduces runtime image by excluding build-time artifacts and tools."
+  ],
+  "artifacts": [
+    "api/Dockerfile",
+    "api/.dockerignore",
+    "api/app/main.py",
+    "api/requirements.txt"
+  ]
+}

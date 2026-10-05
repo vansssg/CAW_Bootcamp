@@ -1,0 +1,15 @@
+# Single-container deploy (decisions.module_10.deploy_strategy = single_container).
+# Healthcheck is /live (process up). Release gate is GET /ready (DB).
+# Rollback: previous image SHA. Do not alembic downgrade blindly.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "api/Dockerfile"
+
+[deploy]
+# Healthcheck is /live (process up). Release gate is GET /ready (DB).
+# Rollback: previous image SHA. Do not alembic downgrade blindly.
+healthcheckPath = "/live"
+healthcheckTimeout = 10
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
