@@ -278,21 +278,9 @@ Topics explored:
 > Good engineers not only build systems but also explain the reasoning behind their decisions.
 
 ---
-
 # 📂 Repository Structure
-CAW-UPSK-Bootcamp/
-│
-├── artifacts/
-│   ├── requirements/
-│   ├── dependency-maps/
-│   ├── risk-plans/
-│   ├── specifications/
-│   └── evaluations/
-│
-├── progress/
-│   └── module progress and reflections
-│
-└── README.md
+
+<img width="415" height="432" alt="image" src="https://github.com/user-attachments/assets/50cd6e4e-a987-4fa0-8c9a-29e167f8ae7b" />
 
 
 ---
